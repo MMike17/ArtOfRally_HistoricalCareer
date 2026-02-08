@@ -1,11 +1,11 @@
 {
-	"Id": "ModBase",
-	"DisplayName": "ModBase",
+	"Id": "HistoricalCareer",
+	"DisplayName": "Historical Career",
 	"Author": "MMike17",
 	"Version": "1.0.0",
 	"GameVersion": "1.5,5",
-	"AssemblyName": "ModBase.dll",
-	"EntryMethod": "ModBase.Main.Load",
+	"AssemblyName": "HistoricalCareer.dll",
+	"EntryMethod": "HistoricalCareer.Main.Load",
 	"HomePage": "<modHomepageLink>",
-	"Repository": "https://raw.githubusercontent.com/<github username>/<repo name>/<branch>/Repository.json"
+	"Repository": "https://raw.githubusercontent.com/MMike17/ArtOfRally_HistoricalCareer/master/Repository.json"
 }

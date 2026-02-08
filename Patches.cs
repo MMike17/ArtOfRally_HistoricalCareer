@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace ModBase
+namespace HistoricalCareer
 {
 	// Patch model
 	// [HarmonyPatch(typeof(), nameof())]
