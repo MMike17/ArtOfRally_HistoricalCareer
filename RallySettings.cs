@@ -1,33 +1,34 @@
-﻿using System.Collections.Generic;
-
-namespace HistoricalCareer
+﻿namespace HistoricalCareer
 {
     public class RallySettings
     {
+        public Car.CarClass carClass;
+        // TODO : Not sure if I should store the car and the livery or their index...
+        public Car car;
+        public Livery livery;
         public RallyData rallyData;
-        public int carIndex; // car order per car class is static
-        public int liveryIndex; // LiveryManager.GetValidLiveries(<car name>(GameModeManager.GetSeasonDataCurrentGameMode().SelectedCar.prefabName), false);
 
-        // TODO : How do I generate the rallies that I want ?
-        // pick area from enum
-        // pick stages from list
-        // pick weathers
-
-        public RallySettings(AreaManager.Areas area, List<int> stagesIndeces, List<ConditionTypes.Weather> weathers)
+        /// <param name="car">Use CarManager.GetCurrentCarsListForClass to get cars</param>
+        /// <param name="livery">Use LiveryManager.GetValidLiveries (with car.prefabName) to get car liveries</param>
+        /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
+        public RallySettings(Car car, Livery livery, AreaManager.Areas area, int[] stagesIndeces, ConditionTypes.Weather[] weathers)
         {
+            carClass = car.carClass;
+            this.car = car;
+            this.livery = livery;
+
             // TODO : What are the rally making rules ?
             // No double stage (same stage, same direction) in a rally
-            // stages list is static
+            // check if stages indeces are in bounds (stages list is static)
+            // check if weathers are in bounds (weather list is static)
 
             rallyData = new RallyData();
             rallyData.SetArea((int)area);
-            rallyData.SetStageCount(stagesIndeces.Count);
+            rallyData.SetStageCount(stagesIndeces.Length);
 
-            //AreaManager.GetStageByIndex(ref int index, area)
-            //AreaManager.AreaDictionary[area].stageList
-            //AreaManager.AreaDictionary[area].weatherList
+            //AreaManager.AreaDictionary[area].stageList.Count
 
-            for (int i = 0; i < stagesIndeces.Count; i++)
+            for (int i = 0; i < stagesIndeces.Length; i++)
             {
                 int index = stagesIndeces[i];
                 Stage stage = AreaManager.GetStageByIndex(ref index, area);
