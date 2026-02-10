@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="Patches.cs" />
+    <Compile Include="RallyManager.cs" />
     <Compile Include="RallySettings.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>

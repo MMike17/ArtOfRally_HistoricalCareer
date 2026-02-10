@@ -42,6 +42,8 @@ namespace HistoricalCareer
             };
             modEntry.OnSaveGUI = settings.Save;
 
+            new RallyManager();
+
             markers = new List<GameObject>();
             return true;
         }
