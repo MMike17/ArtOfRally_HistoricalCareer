@@ -1,4 +1,6 @@
-﻿namespace HistoricalCareer
+﻿using System.Collections.Generic;
+
+namespace HistoricalCareer
 {
     public class RallySettings
     {
@@ -9,7 +11,7 @@
         public RallyData rallyData;
 
         /// <param name="car">Use CarManager.GetCurrentCarsListForClass to get cars</param>
-        /// <param name="livery">Use LiveryManager.GetValidLiveries (with car.prefabName) to get car liveries</param>
+        /// <param name="livery">Use RallySettings.GetCarLiveries (with car.prefabName) to get car liveries</param>
         /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
         public RallySettings(Car car, Livery livery, AreaManager.Areas area, int[] stagesIndeces, ConditionTypes.Weather[] weathers)
         {
@@ -35,6 +37,25 @@
                 rallyData.SetStage(i, stage);
                 rallyData.SetWeatherForStage(i, weathers[i]);
             }
+        }
+
+        // TODO : I'm not sure this thing is working correctly...
+        public static List<Livery> GetCarLiveries(string carName)
+        {
+            List<Livery> liveries = new List<Livery>();
+
+            foreach (string textureName in LiveryManager.GenericTextures)
+            {
+                liveries.Add(new Livery(
+                    textureName,
+                    LiveryManager.GetStandardLiveryPath(carName, textureName),
+                    Livery.LiveryType.Standard,
+                    carName,
+                    false
+                ));
+            }
+
+            return liveries;
         }
     }
 }
