@@ -26,38 +26,46 @@ namespace HistoricalCareer
     // 	}
     // }
 
-    [HarmonyPatch(typeof(CustomButtonCars), "SaveCarToCarManager")]
-    static class RallySettingsTester
+    // TODO : Inject custom rally data
+    [HarmonyPatch(typeof(PanelManager))]
+    static class PanelPatcher
     {
-        // TEST
-        public static RallySettings testRally;
-        // TEST
+        const string DIFFICULTY_PANEL = "CareerDifficultySettings";
+        const string CAR_PANEL = "Choose Car";
 
+        static bool inCareer;
+
+        [HarmonyPatch(nameof(PanelManager.AddPanelAddToHistory), new[] { typeof(Panel) })]
+        static void Prefix(Panel panel)
+        {
+            Main.Log("Switch to panel " + panel.name);
+
+            switch (panel.name)
+            {
+                case DIFFICULTY_PANEL:
+                    inCareer = true;
+                    break;
+
+                case CAR_PANEL:
+                    if (inCareer)
+                    {
+                        Main.Log("Entry !");
+                        // TODO : How do I force the panel to get popped ?
+                        // TODO : How do I get the current year of career ?
+
+                        //UIManager.Instance.PanelManager.AddPanelAddToHistory();
+                    }
+                    break;
+            }
+
+            if (panel.name == DIFFICULTY_PANEL)
+                inCareer = true;
+        }
+
+        [HarmonyPatch(nameof(PanelManager.GoBack))]
         static void Postfix()
         {
-            // TEST
-            Main.Try("test", () =>
-            {
-                Car selectedCar = CarManager.GetCurrentCarsListForClass(Car.CarClass.GROUP_2)[0];
-                List<ConditionTypes.Weather> weathers = AreaManager.GetWeatherForCurrentArea(AreaManager.Areas.FINLAND);
-                testRally = new RallySettings(
-                    selectedCar,
-                    LiveryManager.GetValidLiveries(selectedCar.prefabName)[0],
-                    AreaManager.Areas.FINLAND,
-                    new[] { 0, 2 },
-                    new[] { weathers[0], weathers[1] }
-                );
-
-                string test = "Rally settings : \n" + testRally.carClass + " " + testRally.car.prefabName + " " + testRally.livery.Name + "\n" + testRally.rallyData.CurrentArea + " :";
-
-                foreach (Stage stage in testRally.rallyData.StageList)
-                    test += "\n" + stage.Name + " " + stage.GetWeatherString();
-
-                Main.Log(test);
-            });
-            // TEST
+            inCareer = false;
         }
     }
-
-    // TODO : Find when we select a year in career mode (entry point) => inject own data
 }
