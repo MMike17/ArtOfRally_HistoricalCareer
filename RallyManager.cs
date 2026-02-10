@@ -20,16 +20,52 @@ namespace HistoricalCareer
         private void CreateRally(int year, CarClass carClass, int carIndex, int liveryIndex, Areas area, int[] stages, Weather[] weathers)
         {
             Car car = CarManager.GetCurrentCarsListForClass(carClass)[carIndex];
-            rallySettings.Add(year, new RallySettings(car, LiveryManager.GetValidLiveries(car.prefabName)[liveryIndex], area, stages, weathers));
+            rallySettings.Add(year, new RallySettings(car, RallySettings.GetCarLiveries(car.prefabName)[liveryIndex], area, stages, weathers));
+            Main.Log("Created rally for " + year + " (class : " + carClass + ")");
         }
 
-        public static RallySettings GetSettingsForYear(int year)
+        public static void AppyRallySettings(int year)
         {
-            if (rallySettings.ContainsKey(year))
-                return rallySettings[year];
+            RallySettings settings;
 
-            Main.Error("Couldn't find rally settings for year " + year + ", this will crash the mod.");
-            return null;
+            if (rallySettings.ContainsKey(year))
+                settings = rallySettings[year];
+            else
+            {
+                Main.Error("Couldn't find rally settings for year " + year + ", this will crash the mod.");
+                return;
+            }
+
+            // car
+            CarManager.SetChosenClass(settings.carClass);
+
+            List<Car> cars = CarManager.GetCurrentCarsListForClass(settings.carClass);
+            CarManager.SetChosenCar(cars.IndexOf(settings.car));
+            Main.Log("test car : " + (cars.IndexOf(settings.car) != -1));
+
+            List<Livery> liveries = RallySettings.GetCarLiveries(settings.car.prefabName);
+            CarManager.SetChosenLivery(settings.livery);
+            // TODO : Liveries are broken (still)
+
+            // rally
+            RallyData currentRally = GameModeManager.GetRallyDataCurrentGameMode();
+            currentRally.SetArea((int)settings.rallyData.CurrentArea);
+            currentRally.SetStageCount(settings.rallyData.StageCount);
+
+            for (int i = 0; i < settings.rallyData.StageCount; i++)
+            {
+                Stage stage = settings.rallyData.StageList[i];
+                currentRally.SetStage(i, stage);
+                currentRally.SetWeatherForStage(i, stage.Weather);
+            }
+
+            Main.Log(
+                "Applied rally settings for " + year + " (" +
+                settings.car.name + " " +
+                settings.carClass + ")\n(" +
+                settings.rallyData.CurrentArea + " " +
+                settings.rallyData.StageCount + ")"
+            );
         }
     }
 }

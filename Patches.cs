@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using HarmonyLib;
+using UnityEngine;
+using static Car;
 
 namespace HistoricalCareer
 {
@@ -49,11 +51,15 @@ namespace HistoricalCareer
                 case CAR_PANEL:
                     if (inCareer)
                     {
-                        Main.Log("Entry !");
-                        // TODO : How do I force the panel to get popped ?
-                        // TODO : How do I get the current year of career ?
+                        int year = GameModeManager.CareerManager.GetCurrentSeason().Year;
+                        Main.Log("Starting season " + year);
+                        RallyManager.AppyRallySettings(year);
 
+                        //panel.GetComponent<CarChooserHelper>().BeginEvent();
                         //UIManager.Instance.PanelManager.AddPanelAddToHistory();
+
+                        // TODO : How do I force the game to start ?
+                        // TODO : Is it starting the game when I press "A" on one of the custom buttons ?
                     }
                     break;
             }
