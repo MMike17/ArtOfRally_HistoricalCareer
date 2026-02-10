@@ -4,8 +4,10 @@ namespace HistoricalCareer
 {
     public class RallySettings
     {
+        // TODO : Restructure to be able to have multiple rallies in a season
+        // should this class be called season settings ?
+
         public Car.CarClass carClass;
-        // TODO : Not sure if I should store the car and the livery or their index...
         public Car car;
         public Livery livery;
         public RallyData rallyData;
