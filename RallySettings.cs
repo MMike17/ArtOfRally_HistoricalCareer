@@ -30,8 +30,6 @@ namespace HistoricalCareer
             rallyData.SetArea((int)area);
             rallyData.SetStageCount(stagesIndeces.Length);
 
-            //AreaManager.AreaDictionary[area].stageList.Count
-
             for (int i = 0; i < stagesIndeces.Length; i++)
             {
                 int index = stagesIndeces[i];
