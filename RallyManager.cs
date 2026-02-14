@@ -14,7 +14,12 @@ namespace HistoricalCareer
             // TODO : Generate custom rallies here
             rallySettings = new Dictionary<int, RallySettings>();
 
-            CreateRally(1987, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
+            CreateRally(1991, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
+
+            Main.OnToggle += state =>
+            {
+                // TODO : The fix for car class being wrong on some years will probably here
+            };
         }
 
         private void CreateRally(int year, CarClass carClass, int carIndex, int liveryIndex, Areas area, int[] stages, Weather[] weathers)
@@ -36,6 +41,9 @@ namespace HistoricalCareer
                 return;
             }
 
+            //CarManager.SetChosenClass(CarClass.GROUP_S);
+            //return;
+
             // car
             CarManager.SetChosenClass(settings.carClass);
 
@@ -45,7 +53,7 @@ namespace HistoricalCareer
 
             List<Livery> liveries = RallySettings.GetCarLiveries(settings.car.prefabName);
             CarManager.SetChosenLivery(settings.livery);
-            // TODO : Liveries are broken (still)
+            // TODO : Liveries are broken (this is kinda random and doesn't happen every time)
 
             // rally
             RallyData currentRally = GameModeManager.GetRallyDataCurrentGameMode();

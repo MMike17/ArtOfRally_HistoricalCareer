@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+using System;
+using System.Collections;
 using HarmonyLib;
 using UnityEngine;
-using static Car;
 
 namespace HistoricalCareer
 {
@@ -28,7 +28,6 @@ namespace HistoricalCareer
     // 	}
     // }
 
-    // TODO : Inject custom rally data
     [HarmonyPatch(typeof(PanelManager))]
     static class PanelPatcher
     {
@@ -38,8 +37,11 @@ namespace HistoricalCareer
         static bool inCareer;
 
         [HarmonyPatch(nameof(PanelManager.AddPanelAddToHistory), new[] { typeof(Panel) })]
-        static void Prefix(Panel panel)
+        static void Postfix(Panel panel)
         {
+            if (!Main.enabled)
+                return;
+
             Main.Log("Switch to panel " + panel.name);
 
             switch (panel.name)
@@ -54,18 +56,24 @@ namespace HistoricalCareer
                         int year = GameModeManager.CareerManager.GetCurrentSeason().Year;
                         Main.Log("Starting season " + year);
                         RallyManager.AppyRallySettings(year);
+                        panel.StartCoroutine(WaitAndActivate(0.01f, () => panel.GetComponent<CarChooserHelper>().BeginEvent()));
 
+                        // TEST
                         //panel.GetComponent<CarChooserHelper>().BeginEvent();
                         //UIManager.Instance.PanelManager.AddPanelAddToHistory();
-
-                        // TODO : How do I force the game to start ?
-                        // TODO : Is it starting the game when I press "A" on one of the custom buttons ?
+                        // TEST
                     }
                     break;
             }
 
             if (panel.name == DIFFICULTY_PANEL)
                 inCareer = true;
+        }
+
+        static IEnumerator WaitAndActivate(float duration, Action callback)
+        {
+            yield return new WaitForSeconds(duration);
+            callback?.Invoke();
         }
 
         [HarmonyPatch(nameof(PanelManager.GoBack))]
