@@ -33,6 +33,7 @@ namespace HistoricalCareer
     {
         const string DIFFICULTY_PANEL = "CareerDifficultySettings";
         const string CAR_PANEL = "Choose Car";
+        const string GROUP_PANEL_FORMAT = "Group";
 
         static bool inCareer;
 
@@ -44,6 +45,13 @@ namespace HistoricalCareer
 
             Main.Log("Switch to panel " + panel.name);
 
+            if (panel.name.Contains(GROUP_PANEL_FORMAT))
+            {
+                // TODO : Detect which group we are in
+                // TODO : Rework the current panel contents for season
+                // TODO : Rework data structure to have easy access by group
+            }
+
             switch (panel.name)
             {
                 case DIFFICULTY_PANEL:
@@ -53,15 +61,14 @@ namespace HistoricalCareer
                 case CAR_PANEL:
                     if (inCareer)
                     {
+                        // TODO : No need to detect by year anymore => store on selection
+
                         int year = GameModeManager.CareerManager.GetCurrentSeason().Year;
                         Main.Log("Starting season " + year);
                         RallyManager.AppyRallySettings(year);
-                        panel.StartCoroutine(WaitAndActivate(0.01f, () => panel.GetComponent<CarChooserHelper>().BeginEvent()));
 
-                        // TEST
-                        //panel.GetComponent<CarChooserHelper>().BeginEvent();
-                        //UIManager.Instance.PanelManager.AddPanelAddToHistory();
-                        // TEST
+                        // TODO : Show rally and driver details above car selection (disable OG UI)
+                        //panel.StartCoroutine(WaitAndActivate(0.01f, () => panel.GetComponent<CarChooserHelper>().BeginEvent()));
                     }
                     break;
             }
