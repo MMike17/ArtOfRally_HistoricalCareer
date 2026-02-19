@@ -23,8 +23,6 @@ namespace HistoricalCareer
         private float delay;
         private int selectedIndex;
 
-        // TODO : How do I detect the left/right selection ?
-
         private void Awake()
         {
             inputModule = EventSystem.current.currentInputModule;
@@ -46,10 +44,26 @@ namespace HistoricalCareer
             selectedIndex = 0;
             panels = new List<Panel>();
 
-            foreach (Transform child in transform)
-                panels.Add(new Panel(child));
+            // animate panels
+            int under = selectedIndex - 1;
+            int over = selectedIndex < panels.Count - 1 ? selectedIndex + 1 : -1;
 
-            // TODO : Set anim immediate
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                panels.Add(new Panel(
+                    transform.GetChild(i),
+                    i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_SIZE : NON_SELECTED_SIZE,
+                    i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_ALPHA : NON_SELECTED_ALPHA
+                ));
+            }
+
+            // move carrousel
+            Transform selected = panels[selectedIndex].transform;
+            float offset = transform.position.x - selected.position.x;
+
+            Vector3 target = transform.position;
+            target.x = Screen.width / 2 + offset;
+            transform.position = target;
         }
 
         private void Update()
@@ -91,6 +105,7 @@ namespace HistoricalCareer
                 delay = INPUT_DELAY_THRESHOLD;
             }
 
+            // TODO : How do I select a button ?
             //m_SubmitButton
         }
 
@@ -99,10 +114,13 @@ namespace HistoricalCareer
             public Transform transform;
             public CanvasGroup group;
 
-            public Panel(Transform transform)
+            public Panel(Transform transform, float startSize, float startAlpha)
             {
                 this.transform = transform;
+                transform.localScale = Vector3.one * startSize;
+
                 group = transform.GetComponent<CanvasGroup>();
+                group.alpha = startAlpha;
 
                 if (group == null)
                     group = transform.gameObject.AddComponent<CanvasGroup>();
@@ -110,10 +128,10 @@ namespace HistoricalCareer
                 transform.GetComponent<CustomButtonSeason>().enabled = false;
             }
 
-            public void Update(float size, float alpha, float speed)
+            public void Update(float size, float alpha, float speed, bool immediate = false)
             {
-                transform.localScale = Vector3.MoveTowards(transform.localScale, Vector3.one * size, speed);
-                group.alpha = Mathf.MoveTowards(group.alpha, alpha, speed);
+                transform.localScale = immediate ? Vector3.one * size : Vector3.MoveTowards(transform.localScale, Vector3.one * size, speed);
+                group.alpha = immediate ? alpha : Mathf.MoveTowards(group.alpha, alpha, speed);
             }
         }
     }
