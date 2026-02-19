@@ -8,12 +8,17 @@ namespace HistoricalCareer
     public class Settings : ModSettings, IDrawable
     {
         // [Draw(DrawType.)]
-        
+
+        [Header("UI")]
+        [Draw(DrawType.Slider, Min = 0.5f, Max = 2)]
+        public float carrouselAnimSpeed = 2;
+
         [Header("Debug")]
         [Draw(DrawType.Toggle)]
         public bool showMarkers;
         [Draw(DrawType.Toggle)]
-        public bool disableInfoLogs = true;
+        public bool disableInfoLogs = false;
+        //public bool disableInfoLogs = true;
 
         public override void Save(ModEntry modEntry) => Save(this, modEntry);
 
@@ -24,7 +29,7 @@ namespace HistoricalCareer
             // SnapValue(, 0.1f);
         }
 
-        internal void OnGUI ()
+        internal void OnGUI()
         {
             // custom GUI here
         }
