@@ -3,6 +3,7 @@ using Rewired.Integration.UnityUI;
 using Rewired;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Reflection;
 
 namespace HistoricalCareer
 {
@@ -20,6 +21,7 @@ namespace HistoricalCareer
         private BaseInputModule inputModule;
         private Player playerInput;
         private string horizontalUIString;
+        private string submitUIString;
         private float delay;
         private int selectedIndex;
 
@@ -29,12 +31,17 @@ namespace HistoricalCareer
             horizontalUIString = Main.GetField<string, RewiredStandaloneInputModule>(
                 inputModule as RewiredStandaloneInputModule,
                 "m_HorizontalAxis",
-                System.Reflection.BindingFlags.Instance
+                BindingFlags.Instance
+            );
+            submitUIString = Main.GetField<string, RewiredStandaloneInputModule>(
+                inputModule as RewiredStandaloneInputModule,
+                "m_SubmitButton",
+                BindingFlags.Instance
             );
             int playerID = Main.GetField<int[], RewiredStandaloneInputModule>(
                 inputModule as RewiredStandaloneInputModule,
                 "playerIds",
-                System.Reflection.BindingFlags.Instance
+                BindingFlags.Instance
             )[0];
             playerInput = ReInput.players.GetPlayer(playerID);
         }
@@ -105,14 +112,15 @@ namespace HistoricalCareer
                 delay = INPUT_DELAY_THRESHOLD;
             }
 
-            // TODO : How do I select a button ?
-            //m_SubmitButton
+            if (playerInput.GetButtonDown(submitUIString))
+                transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
         }
 
         private class Panel
         {
             public Transform transform;
             public CanvasGroup group;
+            public Season season;
 
             public Panel(Transform transform, float startSize, float startAlpha)
             {
@@ -125,7 +133,9 @@ namespace HistoricalCareer
                 if (group == null)
                     group = transform.gameObject.AddComponent<CanvasGroup>();
 
-                transform.GetComponent<CustomButtonSeason>().enabled = false;
+                CustomButtonSeason button = transform.GetComponent<CustomButtonSeason>();
+                button.enabled = false;
+                season = Main.GetField<Season, CustomButtonSeason>(button, "currentSeason", BindingFlags.Instance);
             }
 
             public void Update(float size, float alpha, float speed, bool immediate = false)
