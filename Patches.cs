@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HistoricalCareer
 {
@@ -47,9 +48,46 @@ namespace HistoricalCareer
 
             if (panel.name.Contains(GROUP_PANEL_FORMAT))
             {
+                HorizontalLayoutGroup group = panel.GetComponentInChildren<HorizontalLayoutGroup>();
+                group.spacing = -10;
+                group.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+                CarrouselUI carrousel = group.GetComponent<CarrouselUI>();
+
+                if (carrousel == null)
+                    carrousel = group.gameObject.AddComponent<CarrouselUI>();
+
+                carrousel.Reset();
+
+                // TODO : Destroy / hide the og panels
+                // TODO : Spawn new panels with new pictures and text
                 // TODO : Detect which group we are in
-                // TODO : Rework the current panel contents for season
-                // TODO : Rework data structure to have easy access by group
+                // TODO : Rework data structure to have easy access by group (Season needs to be part of rally settings)
+                // TODO : How do I do selection ?
+
+                //while (group.transform.childCount != 7)
+                //{
+                //    Selectable previous = group.transform.GetChild(group.transform.childCount - 1).GetComponent<Selectable>();
+                //    Transform newItem = GameObject.Instantiate(group.transform.GetChild(0), group.transform);
+
+                //    newItem.GetComponent<CustomButtonSeason>().Init();
+                //    newItem.GetComponent<CustomButtonSeason>().SetText(new Season(1990, Car.CarClass.GROUP_2, 1, 2, 1, string.Empty, false, AIDriverSkillTables.AI_Skill.EASY));
+
+                //    Navigation nav = previous.navigation;
+                //    nav.selectOnRight = newItem.GetComponent<Selectable>();
+                //    previous.navigation = nav;
+
+                //    newItem.GetComponent<Selectable>().navigation = new Navigation() { selectOnLeft = previous };
+                //}
+
+                //foreach (Transform item in group.transform)
+                //{
+                //    PropertyInfo info = typeof(Selectable).GetProperty("hasSelection", BindingFlags.NonPublic | BindingFlags.Instance);
+                //    bool isSelected = (bool)info.GetValue(item.GetComponent<Selectable>());
+                //    Main.Log(item.name + " selected : " + isSelected);
+                //}
+
+                //group.transform.GetChild(0).GetComponent<CustomButtonSeason>().onClick.RemoveAllListeners();
             }
 
             switch (panel.name)

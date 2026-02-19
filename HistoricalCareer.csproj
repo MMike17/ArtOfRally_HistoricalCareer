@@ -40,6 +40,10 @@
     <GameModPath>$([System.IO.Path]::Combine($(GamePath), Mods\$(AssemblyName)))</GameModPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Rewired_Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\artofrally\artofrally_Data\Managed\Rewired_Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -89,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarrouselUI.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Patches.cs" />
     <Compile Include="RallyManager.cs" />
