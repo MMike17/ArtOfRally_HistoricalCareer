@@ -32,7 +32,7 @@ namespace HistoricalCareer
     [HarmonyPatch(typeof(PanelManager))]
     static class PanelPatcher
     {
-        const string DIFFICULTY_PANEL = "CareerDifficultySettings";
+        //const string DIFFICULTY_PANEL = "CareerDifficultySettings";
         const string CAR_PANEL = "Choose Car";
         const string GROUP_PANEL_FORMAT = "Group";
 
@@ -49,6 +49,12 @@ namespace HistoricalCareer
             if (panel.name.Contains(GROUP_PANEL_FORMAT))
             {
                 HorizontalLayoutGroup layout = panel.GetComponentInChildren<HorizontalLayoutGroup>();
+                ContentSizeFitter fitter = layout.GetComponent<ContentSizeFitter>();
+
+                // should cut config short
+                if (fitter != null)
+                    return;
+
                 layout.spacing = -10;
                 layout.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
@@ -56,8 +62,14 @@ namespace HistoricalCareer
                 foreach (Transform child in layout.transform)
                     child.gameObject.SetActive(false);
 
-                // TODO : How do I check if I have already set that up (if I come back to this panel)
-                Car.CarClass group = Car.CarClass.GROUP_2; // TODO : Detect which group we are in
+                // generate buttons
+                Car.CarClass group = Car.CarClass.COUNT;
+
+                if (!Enum.TryParse(panel.name.Replace(GROUP_PANEL_FORMAT, "GROUP_"), out group))
+                {
+                    Main.Error("Couldn't find corresponding group for panel " + panel.name + " (this will crash the mod).");
+                    return;
+                }
 
                 GameObject model = layout.transform.GetChild(0).gameObject;
                 RallyManager.GetSettingsForClass(group).ForEach(settings =>
@@ -73,30 +85,18 @@ namespace HistoricalCareer
                     carrousel = layout.gameObject.AddComponent<CarrouselUI>();
 
                 carrousel.Reset();
-            }
-
-            switch (panel.name)
-            {
-                case DIFFICULTY_PANEL:
-                    inCareer = true;
-                    break;
-
-                case CAR_PANEL:
-                    if (inCareer)
-                    {
-                        // TODO : No need to detect by year anymore
-                        //int year = GameModeManager.CareerManager.GetCurrentSeason().Year;
-                        //Main.Log("Starting season " + year);
-                        //RallyManager.AppyRallySettings(year);
-
-                        // TODO : Show rally and driver details above car selection (disable OG UI)
-                        //panel.StartCoroutine(WaitAndActivate(0.01f, () => panel.GetComponent<CarChooserHelper>().BeginEvent()));
-                    }
-                    break;
-            }
-
-            if (panel.name == DIFFICULTY_PANEL)
                 inCareer = true;
+            }
+            else if (panel.name == CAR_PANEL && inCareer)
+            {
+                // TODO : No need to detect by year anymore
+                //int year = GameModeManager.CareerManager.GetCurrentSeason().Year;
+                //Main.Log("Starting season " + year);
+                //RallyManager.AppyRallySettings(year);
+
+                // TODO : Show rally and driver details above car selection (disable OG UI)
+                //panel.StartCoroutine(WaitAndActivate(0.01f, () => panel.GetComponent<CarChooserHelper>().BeginEvent()));
+            }
         }
 
         static IEnumerator WaitAndActivate(float duration, Action callback)
