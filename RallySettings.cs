@@ -7,6 +7,7 @@ namespace HistoricalCareer
         public Car car;
         public Livery livery;
         public Season season;
+        // TODO : Add data here about season screen
 
         /// <param name="car">Use CarManager.GetCurrentCarsListForClass to get cars</param>
         /// <param name="livery">Use RallySettings.GetCarLiveries (with car.prefabName) to get car liveries</param>
@@ -62,7 +63,7 @@ namespace HistoricalCareer
             );
 
             // setup rally
-            season.Rallies[0] = new RallyData();
+            season.Rallies.Add(new RallyData());
             season.Rallies[0].SetArea((int)area);
             season.Rallies[0].SetStageCount(stagesIndeces.Length);
 
