@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using static AreaManager;
 using static Car;
 using static ConditionTypes;
@@ -7,40 +8,50 @@ namespace HistoricalCareer
 {
     public class RallyManager
     {
-        private static Dictionary<int, RallySettings> rallySettings;
+        private static Dictionary<CarClass, List<RallySettings>> rallySettings;
 
         public RallyManager()
         {
             // TODO : Generate custom rallies here
-            rallySettings = new Dictionary<int, RallySettings>();
+            rallySettings = new Dictionary<CarClass, List<RallySettings>>();
 
-            CreateRally(1991, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
-
-            Main.OnToggle += state =>
-            {
-                // TODO : The fix for car class being wrong on some years will probably here
-            };
+            //    Main.OnToggle += state =>
+            //    {
+            //        // TODO : The fix for car class being wrong on some years will probably here
+            //    };
         }
 
         private void CreateRally(int year, CarClass carClass, int carIndex, int liveryIndex, Areas area, int[] stages, Weather[] weathers)
         {
+            if (!rallySettings.ContainsKey(carClass))
+                rallySettings.Add(carClass, new List<RallySettings>());
+
             Car car = CarManager.GetCurrentCarsListForClass(carClass)[carIndex];
-            rallySettings.Add(year, new RallySettings(car, RallySettings.GetCarLiveries(car.prefabName)[liveryIndex], area, stages, weathers));
+            rallySettings[carClass].Add(new RallySettings(
+                year,
+                car,
+                RallySettings.GetCarLiveries(car.prefabName)[liveryIndex],
+                area,
+                stages,
+                weathers
+            ));
+
             Main.Log("Created rally for " + year + " (class : " + carClass + ")");
         }
 
-        public static void AppyRallySettings(int year)
+        public static void AppyRallySettings(CarClass group)
         {
             RallySettings settings;
 
-            if (rallySettings.ContainsKey(year))
-                settings = rallySettings[year];
+            if (rallySettings.ContainsKey(group))
+                settings = rallySettings[group][CarrouselUI.selectedIndex];
             else
             {
-                Main.Error("Couldn't find rally settings for year " + year + ", this will crash the mod.");
+                Main.Error("Couldn't find rally settings for group " + group + ", this will crash the mod.");
                 return;
             }
 
+            // TEST
             //CarManager.SetChosenClass(CarClass.GROUP_S);
             //return;
 
@@ -57,22 +68,24 @@ namespace HistoricalCareer
 
             // rally
             RallyData currentRally = GameModeManager.GetRallyDataCurrentGameMode();
-            currentRally.SetArea((int)settings.rallyData.CurrentArea);
-            currentRally.SetStageCount(settings.rallyData.StageCount);
+            currentRally.SetArea((int)settings.season.Rallies[0].CurrentArea);
 
-            for (int i = 0; i < settings.rallyData.StageCount; i++)
+            int stageCount = settings.season.Rallies[0].StageCount;
+            currentRally.SetStageCount(stageCount);
+
+            for (int i = 0; i < stageCount; i++)
             {
-                Stage stage = settings.rallyData.StageList[i];
+                Stage stage = settings.season.Rallies[0].StageList[i];
                 currentRally.SetStage(i, stage);
                 currentRally.SetWeatherForStage(i, stage.Weather);
             }
 
             Main.Log(
-                "Applied rally settings for " + year + " (" +
+                "Applied rally settings for " + group + " (" +
                 settings.car.name + " " +
                 settings.carClass + ")\n(" +
-                settings.rallyData.CurrentArea + " " +
-                settings.rallyData.StageCount + ")"
+                settings.season.Rallies[0].CurrentArea + " " +
+                stageCount + ")"
             );
         }
     }
