@@ -17,13 +17,14 @@ namespace HistoricalCareer
         const float MOVE_RATIO = 1000;
         const float INPUT_DELAY_THRESHOLD = 0.2f;
 
+        public static int selectedIndex { get; private set; }
+
         private List<Panel> panels;
         private BaseInputModule inputModule;
         private Player playerInput;
         private string horizontalUIString;
         private string submitUIString;
         private float delay;
-        private int selectedIndex;
 
         private void Awake()
         {
@@ -112,6 +113,7 @@ namespace HistoricalCareer
                 delay = INPUT_DELAY_THRESHOLD;
             }
 
+            // TODO : I feel like this is double working when I already have a career season
             if (playerInput.GetButtonDown(submitUIString))
                 transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
         }
