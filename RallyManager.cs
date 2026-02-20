@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 using static AreaManager;
 using static Car;
@@ -6,6 +7,8 @@ using static ConditionTypes;
 
 namespace HistoricalCareer
 {
+    // TODO : Add access to car sprites
+    // TODO : How do I access location pictures ?
     public class RallyManager
     {
         private static Dictionary<CarClass, List<RallySettings>> rallySettings;
@@ -15,10 +18,10 @@ namespace HistoricalCareer
             // TODO : Generate custom rallies here (load rally data and pictures from file)
             rallySettings = new Dictionary<CarClass, List<RallySettings>>();
 
+            // How do I load data from local file ? (check real car names mod)
+
             // TEST
-            CreateRally(1966, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
-            CreateRally(1967, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
-            CreateRally(1968, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
+            CreateRally(1966, "Stig", null, CarClass.GROUP_2, 0, 0, Areas.FINLAND, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later");
             // TEST
 
             Main.OnToggle += state =>
@@ -27,7 +30,19 @@ namespace HistoricalCareer
             };
         }
 
-        private void CreateRally(int year, CarClass carClass, int carIndex, int liveryIndex, Areas area, int[] stages, Weather[] weathers)
+        private void CreateRally(
+            int year,
+            string pilotName,
+            Sprite pilotPicture,
+            CarClass carClass,
+            int carIndex,
+            int liveryIndex,
+            Areas area,
+            string rallyName,
+            int[] stages,
+            Weather[] weathers,
+            string lore
+        )
         {
             if (!rallySettings.ContainsKey(carClass))
                 rallySettings.Add(carClass, new List<RallySettings>());
@@ -35,11 +50,15 @@ namespace HistoricalCareer
             Car car = CarManager.GetCurrentCarsListForClass(carClass)[carIndex];
             rallySettings[carClass].Add(new RallySettings(
                 year,
+                pilotName,
+                pilotPicture,
                 car,
                 RallySettings.GetCarLiveries(car.prefabName)[liveryIndex],
                 area,
+                rallyName,
                 stages,
-                weathers
+                weathers,
+                lore
             ));
 
             Main.Log("Created rally for " + year + " (class : " + carClass + ")");

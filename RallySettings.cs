@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace HistoricalCareer
 {
@@ -7,16 +8,34 @@ namespace HistoricalCareer
         public Car car;
         public Livery livery;
         public Season season;
-        // TODO : Add data here about season screen
+        public string pilotName;
+        public Sprite pilotPicture;
+        public string rallyName;
+        public string loreText;
 
         /// <param name="car">Use CarManager.GetCurrentCarsListForClass to get cars</param>
         /// <param name="livery">Use RallySettings.GetCarLiveries (with car.prefabName) to get car liveries</param>
         /// <param name="stagesIndeces">No double stages, stages go by pairs (0-1, 2-3, etc...)</param>
         /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
-        public RallySettings(int year, Car car, Livery livery, AreaManager.Areas area, int[] stagesIndeces, ConditionTypes.Weather[] weathers)
+        public RallySettings(
+            int year,
+            string pilotName,
+            Sprite pilotPicture,
+            Car car,
+            Livery livery,
+            AreaManager.Areas area,
+            string rallyName,
+            int[] stagesIndeces,
+            ConditionTypes.Weather[] weathers,
+            string loreText
+        )
         {
+            this.pilotName = pilotName;
+            this.pilotPicture = pilotPicture;
             this.car = car;
             this.livery = livery;
+            this.rallyName = rallyName;
+            this.loreText = loreText;
 
             // check stages
             List<int> correctedStages = new List<int>();
@@ -50,7 +69,7 @@ namespace HistoricalCareer
             int restarts = 0; // TODO : What's the OG number of restarts for that season ? Do I need to change that ?
             Season.STATUS status = Season.STATUS.UNLOCKED; // TODO : Manage season state from the save system
 
-            season = new Season(
+            this.season = new Season(
                 year,
                 car.carClass,
                 1, // TODO : Not sure if I need to be able to go above 1 rally
