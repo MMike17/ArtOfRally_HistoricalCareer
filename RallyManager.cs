@@ -56,9 +56,9 @@ namespace HistoricalCareer
             //return;
 
             // car
-            CarManager.SetChosenClass(settings.carClass);
+            CarManager.SetChosenClass(settings.car.carClass);
 
-            List<Car> cars = CarManager.GetCurrentCarsListForClass(settings.carClass);
+            List<Car> cars = CarManager.GetCurrentCarsListForClass(settings.car.carClass);
             CarManager.SetChosenCar(cars.IndexOf(settings.car));
             Main.Log("test car : " + (cars.IndexOf(settings.car) != -1));
 
@@ -83,7 +83,7 @@ namespace HistoricalCareer
             Main.Log(
                 "Applied rally settings for " + group + " (" +
                 settings.car.name + " " +
-                settings.carClass + ")\n(" +
+                settings.car.carClass + ")\n(" +
                 settings.season.Rallies[0].CurrentArea + " " +
                 stageCount + ")"
             );

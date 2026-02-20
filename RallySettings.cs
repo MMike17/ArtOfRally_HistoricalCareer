@@ -4,7 +4,6 @@ namespace HistoricalCareer
 {
     public class RallySettings
     {
-        public Car.CarClass carClass; // TODO : do we really need this ?
         public Car car;
         public Livery livery;
         public Season season;
@@ -15,7 +14,6 @@ namespace HistoricalCareer
         /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
         public RallySettings(int year, Car car, Livery livery, AreaManager.Areas area, int[] stagesIndeces, ConditionTypes.Weather[] weathers)
         {
-            carClass = car.carClass;
             this.car = car;
             this.livery = livery;
 
@@ -49,16 +47,15 @@ namespace HistoricalCareer
 
             // setup season
             int restarts = 0; // TODO : What's the OG number of restarts for that season ? Do I need to change that ?
-            string bonusSaveConstant = null; // TODO : What the hell is supposed to be the BonusSaveConstant ?
             Season.STATUS status = Season.STATUS.UNLOCKED; // TODO : Manage season state from the save system
 
             season = new Season(
                 year,
-                carClass,
+                car.carClass,
                 1, // TODO : Not sure if I need to be able to go above 1 rally
                 stagesIndeces.Length,
                 restarts,
-                bonusSaveConstant,
+                "UNLOCKABLE_" + year + "_BONUS",
                 true,
                 AIDriverSkillTables.AI_Skill.EASY,
                 status
