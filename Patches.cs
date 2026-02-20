@@ -35,6 +35,10 @@ namespace HistoricalCareer
         //const string DIFFICULTY_PANEL = "CareerDifficultySettings";
         const string CAR_PANEL = "Choose Car";
         const string GROUP_PANEL_FORMAT = "Group";
+        const string PILOT_NAME_TAG = "Year";
+        const string RESTARTS_TAG = "Restarts";
+        const string LOCATION_YEAR_TAG = "AiSkill";
+        const string RALLY_TAG = "SeasonInfo";
 
         static bool inCareer;
 
@@ -110,7 +114,31 @@ namespace HistoricalCareer
 
         static void SetupSeasonButton(GameObject button, RallySettings settings)
         {
-            // TODO : Setup button with custom data and season
+            CustomButtonSeason seasonButton = button.GetComponent<CustomButtonSeason>();
+            seasonButton.transform.Find("ClassImage").GetComponent<Image>().sprite = settings.pilotPicture;
+
+            foreach (Text text in seasonButton.GetComponentsInChildren<Text>())
+            {
+                switch (text.name)
+                {
+                    case PILOT_NAME_TAG:
+                        text.text = settings.pilotName;
+                        break;
+
+                    case RESTARTS_TAG:
+                        text.enabled = false;
+                        break;
+
+                    case LOCATION_YEAR_TAG:
+                        text.text = settings.season.Rallies[0].CurrentArea + " (" + settings.season.Year + ")";
+                        break;
+
+                    case RALLY_TAG:
+                        text.text = settings.rallyName;
+                        break;
+                }
+            }
+
             button.SetActive(true);
         }
     }
