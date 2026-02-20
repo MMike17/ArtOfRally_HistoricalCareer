@@ -58,11 +58,14 @@ namespace HistoricalCareer
 
             for (int i = 0; i < transform.childCount; i++)
             {
-                panels.Add(new Panel(
-                    transform.GetChild(i),
-                    i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_SIZE : NON_SELECTED_SIZE,
-                    i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_ALPHA : NON_SELECTED_ALPHA
-                ));
+                if (transform.GetChild(i).gameObject.activeInHierarchy)
+                {
+                    panels.Add(new Panel(
+                        transform.GetChild(i),
+                        i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_SIZE : NON_SELECTED_SIZE,
+                        i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_ALPHA : NON_SELECTED_ALPHA
+                    ));
+                }
             }
 
             // move carrousel
