@@ -12,13 +12,19 @@ namespace HistoricalCareer
 
         public RallyManager()
         {
-            // TODO : Generate custom rallies here
+            // TODO : Generate custom rallies here (load rally data and pictures from file)
             rallySettings = new Dictionary<CarClass, List<RallySettings>>();
 
-            //    Main.OnToggle += state =>
-            //    {
-            //        // TODO : The fix for car class being wrong on some years will probably here
-            //    };
+            // TEST
+            CreateRally(1966, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
+            CreateRally(1967, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
+            CreateRally(1968, CarClass.GROUP_2, 0, 0, Areas.FINLAND, new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon });
+            // TEST
+
+            Main.OnToggle += state =>
+            {
+                // TODO : The fix for car class being wrong on some years will probably here
+            };
         }
 
         private void CreateRally(int year, CarClass carClass, int carIndex, int liveryIndex, Areas area, int[] stages, Weather[] weathers)
@@ -37,6 +43,17 @@ namespace HistoricalCareer
             ));
 
             Main.Log("Created rally for " + year + " (class : " + carClass + ")");
+        }
+
+        public static List<RallySettings> GetSettingsForClass(CarClass group)
+        {
+            if (!rallySettings.ContainsKey(group))
+            {
+                Main.Error("Couldn't find settings for group " + group + " (this will crash the mod).");
+                return null;
+            }
+
+            return rallySettings[group];
         }
 
         public static void AppyRallySettings(CarClass group)

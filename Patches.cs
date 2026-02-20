@@ -56,8 +56,15 @@ namespace HistoricalCareer
                 foreach (Transform child in layout.transform)
                     child.gameObject.SetActive(false);
 
-                // TODO : Spawn new panels with new pictures and text (set season)
-                // TODO : Detect which group we are in
+                // TODO : How do I check if I have already set that up (if I come back to this panel)
+                Car.CarClass group = Car.CarClass.GROUP_2; // TODO : Detect which group we are in
+
+                GameObject model = layout.transform.GetChild(0).gameObject;
+                RallyManager.GetSettingsForClass(group).ForEach(settings =>
+                {
+                    GameObject seasonButton = GameObject.Instantiate(model, layout.transform);
+                    SetupSeasonButton(seasonButton, settings);
+                });
 
                 // add custom UI
                 CarrouselUI carrousel = layout.GetComponent<CarrouselUI>();
@@ -100,5 +107,11 @@ namespace HistoricalCareer
 
         [HarmonyPatch(nameof(PanelManager.GoBack))]
         static void Postfix() => inCareer = false;
+
+        static void SetupSeasonButton(GameObject button, RallySettings settings)
+        {
+            // TODO : Setup button with custom data and season
+            button.SetActive(true);
+        }
     }
 }
