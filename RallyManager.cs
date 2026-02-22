@@ -21,7 +21,7 @@ namespace HistoricalCareer
             // How do I load data from local file ? (check real car names mod)
 
             // TEST
-            CreateRally(1966, "Stig", null, CarClass.GROUP_2, 0, 0, Areas.FINLAND, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later");
+            CreateRally(1966, "Stig", null, 1967, CarClass.GROUP_2, 0, 0, Areas.FINLAND, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later");
             // TEST
 
             Main.OnToggle += state =>
@@ -34,6 +34,7 @@ namespace HistoricalCareer
             int year,
             string pilotName,
             Sprite pilotPicture,
+            int pilotPictureYear,
             CarClass carClass,
             int carIndex,
             int liveryIndex,
@@ -52,6 +53,7 @@ namespace HistoricalCareer
                 year,
                 pilotName,
                 pilotPicture,
+                pilotPictureYear,
                 car,
                 RallySettings.GetCarLiveries(car.prefabName)[liveryIndex],
                 area,

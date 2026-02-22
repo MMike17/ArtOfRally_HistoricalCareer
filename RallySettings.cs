@@ -10,6 +10,7 @@ namespace HistoricalCareer
         public Season season;
         public string pilotName;
         public Sprite pilotPicture;
+        public int pilotPictureYear;
         public string rallyName;
         public string loreText;
 
@@ -21,6 +22,7 @@ namespace HistoricalCareer
             int year,
             string pilotName,
             Sprite pilotPicture,
+            int pilotPictureYear,
             Car car,
             Livery livery,
             AreaManager.Areas area,
@@ -32,6 +34,7 @@ namespace HistoricalCareer
         {
             this.pilotName = pilotName;
             this.pilotPicture = pilotPicture;
+            this.pilotPictureYear = pilotPictureYear;
             this.car = car;
             this.livery = livery;
             this.rallyName = rallyName;
