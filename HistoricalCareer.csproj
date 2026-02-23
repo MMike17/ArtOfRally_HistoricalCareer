@@ -67,6 +67,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GameLibPath)\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\artofrally\artofrally_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GameLibPath)\UnityEngine.CoreModule.dll</HintPath>
@@ -93,9 +97,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CareerUI.cs" />
     <Compile Include="CarrouselUI.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Patches.cs" />
+    <Compile Include="Polaroid.cs" />
     <Compile Include="RallyManager.cs" />
     <Compile Include="RallySettings.cs" />
     <Compile Include="Settings.cs" />
