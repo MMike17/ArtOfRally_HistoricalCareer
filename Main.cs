@@ -1,6 +1,7 @@
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using UnityEngine;
 using UnityModManagerNet;
@@ -11,6 +12,7 @@ namespace HistoricalCareer
 {
     public class Main
     {
+        const string BUNDLE_NAME = "historical_career";
         public static bool enabled { get; private set; }
 
         /// <summary>This is provided by UnityModManager to log messages to the console</summary>
@@ -19,6 +21,8 @@ namespace HistoricalCareer
         public static Settings settings;
         /// <summary>This will be called when the mod is toggles on/off</summary>
         public static event Action<bool> OnToggle;
+
+        private static GameObject careerUIPrefab;
 
         static List<GameObject> markers;
         static Material markerMat;
@@ -41,6 +45,19 @@ namespace HistoricalCareer
                 settings.OnGUI();
             };
             modEntry.OnSaveGUI = settings.Save;
+
+            Try("loadBundle", () =>
+            {
+                AssetBundle bundle = AssetBundle.LoadFromFile(Path.Combine(modEntry.Path, BUNDLE_NAME));
+
+                if (bundle != null)
+                    careerUIPrefab = bundle.LoadAsset<GameObject>("CareerDisplay");
+                else
+                    Error("Couldn't load asset bundle \"" + BUNDLE_NAME + "\"");
+
+                if (bundle != null)
+                    Log("Loaded bundle \"" + BUNDLE_NAME + "\"");
+            });
 
             new RallyManager();
 
@@ -78,7 +95,7 @@ namespace HistoricalCareer
             }
         }
 
-        /// <summary>BindingFlags.NonPrivate is implicit / source can be null</summary>
+        /// <summary>BindingFlags.NonPublic is implicit / source can be null</summary>
         public static T GetField<T, U>(U source, string fieldName, BindingFlags flags)
         {
             FieldInfo info = typeof(U).GetField(fieldName, flags | BindingFlags.NonPublic);
