@@ -114,7 +114,7 @@
   <Target Name="Deploy" AfterTargets="CoreBuild">
     <CallTarget Targets="CopyDLL" />
     <!-- Use this line to copy asset bundles from "/Assets" to the mod folder -->
-    <!-- <CallTarget Targets="CopyAssets" /> -->
+    <CallTarget Targets="CopyAssets" />
   </Target>
   <Target Name="CleanFolder">
     <RemoveDir Directories="$(GameModPath)" />
