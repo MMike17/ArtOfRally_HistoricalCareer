@@ -176,5 +176,7 @@ namespace HistoricalCareer
             toRemove.Reverse();
             toRemove.ForEach(index => markers.RemoveAt(index));
         }
+
+        public static CareerUI SpawnUI(Transform parent) => GameObject.Instantiate(careerUIPrefab, parent).AddComponent<CareerUI>();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Rewired.Integration.UnityUI;
-using Rewired;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Reflection;
@@ -17,37 +16,21 @@ namespace HistoricalCareer
         const float MOVE_RATIO = 1000;
         const float INPUT_DELAY_THRESHOLD = 0.2f;
 
-        public static int selectedIndex { get; private set; }
-
         private List<Panel> panels;
-        private BaseInputModule inputModule;
-        private Player playerInput;
         private string horizontalUIString;
-        private string submitUIString;
         private float delay;
+        private int selectedIndex;
 
         private void Awake()
         {
-            inputModule = EventSystem.current.currentInputModule;
             horizontalUIString = Main.GetField<string, RewiredStandaloneInputModule>(
-                inputModule as RewiredStandaloneInputModule,
+                EventSystem.current.currentInputModule as RewiredStandaloneInputModule,
                 "m_HorizontalAxis",
                 BindingFlags.Instance
             );
-            submitUIString = Main.GetField<string, RewiredStandaloneInputModule>(
-                inputModule as RewiredStandaloneInputModule,
-                "m_SubmitButton",
-                BindingFlags.Instance
-            );
-            int playerID = Main.GetField<int[], RewiredStandaloneInputModule>(
-                inputModule as RewiredStandaloneInputModule,
-                "playerIds",
-                BindingFlags.Instance
-            )[0];
-            playerInput = ReInput.players.GetPlayer(playerID);
         }
 
-        public void Reset()
+        public void Reset(List<RallySettings> settings)
         {
             selectedIndex = 0;
             panels = new List<Panel>();
@@ -55,6 +38,7 @@ namespace HistoricalCareer
             // animate panels
             int under = selectedIndex - 1;
             int over = selectedIndex < panels.Count - 1 ? selectedIndex + 1 : -1;
+            int settingsIndex = 0;
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -63,8 +47,10 @@ namespace HistoricalCareer
                     panels.Add(new Panel(
                         transform.GetChild(i),
                         i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_SIZE : NON_SELECTED_SIZE,
-                        i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_ALPHA : NON_SELECTED_ALPHA
+                        i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_ALPHA : NON_SELECTED_ALPHA,
+                        settings[settingsIndex].season
                     ));
+                    settingsIndex++;
                 }
             }
 
@@ -104,21 +90,30 @@ namespace HistoricalCareer
             if (delay > 0)
                 delay = Mathf.Clamp01(delay - Time.deltaTime);
 
-            if (delay == 0 && playerInput.GetAxis(horizontalUIString) > 0 && selectedIndex < panels.Count - 1)
+            if (delay == 0 && PanelPatcher.playerInput.GetAxis(horizontalUIString) > 0 && selectedIndex < panels.Count - 1)
             {
                 selectedIndex++;
                 delay = INPUT_DELAY_THRESHOLD;
             }
 
-            if (delay == 0 && playerInput.GetAxis(horizontalUIString) < 0 && selectedIndex > 0)
+            if (delay == 0 && PanelPatcher.playerInput.GetAxis(horizontalUIString) < 0 && selectedIndex > 0)
             {
                 selectedIndex--;
                 delay = INPUT_DELAY_THRESHOLD;
             }
 
             // TODO : I feel like this is double working when I already have a career season
-            if (playerInput.GetButtonDown(submitUIString))
-                transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
+            Main.Try("Test", () =>
+            {
+                if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
+                {
+                    // TODO : Season object is probably not configured properly
+                    transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
+                }
+
+                //if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
+                //    transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
+            });
         }
 
         private class Panel
@@ -127,7 +122,7 @@ namespace HistoricalCareer
             public CanvasGroup group;
             public Season season;
 
-            public Panel(Transform transform, float startSize, float startAlpha)
+            public Panel(Transform transform, float startSize, float startAlpha, Season season)
             {
                 this.transform = transform;
                 transform.localScale = Vector3.one * startSize;
@@ -140,7 +135,7 @@ namespace HistoricalCareer
 
                 CustomButtonSeason button = transform.GetComponent<CustomButtonSeason>();
                 button.enabled = false;
-                season = Main.GetField<Season, CustomButtonSeason>(button, "currentSeason", BindingFlags.Instance);
+                this.season = season;
             }
 
             public void Update(float size, float alpha, float speed, bool immediate = false)

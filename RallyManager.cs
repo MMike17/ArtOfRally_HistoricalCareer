@@ -77,18 +77,8 @@ namespace HistoricalCareer
             return rallySettings[group];
         }
 
-        public static void AppyRallySettings(CarClass group)
+        public static void AppyRallySettings(RallySettings settings)
         {
-            RallySettings settings;
-
-            if (rallySettings.ContainsKey(group))
-                settings = rallySettings[group][CarrouselUI.selectedIndex];
-            else
-            {
-                Main.Error("Couldn't find rally settings for group " + group + ", this will crash the mod.");
-                return;
-            }
-
             // TEST
             //CarManager.SetChosenClass(CarClass.GROUP_S);
             //return;
@@ -118,10 +108,10 @@ namespace HistoricalCareer
                 currentRally.SetWeatherForStage(i, stage.Weather);
             }
 
+            // TODO : Re-do this log message
             Main.Log(
-                "Applied rally settings for " + group + " (" +
-                settings.car.name + " " +
-                settings.car.carClass + ")\n(" +
+                "Applied rally settings for " + settings.car.carClass + " (" +
+                settings.car.name + ")\n(" +
                 settings.season.Rallies[0].CurrentArea + " " +
                 stageCount + ")"
             );
