@@ -17,9 +17,12 @@ namespace HistoricalCareer
         const float INPUT_DELAY_THRESHOLD = 0.2f;
 
         private List<Panel> panels;
+        private CanvasGroup panelGroup;
         private string horizontalUIString;
         private float delay;
         private int selectedIndex;
+
+        // TODO : Have to manage locked season status (linked to save system)
 
         private void Awake()
         {
@@ -28,6 +31,7 @@ namespace HistoricalCareer
                 "m_HorizontalAxis",
                 BindingFlags.Instance
             );
+            panelGroup = GetComponentInParent<CanvasGroup>();
         }
 
         public void Reset(List<RallySettings> settings)
@@ -65,6 +69,9 @@ namespace HistoricalCareer
 
         private void Update()
         {
+            if (panelGroup.alpha < 1)
+                return;
+
             // move carrousel
             Transform selected = panels[selectedIndex].transform;
             float offset = transform.position.x - selected.position.x;
@@ -102,18 +109,9 @@ namespace HistoricalCareer
                 delay = INPUT_DELAY_THRESHOLD;
             }
 
-            // TODO : I feel like this is double working when I already have a career season
-            Main.Try("Test", () =>
-            {
-                if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
-                {
-                    // TODO : Season object is probably not configured properly
-                    transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
-                }
-
-                //if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
-                //    transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
-            });
+            // TODO : I feel like this is double working when I already have a career season (might already be fixed)
+            if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
+                transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
         }
 
         private class Panel
