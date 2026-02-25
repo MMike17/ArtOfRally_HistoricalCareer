@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using FluffyUnderware.Curvy.Generator;
 using HarmonyLib;
 using Rewired;
 using Rewired.Integration.UnityUI;
@@ -127,8 +128,9 @@ namespace HistoricalCareer
                 if (careerUI == null)
                     careerUI = Main.SpawnUI(panel.transform.parent);
 
-                panel.Hide(); // TODO : Hiding car selection stuff
-                GameObject.Find("Dioramas").gameObject.SetActive(false);
+                panel.Hide();
+                GameObject.Find("Dioramas").SetActive(false);
+                // TODO : I'm not a fan of the background color :/
 
                 careerUI.Set(currentRally, rally =>
                 {
