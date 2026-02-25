@@ -52,7 +52,7 @@ namespace HistoricalCareer
                         transform.GetChild(i),
                         i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_SIZE : NON_SELECTED_SIZE,
                         i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_ALPHA : NON_SELECTED_ALPHA,
-                        settings[settingsIndex].season
+                        settings[settingsIndex]
                     ));
                     settingsIndex++;
                 }
@@ -111,16 +111,19 @@ namespace HistoricalCareer
 
             // TODO : I feel like this is double working when I already have a career season (might already be fixed)
             if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
-                transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].season);
+            {
+                PanelPatcher.SelectRally(panels[selectedIndex].settings);
+                transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].settings.season);
+            }
         }
 
         private class Panel
         {
             public Transform transform;
             public CanvasGroup group;
-            public Season season;
+            public RallySettings settings;
 
-            public Panel(Transform transform, float startSize, float startAlpha, Season season)
+            public Panel(Transform transform, float startSize, float startAlpha, RallySettings settings)
             {
                 this.transform = transform;
                 transform.localScale = Vector3.one * startSize;
@@ -133,7 +136,7 @@ namespace HistoricalCareer
 
                 CustomButtonSeason button = transform.GetComponent<CustomButtonSeason>();
                 button.enabled = false;
-                this.season = season;
+                this.settings = settings;
             }
 
             public void Update(float size, float alpha, float speed, bool immediate = false)

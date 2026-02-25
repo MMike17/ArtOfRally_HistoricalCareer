@@ -36,13 +36,9 @@ namespace HistoricalCareer
     // 	}
     // }
 
-    // TODO : This is doing some list matching bullshit (should I replace the whole thing ?)
-    //CareerManager.SetSeasonInProgress(Season TheSeason)
-
     [HarmonyPatch(typeof(PanelManager))]
     static class PanelPatcher
     {
-        //const string DIFFICULTY_PANEL = "CareerDifficultySettings";
         const string CAR_PANEL = "Choose Car";
         const string GROUP_PANEL_FORMAT = "Group";
         const string PILOT_NAME_TAG = "Year";
@@ -52,7 +48,8 @@ namespace HistoricalCareer
 
         public static string submitUIString { get; private set; }
         public static Player playerInput { get; private set; }
-        public static RallySettings currentRally { get; private set; }
+        //public static RallySettings currentRally { get; private set; }
+        private static RallySettings currentRally;
 
         private static CareerUI careerUI;
         private static CarClass currentGroup;
@@ -82,6 +79,7 @@ namespace HistoricalCareer
                 playerInput = ReInput.players.GetPlayer(playerID);
             }
 
+            // group selection panel
             if (panel.name.Contains(GROUP_PANEL_FORMAT))
             {
                 HorizontalLayoutGroup layout = panel.GetComponentInChildren<HorizontalLayoutGroup>();
@@ -124,22 +122,19 @@ namespace HistoricalCareer
                 carrousel.Reset(settings);
                 inCareer = true;
             }
-            else if (panel.name == CAR_PANEL && inCareer)
+            else if (panel.name == CAR_PANEL && inCareer) // car selection panel
             {
-                //Main.Log("Test");
+                if (careerUI == null)
+                    careerUI = Main.SpawnUI(panel.transform.parent);
 
-                //// TODO : UI doesn't show up at all
-                //if (careerUI == null)
-                //    careerUI = Main.SpawnUI(panel.transform.parent);
+                panel.Hide(); // TODO : Hiding car selection stuff
+                GameObject.Find("Dioramas").gameObject.SetActive(false);
 
-                //Main.Log(careerUI.transform.parent.name);
-
-                //panel.Hide();
-                //careerUI.Set(currentRally, rally =>
-                //{
-                //    RallyManager.AppyRallySettings(rally);
-                //    panel.GetComponent<CarChooserHelper>().BeginEvent();
-                //});
+                careerUI.Set(currentRally, rally =>
+                {
+                    RallyManager.AppyRallySettings(rally);
+                    panel.GetComponent<CarChooserHelper>().BeginEvent();
+                });
             }
         }
 
@@ -181,6 +176,8 @@ namespace HistoricalCareer
 
             button.SetActive(true);
         }
+
+        public static void SelectRally(RallySettings settings) => currentRally = settings;
     }
 
     [HarmonyPatch(typeof(CareerManager), nameof(CareerManager.SetSeasonInProgress))]
