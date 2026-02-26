@@ -54,10 +54,9 @@ namespace HistoricalCareer
                 pilotName,
                 pilotPicture,
                 pilotPictureYear,
+                carClass,
                 carIndex,
-                car,
                 liveryIndex,
-                RallySettings.GetCarLiveries(car.prefabName)[liveryIndex],
                 area,
                 rallyName,
                 stages,
@@ -87,12 +86,12 @@ namespace HistoricalCareer
             //return;
 
             // car
-            CarManager.SetChosenClass(settings.car.carClass);
+            CarManager.SetChosenClass(settings.carClass);
             CarManager.SetChosenCar(settings.carIndex);
             CarManager.SetChosenLivery(settings.livery);
             // TODO : Liveries are broken (maybe)
 
-            Main.Log("Applied car " + settings.car.name + " (" + settings.livery.Name + ")");
+            Main.Log("Applied rally settings");
         }
     }
 }

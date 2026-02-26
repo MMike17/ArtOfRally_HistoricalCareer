@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+using static Car;
+
 namespace HistoricalCareer
 {
     public class RallySettings
     {
+        public CarClass carClass;
         public int carIndex;
-        public Car car;
         public int liveryIndex;
         public Livery livery;
         public Season season;
@@ -16,8 +18,8 @@ namespace HistoricalCareer
         public string rallyName;
         public string loreText;
 
-        /// <param name="car">Use CarManager.GetCurrentCarsListForClass to get cars</param>
-        /// <param name="livery">Use RallySettings.GetCarLiveries (with car.prefabName) to get car liveries</param>
+        /// <param name="pilotPictureYear">The year the pilot picture was taken in</param>
+        /// <param name="carIndex">Index of the car in its era list (check CarManager.Init)</param>
         /// <param name="stagesIndeces">No double stages, stages go by pairs (0-1, 2-3, etc...)</param>
         /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
         public RallySettings(
@@ -25,10 +27,9 @@ namespace HistoricalCareer
             string pilotName,
             Sprite pilotPicture,
             int pilotPictureYear,
+            CarClass carClass,
             int carIndex,
-            Car car,
             int liveryIndex,
-            Livery livery,
             AreaManager.Areas area,
             string rallyName,
             int[] stagesIndeces,
@@ -39,12 +40,13 @@ namespace HistoricalCareer
             this.pilotName = pilotName;
             this.pilotPicture = pilotPicture;
             this.pilotPictureYear = pilotPictureYear;
+            this.carClass = carClass;
             this.carIndex = carIndex;
-            this.car = car;
             this.liveryIndex = liveryIndex;
-            this.livery = livery;
             this.rallyName = rallyName;
             this.loreText = loreText;
+
+            livery = GetCarLiveries(CarManager.GetCurrentCarsListForClass(carClass)[carIndex].prefabName)[liveryIndex];
 
             // check stages
             List<int> correctedStages = new List<int>();
@@ -78,9 +80,9 @@ namespace HistoricalCareer
             int restarts = 0; // TODO : What's the OG number of restarts for that season ? Do I need to change that ?
             Season.STATUS status = Season.STATUS.UNLOCKED; // TODO : Manage season state from the save system
 
-            this.season = new Season(
+            season = new Season(
                 year,
-                car.carClass,
+                carClass,
                 1, // TODO : Not sure if I need to be able to go above 1 rally
                 stagesIndeces.Length,
                 restarts,
@@ -104,8 +106,7 @@ namespace HistoricalCareer
             }
         }
 
-        // TODO : I'm not sure this thing is working correctly...
-        public static List<Livery> GetCarLiveries(string carName)
+        private static List<Livery> GetCarLiveries(string carName)
         {
             List<Livery> liveries = new List<Livery>();
 
