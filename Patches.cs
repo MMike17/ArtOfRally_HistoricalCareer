@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using FluffyUnderware.Curvy.Generator;
 using HarmonyLib;
 using Rewired;
 using Rewired.Integration.UnityUI;
@@ -49,12 +48,12 @@ namespace HistoricalCareer
 
         public static string submitUIString { get; private set; }
         public static Player playerInput { get; private set; }
-        //public static RallySettings currentRally { get; private set; }
+        public static bool inCareer { get; private set; }
+
         private static RallySettings currentRally;
 
         private static CareerUI careerUI;
         private static CarClass currentGroup;
-        private static bool inCareer;
 
         [HarmonyPatch(nameof(PanelManager.AddPanelAddToHistory), new[] { typeof(Panel) })]
         static void Postfix(Panel panel)
@@ -62,7 +61,7 @@ namespace HistoricalCareer
             if (!Main.enabled)
                 return;
 
-            Main.Log("Switch to panel " + panel.name);
+            //Main.Log("Switch to panel " + panel.name);
 
             if (string.IsNullOrEmpty(submitUIString))
             {
@@ -128,14 +127,25 @@ namespace HistoricalCareer
                 if (careerUI == null)
                     careerUI = Main.SpawnUI(panel.transform.parent);
 
-                panel.Hide();
-                GameObject.Find("Dioramas").SetActive(false);
                 // TODO : I'm not a fan of the background color :/
+                panel.Hide();
+                GameObject diorama = GameObject.Find("Dioramas");
+                diorama.SetActive(false);
+
+                PanelManager panelManager = GameObject.FindObjectOfType<PanelManager>();
+                Main.SetField(panelManager, "carChooserManager", BindingFlags.Instance, diorama.GetComponentInChildren<CarChooserManager>());
 
                 careerUI.Set(currentRally, rally =>
                 {
+                    // have to prepare before applying settings...yeah I know...
+                    CarChooserHelper helper = panel.GetComponent<CarChooserHelper>();
+                    helper.CarButton.index = currentRally.carIndex;
+                    helper.LiveryButton.index = currentRally.liveryIndex;
+
                     RallyManager.AppyRallySettings(rally);
                     panel.GetComponent<CarChooserHelper>().BeginEvent();
+
+                    // TODO : CarChooserHelper.BeginEvent calls LiveryButton.Save which might be causing the livery glitch
                 });
             }
         }
@@ -203,6 +213,16 @@ namespace HistoricalCareer
 
                 Main.SetField(__instance, "CurrentSeasonInProcess", BindingFlags.Instance, TheSeason);
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(CustomButtonCars), "SaveLiveryToCarManager")]
+    static class CustomButtonPatcher
+    {
+        static bool Prefix()
+        {
+            // we did that manually
+            return !PanelPatcher.inCareer;
         }
     }
 }

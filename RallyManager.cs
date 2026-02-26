@@ -21,7 +21,7 @@ namespace HistoricalCareer
             // How do I load data from local file ? (check real car names mod)
 
             // TEST
-            CreateRally(1966, "Stig", null, 1967, CarClass.GROUP_2, 0, 0, Areas.FINLAND, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later");
+            CreateRally(1966, "Stig", null, 1967, CarClass.GROUP_2, 1, 0, Areas.FINLAND, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later");
             // TEST
 
             Main.OnToggle += state =>
@@ -54,7 +54,9 @@ namespace HistoricalCareer
                 pilotName,
                 pilotPicture,
                 pilotPictureYear,
+                carIndex,
                 car,
+                liveryIndex,
                 RallySettings.GetCarLiveries(car.prefabName)[liveryIndex],
                 area,
                 rallyName,
@@ -80,41 +82,17 @@ namespace HistoricalCareer
         public static void AppyRallySettings(RallySettings settings)
         {
             // TEST
+            // this is a fix when the mod is supposed to be off
             //CarManager.SetChosenClass(CarClass.GROUP_S);
             //return;
 
             // car
             CarManager.SetChosenClass(settings.car.carClass);
-
-            List<Car> cars = CarManager.GetCurrentCarsListForClass(settings.car.carClass);
-            CarManager.SetChosenCar(cars.IndexOf(settings.car));
-            Main.Log("test car : " + (cars.IndexOf(settings.car) != -1));
-
-            List<Livery> liveries = RallySettings.GetCarLiveries(settings.car.prefabName);
+            CarManager.SetChosenCar(settings.carIndex);
             CarManager.SetChosenLivery(settings.livery);
-            // TODO : Liveries are broken (this is kinda random and doesn't happen every time)
+            // TODO : Liveries are broken (maybe)
 
-            // rally
-            RallyData currentRally = GameModeManager.GetRallyDataCurrentGameMode();
-            currentRally.SetArea((int)settings.season.Rallies[0].CurrentArea);
-
-            int stageCount = settings.season.Rallies[0].StageCount;
-            currentRally.SetStageCount(stageCount);
-
-            for (int i = 0; i < stageCount; i++)
-            {
-                Stage stage = settings.season.Rallies[0].StageList[i];
-                currentRally.SetStage(i, stage);
-                currentRally.SetWeatherForStage(i, stage.Weather);
-            }
-
-            // TODO : Re-do this log message
-            Main.Log(
-                "Applied rally settings for " + settings.car.carClass + " (" +
-                settings.car.name + ")\n(" +
-                settings.season.Rallies[0].CurrentArea + " " +
-                stageCount + ")"
-            );
+            Main.Log("Applied car " + settings.car.name + " (" + settings.livery.Name + ")");
         }
     }
 }

@@ -5,7 +5,9 @@ namespace HistoricalCareer
 {
     public class RallySettings
     {
+        public int carIndex;
         public Car car;
+        public int liveryIndex;
         public Livery livery;
         public Season season;
         public string pilotName;
@@ -23,7 +25,9 @@ namespace HistoricalCareer
             string pilotName,
             Sprite pilotPicture,
             int pilotPictureYear,
+            int carIndex,
             Car car,
+            int liveryIndex,
             Livery livery,
             AreaManager.Areas area,
             string rallyName,
@@ -35,7 +39,9 @@ namespace HistoricalCareer
             this.pilotName = pilotName;
             this.pilotPicture = pilotPicture;
             this.pilotPictureYear = pilotPictureYear;
+            this.carIndex = carIndex;
             this.car = car;
+            this.liveryIndex = liveryIndex;
             this.livery = livery;
             this.rallyName = rallyName;
             this.loreText = loreText;
