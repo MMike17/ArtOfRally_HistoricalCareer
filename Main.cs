@@ -137,6 +137,19 @@ namespace HistoricalCareer
             info.Invoke(source, args);
         }
 
+        public static U InvokeMethod<T, U>(T source, string methodName, BindingFlags flags, object[] args)
+        {
+            MethodInfo info = typeof(T).GetMethod(methodName, flags | BindingFlags.NonPublic);
+
+            if (info == null)
+            {
+                Error("Couldn't find method info for method \"" + methodName + "\" in type \"" + source.GetType() + "\"");
+                return default;
+            }
+
+            return (U)info.Invoke(source, args);
+        }
+
         public static void SetMarkers(bool state)
         {
             CleanMarkerList();
