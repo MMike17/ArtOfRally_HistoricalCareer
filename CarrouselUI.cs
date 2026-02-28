@@ -64,7 +64,7 @@ namespace HistoricalCareer
 
         private void Update()
         {
-            if (panelGroup.alpha <= 0)
+            if (panelGroup.alpha <= 0.1f)
                 return;
 
             // move carrousel
