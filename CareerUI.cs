@@ -24,8 +24,6 @@ namespace HistoricalCareer
         private Text contextText;
         private Action StartEvent;
 
-        // TODO : need space between driver name and date
-
         public void Set(RallySettings settings, Action<RallySettings> startEvent)
         {
             StartEvent = () => startEvent?.Invoke(settings);
@@ -83,7 +81,7 @@ namespace HistoricalCareer
             seasonDate.text = settings.season.Year.ToString();
             rallyName.text = settings.rallyName;
             environmentPolaroid.SetPicture(settings.locationPicture, PanelPatcher.FormatAreaString(settings.season.Rallies[0].CurrentArea));
-            pilotPolaroid.SetPicture(settings.pilotPicture, settings.pilotName + "(" + settings.pilotPictureYear + ")");
+            pilotPolaroid.SetPicture(settings.pilotPicture, settings.pilotName + " (" + settings.pilotPictureYear + ")");
             //carPicture.sprite = ; // TODO : How do I get the car picture ?
             contextText.text = settings.loreText;
 
