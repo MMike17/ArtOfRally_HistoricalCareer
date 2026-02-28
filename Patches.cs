@@ -127,13 +127,15 @@ namespace HistoricalCareer
                 if (careerUI == null)
                     careerUI = Main.SpawnUI(panel.transform.parent);
 
-                // TODO : I'm not a fan of the background color :/
                 panel.Hide();
                 GameObject diorama = GameObject.Find("Dioramas");
-                diorama.SetActive(false);
-
-                PanelManager panelManager = GameObject.FindObjectOfType<PanelManager>();
-                Main.SetField(panelManager, "carChooserManager", BindingFlags.Instance, diorama.GetComponentInChildren<CarChooserManager>());
+                diorama.transform.Find("CarChooserDiorama").gameObject.SetActive(false);
+                Main.SetField(
+                    GameObject.FindObjectOfType<PanelManager>(),
+                    "carChooserManager",
+                    BindingFlags.Instance,
+                    diorama.GetComponentInChildren<CarChooserManager>()
+                );
 
                 careerUI.Set(currentRally, rally =>
                 {
@@ -230,10 +232,13 @@ namespace HistoricalCareer
     [HarmonyPatch(typeof(CustomButtonCars), "SaveLiveryToCarManager")]
     static class CustomButtonPatcher
     {
-        static bool Prefix()
-        {
-            // we did that manually
-            return !PanelPatcher.inCareer;
-        }
+        // we did that manually
+        static bool Prefix() => !PanelPatcher.inCareer;
+    }
+
+    [HarmonyPatch(typeof(CarChooserManager), nameof(CarChooserManager.InitForClassChooser))]
+    static class ChooserPatcher
+    {
+        static bool Prefix() => !PanelPatcher.inCareer;
     }
 }
