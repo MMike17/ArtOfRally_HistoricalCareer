@@ -24,7 +24,6 @@ namespace HistoricalCareer
         private Text contextText;
         private Action StartEvent;
 
-        // TODO : area needs to change letter capitalization
         // TODO : need space between driver name and date
 
         public void Set(RallySettings settings, Action<RallySettings> startEvent)
@@ -83,7 +82,7 @@ namespace HistoricalCareer
 
             seasonDate.text = settings.season.Year.ToString();
             rallyName.text = settings.rallyName;
-            environmentPolaroid.SetPicture(settings.locationPicture, settings.season.Rallies[0].CurrentArea.ToString());
+            environmentPolaroid.SetPicture(settings.locationPicture, PanelPatcher.FormatAreaString(settings.season.Rallies[0].CurrentArea));
             pilotPolaroid.SetPicture(settings.pilotPicture, settings.pilotName + "(" + settings.pilotPictureYear + ")");
             //carPicture.sprite = ; // TODO : How do I get the car picture ?
             contextText.text = settings.loreText;
