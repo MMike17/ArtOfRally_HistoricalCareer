@@ -21,6 +21,7 @@ namespace HistoricalCareer
         private string horizontalUIString;
         private float delay;
         private int selectedIndex;
+        private bool immediateUpdate;
 
         // TODO : Have to manage locked season status (linked to save system)
 
@@ -57,19 +58,13 @@ namespace HistoricalCareer
                     settingsIndex++;
                 }
             }
-
-            // move carrousel
-            Transform selected = panels[selectedIndex].transform;
-            float offset = transform.position.x - selected.position.x;
-
-            Vector3 target = transform.position;
-            target.x = Screen.width / 2 + offset;
-            transform.position = target;
         }
+
+        private void OnDisabled() => immediateUpdate = true;
 
         private void Update()
         {
-            if (panelGroup.alpha < 1)
+            if (panelGroup.alpha <= 0)
                 return;
 
             // move carrousel
@@ -78,7 +73,12 @@ namespace HistoricalCareer
 
             Vector3 target = transform.position;
             target.x = Screen.width / 2 + offset;
-            transform.position = Vector3.MoveTowards(transform.position, target, MOVE_RATIO * Main.settings.carrouselAnimSpeed * Time.deltaTime);
+
+            transform.position = immediateUpdate ? target : Vector3.MoveTowards(
+                transform.position,
+                target,
+                MOVE_RATIO * Main.settings.carrouselAnimSpeed * Time.deltaTime
+            );
 
             // animate panels
             int under = selectedIndex - 1;
@@ -89,9 +89,13 @@ namespace HistoricalCareer
                 panels[i].Update(
                     i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_SIZE : NON_SELECTED_SIZE,
                     i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_ALPHA : NON_SELECTED_ALPHA,
-                    (i == selectedIndex ? Main.settings.carrouselAnimSpeed * 1.5f : Main.settings.carrouselAnimSpeed) * Time.deltaTime
+                    (i == selectedIndex ? Main.settings.carrouselAnimSpeed * 1.5f : Main.settings.carrouselAnimSpeed) * Time.deltaTime,
+                    immediateUpdate
                 );
             }
+
+            if (immediateUpdate)
+                immediateUpdate = false;
 
             // input
             if (delay > 0)
@@ -139,7 +143,7 @@ namespace HistoricalCareer
                 this.settings = settings;
             }
 
-            public void Update(float size, float alpha, float speed, bool immediate = false)
+            public void Update(float size, float alpha, float speed, bool immediate)
             {
                 transform.localScale = immediate ? Vector3.one * size : Vector3.MoveTowards(transform.localScale, Vector3.one * size, speed);
                 group.alpha = immediate ? alpha : Mathf.MoveTowards(group.alpha, alpha, speed);
