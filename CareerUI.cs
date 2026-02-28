@@ -18,6 +18,9 @@ namespace HistoricalCareer
         // off color = #FFFFFFFF
         // on color = #D3D3D3FF
 
+        // TODO : area needs to change letter capitalization
+        // TODO : need space between driver name and date
+
         public void Set(RallySettings settings, Action<RallySettings> startEvent)
         {
             StartEvent = () => startEvent?.Invoke(settings);
@@ -38,7 +41,7 @@ namespace HistoricalCareer
 
             seasonDate.text = settings.season.Year.ToString();
             rallyName.text = settings.rallyName;
-            environmentPolaroid.SetPicture(null, settings.season.Rallies[0].CurrentArea.ToString()); // TODO : How do I source the country pictures ?
+            environmentPolaroid.SetPicture(settings.locationPicture, settings.season.Rallies[0].CurrentArea.ToString());
             pilotPolaroid.SetPicture(settings.pilotPicture, settings.pilotName + "(" + settings.pilotPictureYear + ")");
             //carPicture.sprite = ; // TODO : How do I get the car picture ?
             contextText.text = settings.loreText;
@@ -48,6 +51,7 @@ namespace HistoricalCareer
 
         private void Update()
         {
+            // TODO : Hide panel when we go back
             if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
             {
                 StartEvent?.Invoke();

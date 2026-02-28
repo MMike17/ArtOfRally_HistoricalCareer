@@ -8,7 +8,7 @@ using static ConditionTypes;
 namespace HistoricalCareer
 {
     // TODO : Add access to car sprites
-    // TODO : How do I access location pictures ?
+    // load in some class and give static public access
     public class RallyManager
     {
         private static Dictionary<CarClass, List<RallySettings>> rallySettings;
@@ -18,10 +18,11 @@ namespace HistoricalCareer
             // TODO : Generate custom rallies here (load rally data and pictures from file)
             rallySettings = new Dictionary<CarClass, List<RallySettings>>();
 
+            // TODO : Should I load all rally data from external data or code everything here ?
             // How do I load data from local file ? (check real car names mod)
 
             // TEST
-            CreateRally(1966, "Stig", null, 1967, CarClass.GROUP_2, 1, 0, Areas.FINLAND, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later");
+            CreateRally(1966, "Stig", null, 1967, CarClass.GROUP_2, 1, 0, Areas.FINLAND, 1, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later");
             // TEST
 
             Main.OnToggle += state =>
@@ -39,6 +40,7 @@ namespace HistoricalCareer
             int carIndex,
             int liveryIndex,
             Areas area,
+            int locationPictureIndex,
             string rallyName,
             int[] stages,
             Weather[] weathers,
@@ -58,6 +60,7 @@ namespace HistoricalCareer
                 carIndex,
                 liveryIndex,
                 area,
+                locationPictureIndex,
                 rallyName,
                 stages,
                 weathers,

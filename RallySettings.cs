@@ -7,19 +7,22 @@ namespace HistoricalCareer
 {
     public class RallySettings
     {
+        public string pilotName;
+        public Sprite pilotPicture;
+        public int pilotPictureYear;
         public CarClass carClass;
         public int carIndex;
         public int liveryIndex;
         public Livery livery;
-        public Season season;
-        public string pilotName;
-        public Sprite pilotPicture;
-        public int pilotPictureYear;
+        public Sprite locationPicture;
+        public int locationPictureIndex;
         public string rallyName;
+        public Season season;
         public string loreText;
 
         /// <param name="pilotPictureYear">The year the pilot picture was taken in</param>
         /// <param name="carIndex">Index of the car in its era list (check CarManager.Init)</param>
+        /// <param name="locationPictureIndex">Index of the stage in its area, stages go by pairs (0-1, 2-3, etc...)</param>
         /// <param name="stagesIndeces">No double stages, stages go by pairs (0-1, 2-3, etc...)</param>
         /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
         public RallySettings(
@@ -31,6 +34,7 @@ namespace HistoricalCareer
             int carIndex,
             int liveryIndex,
             AreaManager.Areas area,
+            int locationPictureIndex,
             string rallyName,
             int[] stagesIndeces,
             ConditionTypes.Weather[] weathers,
@@ -47,6 +51,10 @@ namespace HistoricalCareer
             this.loreText = loreText;
 
             livery = GetCarLiveries(CarManager.GetCurrentCarsListForClass(carClass)[carIndex].prefabName)[liveryIndex];
+
+            string stagePrefix = AreaManager.AreaDictionary[area].stageList[locationPictureIndex].LeaderboardStagePrefixString;
+            string locationPicturePath = "Sprites/TrackBackgrounds/" + area.ToString().ToLower() + "_" + stagePrefix[stagePrefix.Length - 1];
+            locationPicture = Resources.Load<Sprite>(locationPicturePath);
 
             // check stages
             List<int> correctedStages = new List<int>();
