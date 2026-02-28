@@ -75,6 +75,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GameLibPath)\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\artofrally\artofrally_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GameLibPath)\UnityEngine.IMGUIModule.dll</HintPath>
@@ -105,6 +109,13 @@
     <Compile Include="RallyManager.cs" />
     <Compile Include="RallySettings.cs" />
     <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Pictures\Cars\Car_Mini.png" />
+    <EmbeddedResource Include="Data\Pictures\Pilots\Hannu Mikkola 1966.jpg" />
+    <EmbeddedResource Include="Data\Pictures\Pilots\Jean-François Piot 1967.jpg" />
+    <EmbeddedResource Include="Data\Pictures\Pilots\Pauli Toivonen 1969.jpg" />
+    <EmbeddedResource Include="Data\Pictures\Pilots\Timo Mäkinen 1966.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PrepareBuild" AfterTargets="BeforeBuild">

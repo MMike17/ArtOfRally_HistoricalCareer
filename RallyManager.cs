@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using UnityEngine;
 
 using static AreaManager;
@@ -7,23 +9,64 @@ using static ConditionTypes;
 
 namespace HistoricalCareer
 {
-    // TODO : Add access to car sprites
-    // load in some class and give static public access
     public class RallyManager
     {
-        private static Dictionary<CarClass, List<RallySettings>> rallySettings;
+        const string CAR_SPRITES_PATH = ".Data.Pictures.Cars.";
 
-        public RallyManager()
+        private static Dictionary<CarClass, List<RallySettings>> rallySettings;
+        private static List<Sprite> carSprites;
+
+        public RallyManager(string modFolderName)
         {
+            // TODO : Should I load all rally data from external data or code everything here ?
             // TODO : Generate custom rallies here (load rally data and pictures from file)
             rallySettings = new Dictionary<CarClass, List<RallySettings>>();
 
-            // TODO : Should I load all rally data from external data or code everything here ?
             // How do I load data from local file ? (check real car names mod)
 
             // TEST
             CreateRally(1966, "Stig", null, 1967, CarClass.GROUP_2, 1, 0, Areas.FINLAND, 1, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later");
             // TEST
+
+            // load resources
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string[] resourcesPaths = assembly.GetManifestResourceNames();
+
+            // load car sprites
+            carSprites = new List<Sprite>();
+            string rootFolder = modFolderName + CAR_SPRITES_PATH;
+            int carsCount = 0;
+
+            foreach (string path in resourcesPaths)
+            {
+                // skip non car paths
+                if (!path.Contains(CAR_SPRITES_PATH))
+                    continue;
+
+                carsCount++;
+
+                using (Stream stream = assembly.GetManifestResourceStream(path))
+                {
+                    byte[] data;
+
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        stream.CopyTo(memoryStream);
+                        data = memoryStream.ToArray();
+                    }
+
+                    Texture2D texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+                    texture.LoadImage(data);
+
+                    Main.Log(texture.width + " / " + texture.height);
+
+                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one / 2, 100);
+                    sprite.name = Path.GetFileNameWithoutExtension(path.Replace(rootFolder, ""));
+                    carSprites.Add(sprite);
+                }
+            }
+
+            Main.Log("Loaded " + carsCount + " cars sprites");
 
             Main.OnToggle += state =>
             {
@@ -95,6 +138,17 @@ namespace HistoricalCareer
             // TODO : Liveries are broken (maybe)
 
             Main.Log("Applied rally settings");
+        }
+
+        public static Sprite GetCarSprite(CarClass carClass, int carIndex)
+        {
+            string carName = CarManager.GetCurrentCarsListForClass(carClass)[carIndex].prefabName;
+            Sprite result = carSprites.Find(item => item.name == carName);
+
+            if (result == null)
+                Main.Error("Couldn't find sprite for car \"" + carName + "\"");
+
+            return result;
         }
     }
 }

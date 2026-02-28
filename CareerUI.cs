@@ -69,7 +69,7 @@ namespace HistoricalCareer
                 Transform displayHolder = transform.GetChild(1);
                 environmentPolaroid = displayHolder.GetChild(0).gameObject.AddComponent<Polaroid>();
                 pilotPolaroid = displayHolder.GetChild(1).gameObject.AddComponent<Polaroid>();
-                carPicture = displayHolder.GetChild(2).GetComponent<Image>();
+                carPicture = displayHolder.GetChild(2).GetChild(0).GetComponent<Image>();
 
                 contextText = transform.GetChild(2).GetComponent<Text>();
                 contextText.resizeTextForBestFit = false;
@@ -82,7 +82,7 @@ namespace HistoricalCareer
             rallyName.text = settings.rallyName;
             environmentPolaroid.SetPicture(settings.locationPicture, PanelPatcher.FormatAreaString(settings.season.Rallies[0].CurrentArea));
             pilotPolaroid.SetPicture(settings.pilotPicture, settings.pilotName + " (" + settings.pilotPictureYear + ")");
-            //carPicture.sprite = ; // TODO : How do I get the car picture ?
+            carPicture.sprite = RallyManager.GetCarSprite(settings.carClass, settings.carIndex); // TODO : How do I get the car picture ?
             contextText.text = settings.loreText;
 
             gameObject.SetActive(true);

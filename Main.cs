@@ -59,7 +59,7 @@ namespace HistoricalCareer
                     Log("Loaded bundle \"" + BUNDLE_NAME + "\"");
             });
 
-            new RallyManager();
+            new RallyManager(new DirectoryInfo(modEntry.Path).Name);
 
             markers = new List<GameObject>();
             return true;
