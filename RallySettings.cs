@@ -19,6 +19,7 @@ namespace HistoricalCareer
         public string rallyName;
         public Season season;
         public string loreText;
+        public bool needsDLC;
 
         /// <param name="pilotPictureYear">The year the pilot picture was taken in</param>
         /// <param name="carIndex">Index of the car in its era list (check CarManager.Init)</param>
@@ -91,7 +92,7 @@ namespace HistoricalCareer
             season = new Season(
                 year,
                 carClass,
-                1, // TODO : Not sure if I need to be able to go above 1 rally
+                1,
                 stagesIndeces.Length,
                 restarts,
                 "UNLOCKABLE_" + year + "_BONUS",
@@ -111,6 +112,31 @@ namespace HistoricalCareer
                 Stage stage = AreaManager.GetStageByIndex(ref index, area);
                 season.Rallies[0].SetStage(i, stage);
                 season.Rallies[0].SetWeatherForStage(i, weathers[i]);
+            }
+
+            // checks for DLC use
+            needsDLC = area == AreaManager.Areas.AUSTRALIA;
+
+            if (!needsDLC)
+            {
+                switch (carClass)
+                {
+                    case CarClass.GROUP_2:
+                        needsDLC = carIndex == 7;
+                        break;
+
+                    case CarClass.GROUP_4:
+                        needsDLC = carIndex == 10;
+                        break;
+
+                    case CarClass.GROUP_B:
+                        needsDLC = carIndex == 16;
+                        break;
+
+                    case CarClass.GROUP_A:
+                        needsDLC = carIndex == 5;
+                        break;
+                }
             }
         }
 

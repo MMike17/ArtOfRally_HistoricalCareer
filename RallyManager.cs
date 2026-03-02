@@ -197,7 +197,11 @@ namespace HistoricalCareer
                 return null;
             }
 
-            return rallySettings[group];
+            // check for DLC
+            if (Platform.Get().IsDLCInstalled(Platform.DLCName.Australia))
+                return rallySettings[group];
+            else
+                return rallySettings[group].FindAll(item => !item.needsDLC);
         }
 
         public static void AppyRallySettings(RallySettings settings)
