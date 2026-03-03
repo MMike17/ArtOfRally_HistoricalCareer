@@ -22,12 +22,6 @@ namespace HistoricalCareer
         public Season season;
         public bool needsDLC;
 
-        /// <param name="pilotPictureYear">The year the pilot picture was taken in</param>
-        /// <param name="carIndex">Index of the car in its era list (check CarManager.Init)</param>
-        /// <param name="locationPictureIndex">Index of the stage in its area, stages go by pairs (0-1, 2-3, etc...)</param>
-        /// <param name="stagesIndeces">No double stages, stages go by pairs (0-1, 2-3, etc...)</param>
-        /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
-
         public RallySettings(
             CarClass carClass,
             int year,

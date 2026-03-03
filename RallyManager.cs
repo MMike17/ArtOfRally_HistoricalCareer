@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 using static AreaManager;
@@ -137,6 +136,46 @@ namespace HistoricalCareer
             string loreText
         )
         {
+            AddCustomRally(
+                carClass,
+                year,
+                area,
+                rallyName,
+                pilotName,
+                LoadPilotPicture(assembly, rootPath, carClass, year, area),
+                pilotPictureYear,
+                carIndex,
+                liveryIndex,
+                locationPictureIndex,
+                stagesIndeces,
+                weathers,
+                loreText
+            );
+        }
+
+        /// <summary>This method is used to add custom rallies to the mod</summary>
+        /// <param name="pilotPicture">Square sprite of the pilot's picture (if it's not square it might have weird stretching)</param>
+        /// <param name="pilotPictureYear">The year the pilot picture was taken in</param>
+        /// <param name="carIndex">Index of the car in its era list (check CarManager.Init)</param>
+        /// <param name="locationPictureIndex">Index of the stage in its area, stages go by pairs (0-1, 2-3, etc / check the "custom rally" menu in game)</param>
+        /// <param name="stagesIndeces">No double stages, stages go by pairs (0-1, 2-3, etc...)</param>
+        /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
+        public static void AddCustomRally(
+            CarClass carClass,
+            int year,
+            Areas area,
+            string rallyName,
+            string pilotName,
+            Sprite pilotPicture,
+            int pilotPictureYear,
+            int carIndex,
+            int liveryIndex,
+            int locationPictureIndex,
+            int[] stagesIndeces,
+            Weather[] weathers,
+            string loreText
+        )
+        {
             if (!rallySettings.ContainsKey(carClass))
                 rallySettings.Add(carClass, new List<RallySettings>());
 
@@ -187,7 +226,7 @@ namespace HistoricalCareer
                 area,
                 rallyName,
                 pilotName,
-                LoadPilotPicture(assembly, rootPath, carClass, year, area),
+                pilotPicture,
                 pilotPictureYear,
                 carIndex,
                 liveryIndex,
@@ -198,17 +237,12 @@ namespace HistoricalCareer
             ));
         }
 
-        // TODO : Make variation for public API (+ documented / transfer from RallySettings constructor)
-        public static void AddCustomRally()
-        {
-            //
-        }
-
+        /// <summary>This method is used to get custom rallies for a given Car.CarClass</summary>
         public static List<RallySettings> GetSettingsForClass(CarClass group)
         {
             if (!rallySettings.ContainsKey(group))
             {
-                Main.Error("Couldn't find settings for group " + group + " (this will crash the mod).");
+                Main.Error("Couldn't find settings for group " + group + " (this will crash the mod)");
                 return null;
             }
 
@@ -217,6 +251,18 @@ namespace HistoricalCareer
                 return rallySettings[group];
             else
                 return rallySettings[group].FindAll(item => !item.needsDLC);
+        }
+
+        /// <summary>This method is used to remove all custom rallies for a given Car.CarClass</summary>
+        public static void ClearSettingsForClass(CarClass group)
+        {
+            if (!rallySettings.ContainsKey(group))
+            {
+                Main.Error("Couldn't find settings for group " + group);
+                return;
+            }
+
+            rallySettings[group].Clear();
         }
 
         public static void AppyRallySettings(RallySettings settings)
