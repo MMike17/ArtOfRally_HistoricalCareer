@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
@@ -12,7 +11,6 @@ namespace HistoricalCareer
 {
     public class RallyManager
     {
-        const string RALLIES_PATH = ".Data.Rallies.csv";
         const string PILOT_PATH = ".Data.Pictures.Pilots.";
         const string CAR_SPRITES_PATH = ".Data.Pictures.Cars.";
 
@@ -21,27 +19,34 @@ namespace HistoricalCareer
 
         public RallyManager(string modFolderName)
         {
-            // TEST
-            //rallySettings = new Dictionary<CarClass, List<RallySettings>>();
-            //rallySettings.Add(CarClass.GROUP_2, new List<RallySettings>());
-            //rallySettings[CarClass.GROUP_2].Add(new RallySettings(1966, "Stig", null, 1967, CarClass.GROUP_2, 1, 0, Areas.FINLAND, 1, "1000 tests rally", new[] { 0, 2 }, new[] { Weather.Morning, Weather.Afternoon }, "This is test lore for later"));
-            // TEST
+            // creation of rallies
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            rallySettings = new Dictionary<CarClass, List<RallySettings>>();
+
+            // Group 2
+            AddCustomRally(
+                CarClass.GROUP_2, 1966, Areas.FINLAND, "1000 tests rally", "Stig",
+                assembly, modFolderName + PILOT_PATH, 1966, 1, 0, 1,
+                new int[] { 0, 2 }, new Weather[] { Weather.Morning, Weather.Afternoon },
+                "This is test lore for later"
+            );
+
+            // checks
+            int count = 0;
+
+            foreach (KeyValuePair<CarClass, List<RallySettings>> pair in rallySettings)
+                count += pair.Value.Count;
+
+            Main.Log("Loaded " + count + " rallies");
 
             // load resources
-            rallySettings = new Dictionary<CarClass, List<RallySettings>>();
             carSprites = new List<Sprite>();
-            Assembly assembly = Assembly.GetExecutingAssembly();
             string[] resourcesPaths = assembly.GetManifestResourceNames();
-            string ralliesFilePath = modFolderName + RALLIES_PATH;
             string carsRootPath = modFolderName + CAR_SPRITES_PATH;
             int carsCount = 0;
 
             foreach (string path in resourcesPaths)
             {
-                // load rallies data
-                if (path == ralliesFilePath)
-                    ParseRallies(modFolderName, ralliesFilePath, assembly);
-
                 // load car sprites
                 if (!path.Contains(CAR_SPRITES_PATH)) // skip non car paths
                     continue;
@@ -58,84 +63,14 @@ namespace HistoricalCareer
             };
         }
 
-        private void ParseRallies(string roonFolderName, string path, Assembly assembly)
-        {
-            int ralliesCount = 0;
-
-            // how can I parse this mess ?
-            using (Stream stream = assembly.GetManifestResourceStream(path))
-            {
-                if (stream == null)
-                {
-                    Main.Error("Couldn't read local file at path : " + path + ". Make sure the files have been included in the build.");
-                    return;
-                }
-
-                bool isFirstLine = true;
-
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        if (!isFirstLine)
-                        {
-                            Main.Try("ParsingRally", () =>
-                            {
-                                string[] cells = reader.ReadLine().Split(';');
-                                CarClass carClass = (CarClass)Enum.Parse(typeof(CarClass), cells[3].Replace(" ", "_").ToUpper());
-
-                                if (!rallySettings.ContainsKey(carClass))
-                                    rallySettings.Add(carClass, new List<RallySettings>());
-
-                                // stages
-                                string[] stagesStrings = cells[9].Split(new[] { ", " }, StringSplitOptions.None);
-                                int[] stages = new int[stagesStrings.Length];
-
-                                for (int i = 0; i < stages.Length; i++)
-                                    stages[i] = int.Parse(stagesStrings[i]);
-
-                                // weather
-                                string[] weatherStrings = cells[10].Split(new[] { ", " }, StringSplitOptions.None);
-                                Weather[] weathers = new Weather[weatherStrings.Length];
-
-                                for (int i = 0; i < weathers.Length; i++)
-                                    weathers[i] = (Weather)Enum.Parse(typeof(Weather), weatherStrings[i]);
-
-                                rallySettings[carClass].Add(new RallySettings(
-                                    int.Parse(cells[0]),
-                                    cells[1],
-                                    LoadPilotSprite(assembly, roonFolderName, PILOT_PATH + cells[1] + " " + cells[2] + ".jpg"),
-                                    int.Parse(cells[2]),
-                                    carClass,
-                                    int.Parse(cells[4]),
-                                    int.Parse(cells[5]),
-                                    (Areas)Enum.Parse(typeof(Areas), cells[6].ToUpper()),
-                                    int.Parse(cells[7]),
-                                    cells[8],
-                                    stages,
-                                    weathers,
-                                    cells[11]
-                                ));
-
-                                ralliesCount++;
-                            });
-                        }
-                        else // skip labels
-                        {
-                            isFirstLine = false;
-                            reader.ReadLine();
-                        }
-                    }
-                }
-            }
-
-            Main.Log("Loaded " + ralliesCount + " rallies from file");
-        }
-
-        private Sprite LoadPilotSprite(Assembly assembly, string rootPath, string path)
+        private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, Areas area)
         {
             // TODO : This doesn't seem to work
-            path = rootPath + path;
+            // change how I name files ?
+            // what's distinct ?
+            // group_year_area
+
+            string path = rootPath + carClass + "_" + year + "_" + area;
 
             using (Stream stream = assembly.GetManifestResourceStream(path))
             {
@@ -187,6 +122,90 @@ namespace HistoricalCareer
                 sprite.name = Path.GetFileNameWithoutExtension(path.Replace(carsRootPath, ""));
                 carSprites.Add(sprite);
             }
+        }
+
+        private static void AddCustomRally(
+            CarClass carClass,
+            int year,
+            Areas area,
+            string rallyName,
+            string pilotName,
+            Assembly assembly,
+            string rootPath,
+            int pilotPictureYear,
+            int carIndex,
+            int liveryIndex,
+            int locationPictureIndex,
+            int[] stagesIndeces,
+            Weather[] weathers,
+            string loreText
+        )
+        {
+            if (!rallySettings.ContainsKey(carClass))
+                rallySettings.Add(carClass, new List<RallySettings>());
+
+            // check stages
+            List<int> indexCount = new List<int>();
+            string error = string.Empty;
+
+            foreach (int index in stagesIndeces)
+            {
+                int adjustedIndex = (index - index % 2 / 2);
+
+                if (indexCount.Contains(adjustedIndex))
+                    error += index + ", ";
+                else
+                    indexCount.Add(adjustedIndex);
+            }
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                Main.Error(
+                    "Indeces " + error.TrimEnd(' ', ',') +
+                    " have been found twice in the list, the rally " +
+                    rallyName + " (" + area + " " + carClass + " " + year + ")"
+                );
+                return;
+            }
+
+            // check weathers
+            List<Weather> authorizedWeathers = AreaManager.AreaDictionary[area].weatherList;
+            error = string.Empty;
+
+            foreach (Weather weather in weathers)
+            {
+                if (!authorizedWeathers.Contains(weather))
+                    error += weather + ", ";
+            }
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                Main.Error("Weathers " + error.TrimEnd(' ', ',') + " are invalid for the area " + area);
+                return;
+            }
+
+            // create rally
+            rallySettings[carClass].Add(new RallySettings(
+                carClass,
+                year,
+                area,
+                rallyName,
+                pilotName,
+                LoadPilotPicture(assembly, rootPath, carClass, year, area),
+                pilotPictureYear,
+                carIndex,
+                liveryIndex,
+                locationPictureIndex,
+                stagesIndeces,
+                weathers,
+                loreText
+            ));
+        }
+
+        // TODO : Make variation for public API (+ documented / transfer from RallySettings constructor)
+        public static void AddCustomRally()
+        {
+            //
         }
 
         public static List<RallySettings> GetSettingsForClass(CarClass group)

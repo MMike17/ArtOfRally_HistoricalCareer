@@ -121,9 +121,6 @@
     <EmbeddedResource Include="Data\Pictures\Pilots\Pauli Toivonen 1969.jpg" />
     <EmbeddedResource Include="Data\Pictures\Pilots\Timo Mäkinen 1966.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\Rallies.csv" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PrepareBuild" AfterTargets="BeforeBuild">
     <CallTarget Targets="CleanFolder" />

@@ -7,18 +7,19 @@ namespace HistoricalCareer
 {
     public class RallySettings
     {
+        public CarClass carClass;
+        public string rallyName;
         public string pilotName;
         public Sprite pilotPicture;
         public int pilotPictureYear;
-        public CarClass carClass;
         public int carIndex;
         public int liveryIndex;
+        public int locationPictureIndex;
+        public string loreText;
+
         public Livery livery;
         public Sprite locationPicture;
-        public int locationPictureIndex;
-        public string rallyName;
         public Season season;
-        public string loreText;
         public bool needsDLC;
 
         /// <param name="pilotPictureYear">The year the pilot picture was taken in</param>
@@ -26,29 +27,30 @@ namespace HistoricalCareer
         /// <param name="locationPictureIndex">Index of the stage in its area, stages go by pairs (0-1, 2-3, etc...)</param>
         /// <param name="stagesIndeces">No double stages, stages go by pairs (0-1, 2-3, etc...)</param>
         /// <param name="weathers">Use AreaManager.GetWeatherForCurrentArea to get valid weathers</param>
+
         public RallySettings(
+            CarClass carClass,
             int year,
+            AreaManager.Areas area,
+            string rallyName,
             string pilotName,
             Sprite pilotPicture,
             int pilotPictureYear,
-            CarClass carClass,
             int carIndex,
             int liveryIndex,
-            AreaManager.Areas area,
             int locationPictureIndex,
-            string rallyName,
             int[] stagesIndeces,
             ConditionTypes.Weather[] weathers,
             string loreText
         )
         {
+            this.carClass = carClass;
+            this.rallyName = rallyName;
             this.pilotName = pilotName;
             this.pilotPicture = pilotPicture;
             this.pilotPictureYear = pilotPictureYear;
-            this.carClass = carClass;
             this.carIndex = carIndex;
             this.liveryIndex = liveryIndex;
-            this.rallyName = rallyName;
             this.loreText = loreText;
 
             livery = GetCarLiveries(CarManager.GetCurrentCarsListForClass(carClass)[carIndex].prefabName)[liveryIndex];
