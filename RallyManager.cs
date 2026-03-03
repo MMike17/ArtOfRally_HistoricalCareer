@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 using static AreaManager;
@@ -65,12 +66,7 @@ namespace HistoricalCareer
 
         private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, Areas area)
         {
-            // TODO : This doesn't seem to work
-            // change how I name files ?
-            // what's distinct ?
-            // group_year_area
-
-            string path = rootPath + carClass + "_" + year + "_" + area;
+            string path = rootPath + carClass + "_" + year + "_" + area + ".jpg";
 
             using (Stream stream = assembly.GetManifestResourceStream(path))
             {
