@@ -27,6 +27,7 @@ namespace HistoricalCareer
 
                 caption = transform.GetComponentInChildren<Text>();
                 caption.resizeTextForBestFit = false;
+                caption.font = PanelPatcher.bodyFont;
 
                 // I don't really know why I'm doing this since it doesn't really work...
                 StyleText captionStyle = caption.gameObject.AddComponent<StyleText>();

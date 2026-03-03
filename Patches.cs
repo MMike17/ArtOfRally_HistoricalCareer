@@ -39,6 +39,7 @@ namespace HistoricalCareer
     [HarmonyPatch(typeof(PanelManager))]
     static class PanelPatcher
     {
+        const string MAIN_PANEL = "Race";
         const string CAR_PANEL = "Choose Car";
         const string GROUP_PANEL_FORMAT = "Group";
         const string PILOT_NAME_TAG = "Year";
@@ -46,8 +47,10 @@ namespace HistoricalCareer
         const string LOCATION_YEAR_TAG = "AiSkill";
         const string RALLY_TAG = "SeasonInfo";
 
-        public static string submitUIString { get; private set; }
         public static Player playerInput { get; private set; }
+        public static Font titleFont { get; private set; }
+        public static Font bodyFont { get; private set; }
+        public static string submitUIString { get; private set; }
         public static bool inCareer { get; private set; }
 
         private static RallySettings currentRally;
@@ -79,8 +82,13 @@ namespace HistoricalCareer
                 playerInput = ReInput.players.GetPlayer(playerID);
             }
 
-            // group selection panel
-            if (panel.name.Contains(GROUP_PANEL_FORMAT))
+            // main panel
+            if (panel.name == MAIN_PANEL)
+            {
+                titleFont = panel.transform.GetChild(0).GetChild(0).GetComponentInChildren<Text>().font;
+                bodyFont = panel.GetComponentInChildren<VersionText>().GetComponent<Text>().font;
+            }
+            else if (panel.name.Contains(GROUP_PANEL_FORMAT)) // group selection panel
             {
                 HorizontalLayoutGroup layout = panel.GetComponentInChildren<HorizontalLayoutGroup>();
                 ContentSizeFitter fitter = layout.GetComponent<ContentSizeFitter>();
@@ -222,7 +230,7 @@ namespace HistoricalCareer
 
                 TheSeason.ResetStageInfo();
                 TheSeason.ResetRoadSurface();
-                TheSeason.RemoveDLCCar(); // TODO : Will have to check if seasons are using DLC and if the player has the DLC
+                TheSeason.RemoveDLCCar();
 
                 Main.SetField(__instance, "CurrentSeasonInProcess", BindingFlags.Instance, TheSeason);
             }

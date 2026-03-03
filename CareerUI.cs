@@ -35,6 +35,7 @@ namespace HistoricalCareer
 
                 seasonDate = titleHolder.GetChild(0).GetComponent<Text>();
                 seasonDate.resizeTextForBestFit = true;
+                seasonDate.font = PanelPatcher.titleFont;
                 StyleText seasonStyle = seasonDate.gameObject.AddComponent<StyleText>();
                 Main.SetField(seasonStyle, STYLE_PROP_NAME, BindingFlags.Instance, TextType.StageTitle);
                 Main.SetField(seasonStyle, COLOR_PROP_NAME, BindingFlags.Instance, DarkType.Custom);
@@ -50,18 +51,16 @@ namespace HistoricalCareer
                     BindingFlags.Instance,
                     ColorsConstants.HueColourValue(ColorsConstants.HueColorNames.Selected_Color)
                 );
-                Main.Try("test", () =>
-                {
-                    seasonDate.color = Main.InvokeMethod<StyleText, Color>(
-                        seasonStyle,
-                        "GetCustomColour",
-                        BindingFlags.Instance,
-                        new object[] { StyleManager.Instance().DarkMode }
-                    );
-                });
+                seasonDate.color = Main.InvokeMethod<StyleText, Color>(
+                    seasonStyle,
+                    "GetCustomColour",
+                    BindingFlags.Instance,
+                    new object[] { StyleManager.Instance().DarkMode }
+                );
 
                 rallyName = titleHolder.GetChild(1).GetComponent<Text>();
                 rallyName.resizeTextForBestFit = false;
+                rallyName.font = PanelPatcher.titleFont;
                 StyleText rallyStyle = rallyName.gameObject.AddComponent<StyleText>();
                 Main.SetField(rallyStyle, STYLE_PROP_NAME, BindingFlags.Instance, TextType.StageTitle);
                 rallyName.fontSize = StyleConstants.Text.StageTitle.GetFontSize(uiScale);
@@ -73,6 +72,7 @@ namespace HistoricalCareer
 
                 contextText = transform.GetChild(2).GetComponent<Text>();
                 contextText.resizeTextForBestFit = false;
+                contextText.font = PanelPatcher.bodyFont;
                 StyleText contextStyle = contextText.gameObject.AddComponent<StyleText>();
                 Main.SetField(contextStyle, STYLE_PROP_NAME, BindingFlags.Instance, TextType.Header1);
                 contextText.fontSize = StyleConstants.Text.Header1.GetFontSize(uiScale);
@@ -82,7 +82,7 @@ namespace HistoricalCareer
             rallyName.text = settings.rallyName;
             environmentPolaroid.SetPicture(settings.locationPicture, PanelPatcher.FormatAreaString(settings.season.Rallies[0].CurrentArea));
             pilotPolaroid.SetPicture(settings.pilotPicture, settings.pilotName + " (" + settings.pilotPictureYear + ")");
-            carPicture.sprite = RallyManager.GetCarSprite(settings.carClass, settings.carIndex); // TODO : How do I get the car picture ?
+            carPicture.sprite = RallyManager.GetCarSprite(settings.carClass, settings.carIndex);
             contextText.text = settings.loreText;
 
             gameObject.SetActive(true);
