@@ -115,11 +115,8 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\Pictures\Cars\Car_Mini.png" />
-    <EmbeddedResource Include="Data\Pictures\Pilots\Hannu Mikkola 1966.jpg" />
-    <EmbeddedResource Include="Data\Pictures\Pilots\Jean-François Piot 1967.jpg" />
-    <EmbeddedResource Include="Data\Pictures\Pilots\Pauli Toivonen 1969.jpg" />
-    <EmbeddedResource Include="Data\Pictures\Pilots\GROUP_2_1966_FINLAND.jpg" />
+    <EmbeddedResource Include="Data\Pictures\Cars\*.png" />
+    <EmbeddedResource Include="Data\Pictures\Pilots\*.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PrepareBuild" AfterTargets="BeforeBuild">
