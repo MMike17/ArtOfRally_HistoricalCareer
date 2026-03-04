@@ -26,7 +26,7 @@ namespace HistoricalCareer
                 this.picture = pictureFrame.GetChild(0).GetComponent<Image>();
 
                 caption = transform.GetComponentInChildren<Text>();
-                caption.resizeTextForBestFit = false;
+                caption.horizontalOverflow = HorizontalWrapMode.Wrap;
                 caption.font = PanelPatcher.bodyFont;
 
                 // I don't really know why I'm doing this since it doesn't really work...
@@ -56,7 +56,7 @@ namespace HistoricalCareer
             pictureFrame.localPosition = new Vector3(0, polaroidHeight / 2 - frameWidth / 2 - frameSpacing, 0);
 
             float textHeight = TEXT_RATIO * polaroidHeight;
-            caption.rectTransform.SetSizeWithCurrentAnchors(Axis.Horizontal, frameWidth * 0.9f);
+            caption.rectTransform.SetSizeWithCurrentAnchors(Axis.Horizontal, frameWidth * 0.95f);
             caption.rectTransform.SetSizeWithCurrentAnchors(Axis.Vertical, textHeight);
             caption.transform.localPosition = new Vector3(0, -polaroidHeight / 2 + textHeight / 2 + frameSpacing, 0);
 
