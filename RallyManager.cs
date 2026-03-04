@@ -22,14 +22,18 @@ namespace HistoricalCareer
             // creation of rallies
             Assembly assembly = Assembly.GetExecutingAssembly();
             rallySettings = new Dictionary<CarClass, List<RallySettings>>();
+            string pilotPicturePath = modFolderName + PILOT_PATH;
 
             // Group 2
+            CarClass group2 = CarClass.GROUP_2;
+
             AddCustomRally(
-                CarClass.GROUP_2, 1966, Areas.FINLAND, "1000 tests rally", "Stig",
-                assembly, modFolderName + PILOT_PATH, 1966, 1, 0, 1,
-                new int[] { 0, 2 }, new Weather[] { Weather.Morning, Weather.Afternoon },
-                "This is test lore for later"
+                group2, 1966, Areas.FINLAND, "1000 Lakes rally", "Timo Mäkinen",
+                assembly, pilotPicturePath, 1966, 1, 0, 2,
+                new int[] { 0, 6 }, new Weather[] { Weather.Morning, Weather.Afternoon },
+                "Following their 1965 win, <b>Timo Mäkinen</b> and his copilot <b>Pekka Keskitalo</b> took advantage of their Mini's front-wheel-drive and light body to excell on their home country's gravel jumps, becoming the first \"flying finns\" with <b>Simo Lampinen</b> and <b>Rauno Aaltonen</b>, who placed 3rd on the same rally."
             );
+            // TODO : Finish designing rallies for group 2
 
             // checks
             int count = 0;
@@ -56,11 +60,6 @@ namespace HistoricalCareer
             }
 
             Main.Log("Loaded " + carsCount + " cars sprites");
-
-            Main.OnToggle += state =>
-            {
-                // TODO : The fix for car class being wrong on some years will probably here
-            };
         }
 
         private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, Areas area)
@@ -267,12 +266,6 @@ namespace HistoricalCareer
 
         public static void AppyRallySettings(RallySettings settings)
         {
-            // TEST
-            // this is a fix when the mod is supposed to be off
-            //CarManager.SetChosenClass(CarClass.GROUP_S);
-            //return;
-
-            // car
             CarManager.SetChosenClass(settings.carClass);
             CarManager.SetChosenCar(settings.carIndex);
             CarManager.SetChosenLivery(settings.livery);
