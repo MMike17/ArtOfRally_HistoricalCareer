@@ -33,6 +33,12 @@ namespace HistoricalCareer
                 new int[] { 0, 6 }, new Weather[] { Weather.Morning, Weather.Afternoon },
                 "Following their 1965 win, <b>Timo Mäkinen</b> and his copilot <b>Pekka Keskitalo</b> took advantage of their Mini's front-wheel-drive and light body to excell on their home country's gravel jumps, becoming the first \"flying finns\" with <b>Simo Lampinen</b> and <b>Rauno Aaltonen</b>, who placed 3rd on the same rally."
             );
+            AddCustomRally(
+                group2, 1967, Areas.SARDINIA, "Rally dei Fiori", "Jean-François Piot",
+                assembly, pilotPicturePath, 1967, 5, 1, 0,
+                new int[] { 2, 6, 0 }, new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Sunset },
+                "After winning the <b>Tour de Corse</b> and the <b>Coupe de Alpes</b> the previous year, <b>Jean-François Piot</b> joined by copilot <b>Nicolas Roure</b> armed with a prototype Renault 8 Gordini 1440 dominated tarmac-gravel mixed stages, beating its competition in the mediterranean conditions."
+            );
             // TODO : Finish designing rallies for group 2
 
             // checks
