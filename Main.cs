@@ -1,3 +1,4 @@
+using Epic.OnlineServices.Lobby;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace HistoricalCareer
         /// <summary>This will be called when the mod is toggles on/off</summary>
         public static event Action<bool> OnToggle;
 
+        private static event Action OnUpdate;
         private static GameObject careerUIPrefab;
 
         static List<GameObject> markers;
@@ -39,6 +41,7 @@ namespace HistoricalCareer
 
             // hook in mod manager event
             modEntry.OnToggle = OnToggleEvent;
+            modEntry.OnUpdate = (entry, delta) => OnUpdate?.Invoke();
             modEntry.OnGUI = (entry) =>
             {
                 settings.Draw(entry);
@@ -191,5 +194,14 @@ namespace HistoricalCareer
         }
 
         public static CareerUI SpawnUI(Transform parent) => GameObject.Instantiate(careerUIPrefab, parent).AddComponent<CareerUI>();
+
+        public static void DelayCall(Action action)
+        {
+            OnUpdate += () =>
+            {
+                action?.Invoke();
+                action = null;
+            };
+        }
     }
 }

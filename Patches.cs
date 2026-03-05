@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
@@ -160,12 +159,6 @@ namespace HistoricalCareer
             }
         }
 
-        static IEnumerator WaitAndActivate(float duration, Action callback)
-        {
-            yield return new WaitForSeconds(duration);
-            callback?.Invoke();
-        }
-
         [HarmonyPatch(nameof(PanelManager.GoBack))]
         static void Postfix() => inCareer = false;
 
@@ -179,7 +172,9 @@ namespace HistoricalCareer
                 switch (text.name)
                 {
                     case PILOT_NAME_TAG:
+
                         text.text = settings.pilotName;
+                        Main.DelayCall(() => text.fontSize = StyleConstants.Text.Header1.GetFontSize(StyleManager.Instance().UIScale));
                         break;
 
                     case RESTARTS_TAG:
