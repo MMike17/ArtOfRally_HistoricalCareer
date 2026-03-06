@@ -39,6 +39,12 @@ namespace HistoricalCareer
                 new int[] { 2, 6, 0 }, new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Sunset },
                 "After winning the <b>Tour de Corse</b> and the <b>Coupe de Alpes</b> the previous year, <b>Jean-François Piot</b> joined by copilot <b>Nicolas Roure</b> armed with a prototype Renault 8 Gordini 1440 dominated tarmac-gravel mixed stages, beating its competition in the mediterranean conditions."
             );
+            AddCustomRally(
+                group2, 1967, Areas.GERMANY, "West Germany", "Wiesbaden German Rally", "Pauli Toivonen",
+                assembly, pilotPicturePath, 1969, 4, 5, 0,
+                new int[] { 0, 5, 3, 11 }, new Weather[] { Weather.Rain, Weather.Sunset, Weather.Fog, Weather.Afternoon },
+                "For his debut in a Porsche, <b>Pauli Toivonen</b> couldn't secure a <b>Monte-carlo</b> win, being overtaken by <b>Vic Elford</b>. But with the help of <b>Martti Kolari</b> as copilot, they managed a win in the <b>West German rally</b>. Pauli continued winning that same year in Austria and Swizerland with different copilots."
+            );
             // TODO : Finish designing rallies for group 2
 
             // checks
