@@ -28,13 +28,13 @@ namespace HistoricalCareer
             CarClass group2 = CarClass.GROUP_2;
 
             AddCustomRally(
-                group2, 1966, Areas.FINLAND, "1000 Lakes rally", "Timo Mäkinen",
+                group2, 1966, Areas.FINLAND, "Finland", "1000 Lakes rally", "Timo Mäkinen",
                 assembly, pilotPicturePath, 1966, 1, 0, 2,
                 new int[] { 0, 6 }, new Weather[] { Weather.Morning, Weather.Afternoon },
                 "Following their 1965 win, <b>Timo Mäkinen</b> and his copilot <b>Pekka Keskitalo</b> took advantage of their Mini's front-wheel-drive and light body to excell on their home country's gravel jumps, becoming the first \"flying finns\" with <b>Simo Lampinen</b> and <b>Rauno Aaltonen</b>, who placed 3rd on the same rally."
             );
             AddCustomRally(
-                group2, 1967, Areas.SARDINIA, "Rally dei Fiori", "Jean-François Piot",
+                group2, 1967, Areas.SARDINIA, "Italy", "Rally dei Fiori", "Jean-François Piot",
                 assembly, pilotPicturePath, 1967, 5, 1, 0,
                 new int[] { 2, 6, 0 }, new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Sunset },
                 "After winning the <b>Tour de Corse</b> and the <b>Coupe de Alpes</b> the previous year, <b>Jean-François Piot</b> joined by copilot <b>Nicolas Roure</b> armed with a prototype Renault 8 Gordini 1440 dominated tarmac-gravel mixed stages, beating its competition in the mediterranean conditions."
@@ -128,6 +128,7 @@ namespace HistoricalCareer
             CarClass carClass,
             int year,
             Areas area,
+            string areaName,
             string rallyName,
             string pilotName,
             Assembly assembly,
@@ -145,6 +146,7 @@ namespace HistoricalCareer
                 carClass,
                 year,
                 area,
+                areaName,
                 rallyName,
                 pilotName,
                 LoadPilotPicture(assembly, rootPath, carClass, year, area),
@@ -169,6 +171,7 @@ namespace HistoricalCareer
             CarClass carClass,
             int year,
             Areas area,
+            string areaName,
             string rallyName,
             string pilotName,
             Sprite pilotPicture,
@@ -229,6 +232,7 @@ namespace HistoricalCareer
                 carClass,
                 year,
                 area,
+                areaName,
                 rallyName,
                 pilotName,
                 pilotPicture,

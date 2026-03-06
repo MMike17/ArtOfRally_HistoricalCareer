@@ -182,7 +182,7 @@ namespace HistoricalCareer
                         break;
 
                     case LOCATION_YEAR_TAG:
-                        text.text = FormatAreaString(settings.season.Rallies[0].CurrentArea) + " (" + settings.season.Year + ")";
+                        text.text = settings.areaName + " (" + settings.season.Year + ")";
                         break;
 
                     case RALLY_TAG:
@@ -195,17 +195,6 @@ namespace HistoricalCareer
         }
 
         public static void SelectRally(RallySettings settings) => currentRally = settings;
-
-        public static string FormatAreaString(AreaManager.Areas area)
-        {
-            string areaString = area.ToString();
-            string result = string.Empty;
-
-            for (int i = 0; i < area.ToString().Length; i++)
-                result += i == 0 ? areaString[0] : char.ToLower(areaString[i]);
-
-            return result;
-        }
     }
 
     [HarmonyPatch(typeof(CareerManager), nameof(CareerManager.SetSeasonInProgress))]

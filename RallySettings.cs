@@ -8,6 +8,7 @@ namespace HistoricalCareer
     public class RallySettings
     {
         public CarClass carClass;
+        public string areaName;
         public string rallyName;
         public string pilotName;
         public Sprite pilotPicture;
@@ -26,6 +27,7 @@ namespace HistoricalCareer
             CarClass carClass,
             int year,
             AreaManager.Areas area,
+            string areaName,
             string rallyName,
             string pilotName,
             Sprite pilotPicture,
@@ -39,6 +41,7 @@ namespace HistoricalCareer
         )
         {
             this.carClass = carClass;
+            this.areaName = areaName;
             this.rallyName = rallyName;
             this.pilotName = pilotName;
             this.pilotPicture = pilotPicture;
