@@ -80,7 +80,7 @@ namespace HistoricalCareer
 
             seasonDate.text = settings.season.Year.ToString();
             rallyName.text = settings.rallyName;
-            environmentPolaroid.SetPicture(settings.locationPicture, PanelPatcher.FormatAreaString(settings.season.Rallies[0].CurrentArea));
+            environmentPolaroid.SetPicture(settings.locationPicture, settings.areaName);
             pilotPolaroid.SetPicture(settings.pilotPicture, settings.pilotName + " (" + settings.pilotPictureYear + ")");
             carPicture.sprite = RallyManager.GetCarSprite(settings.carClass, settings.carIndex);
             contextText.text = settings.loreText;
