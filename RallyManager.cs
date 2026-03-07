@@ -40,10 +40,16 @@ namespace HistoricalCareer
                 "After winning the <b>Tour de Corse</b> and the <b>Coupe de Alpes</b> the previous year, <b>Jean-François Piot</b> joined by copilot <b>Nicolas Roure</b> armed with a prototype Renault 8 Gordini 1440 dominated tarmac-gravel mixed stages, beating its competition in the mediterranean conditions."
             );
             AddCustomRally(
-                group2, 1967, Areas.GERMANY, "West Germany", "Wiesbaden German Rally", "Pauli Toivonen",
+                group2, 1968, Areas.GERMANY, "West Germany", "Wiesbaden German Rally", "Pauli Toivonen",
                 assembly, pilotPicturePath, 1969, 4, 5, 0,
                 new int[] { 0, 5, 3, 11 }, new Weather[] { Weather.Rain, Weather.Sunset, Weather.Fog, Weather.Afternoon },
                 "For his debut in a Porsche, <b>Pauli Toivonen</b> couldn't secure a <b>Monte-carlo</b> win, being overtaken by <b>Vic Elford</b>. But with the help of <b>Martti Kolari</b> as copilot, they managed a win in the <b>West German rally</b>. Pauli continued winning that same year in Austria and Swizerland with different copilots."
+            );
+            AddCustomRally(
+                group2, 1970, Areas.FINLAND, "Finland", "1000 Lakes rally", "Hannu Mikkola",
+                assembly, pilotPicturePath, 1966, 0, 1, 2,
+                new int[] { 0, 5, 6, 8 }, new Weather[] { Weather.Morning, Weather.Rain, Weather.Afternoon, Weather.Morning },
+                "After their win in the grueling <b>London-Mexico World Cup Rally</b>, <b>Hannu Mikkola</b> and the exceptional navigator <b>Gunnar Palm</b> brought their Ford Escort twin cam to Finland. With its engine originally developped for the Lotus Elan and its lights body shell the Escort proved to be a solid contender for the rougher rallies."
             );
             // TODO : Finish designing rallies for group 2
 
