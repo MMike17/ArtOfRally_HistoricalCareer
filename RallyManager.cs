@@ -46,6 +46,12 @@ namespace HistoricalCareer
                 "For his debut in a Porsche, <b>Pauli Toivonen</b> couldn't secure a <b>Monte-carlo</b> win, being overtaken by <b>Vic Elford</b>. But with the help of <b>Martti Kolari</b> as copilot, they managed a win in the <b>West German rally</b>. Pauli continued winning that same year in Austria and Swizerland with different copilots."
             );
             AddCustomRally(
+                group2, 1969, Areas.SARDINIA, "Italy", "Rally Sanremo", "Harry Källström",
+                assembly, pilotPicturePath, 1970, 6, 3, 0,
+                new int[] {2,6,10,0}, new Weather[] {Weather.Sunset, Weather.Afternoon, Weather.Sunset, Weather.Afternoon },
+                "Nicknamed \"Sputnik\" because of how fast his career took off, driver and later actorn <b>Harry Källström</b> took the wheel of a Lancia Fulvia with his copilot <b>Häggbom Gunnar</b> to win the <b>Sanremo Rally</b> as well as the <b>Spanish RACE Rally</b> and <b>British RAC Rally</b> that year, earning their first European champions title."
+            );
+            AddCustomRally(
                 group2, 1970, Areas.FINLAND, "Finland", "1000 Lakes rally", "Hannu Mikkola",
                 assembly, pilotPicturePath, 1966, 0, 1, 2,
                 new int[] { 0, 5, 6, 8 }, new Weather[] { Weather.Morning, Weather.Rain, Weather.Afternoon, Weather.Morning },
