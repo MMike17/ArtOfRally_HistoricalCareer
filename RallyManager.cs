@@ -57,6 +57,12 @@ namespace HistoricalCareer
                 new int[] { 0, 5, 6, 8, 2 }, new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Morning, Weather.Sunset, Weather.Rain },
                 "After their win in the grueling <b>London-Mexico World Cup Rally</b>, <b>Hannu Mikkola</b> and the exceptional navigator <b>Gunnar Palm</b> brought their Ford Escort twin cam to Finland. With its engine originally developped for the Lotus Elan and its lights body shell the Escort proved to be a solid contender for the rougher rallies."
             );
+            AddCustomRally(
+                group2, 1970, Areas.GERMANY, "Austria", "Rally Munich-Vienne-Budapest", "Jean-Claude Andruet",
+                assembly, pilotPicturePath, 1977, 2, 5, 6,
+                new int[] { 1, 8, 10, 5, 7 }, new Weather[] { Weather.Rain, Weather.Morning, Weather.Rain, Weather.Sunset, Weather.Fog },
+                "After dominating in the french rallies, <b>Jean-Claude Andruet</b> wildly swong his <b>Alpine A110</b> with <b>Michèle Veron</b> as copilot in this rally spanning between Germany, Austria and Hungary. The battle with Fords and Porsches was fierce but they won the French and European rally championships titles."
+            );
             // TODO : Finish designing rallies for group 2
 
             // checks
