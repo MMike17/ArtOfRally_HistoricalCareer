@@ -48,13 +48,13 @@ namespace HistoricalCareer
             AddCustomRally(
                 group2, 1969, Areas.SARDINIA, "Italy", "Rally Sanremo", "Harry Källström",
                 assembly, pilotPicturePath, 1970, 6, 3, 0,
-                new int[] {2,6,10,0}, new Weather[] {Weather.Sunset, Weather.Afternoon, Weather.Sunset, Weather.Afternoon },
+                new int[] { 2, 6, 10, 0 }, new Weather[] { Weather.Sunset, Weather.Afternoon, Weather.Sunset, Weather.Afternoon },
                 "Nicknamed \"Sputnik\" because of how fast his career took off, driver and later actorn <b>Harry Källström</b> took the wheel of a Lancia Fulvia with his copilot <b>Häggbom Gunnar</b> to win the <b>Sanremo Rally</b> as well as the <b>Spanish RACE Rally</b> and <b>British RAC Rally</b> that year, earning their first European champions title."
             );
             AddCustomRally(
                 group2, 1970, Areas.FINLAND, "Finland", "1000 Lakes rally", "Hannu Mikkola",
                 assembly, pilotPicturePath, 1966, 0, 1, 2,
-                new int[] { 0, 5, 6, 8 }, new Weather[] { Weather.Morning, Weather.Rain, Weather.Afternoon, Weather.Morning },
+                new int[] { 0, 5, 6, 8, 2 }, new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Morning, Weather.Sunset, Weather.Rain },
                 "After their win in the grueling <b>London-Mexico World Cup Rally</b>, <b>Hannu Mikkola</b> and the exceptional navigator <b>Gunnar Palm</b> brought their Ford Escort twin cam to Finland. With its engine originally developped for the Lotus Elan and its lights body shell the Escort proved to be a solid contender for the rougher rallies."
             );
             // TODO : Finish designing rallies for group 2
