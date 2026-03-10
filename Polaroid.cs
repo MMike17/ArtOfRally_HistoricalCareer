@@ -45,20 +45,20 @@ namespace HistoricalCareer
                 caption.fontSize = StyleConstants.Text.Header1.GetFontSize(StyleManager.Instance().UIScale);
 
                 gameObject.AddComponent<StyleImageColour>();
+
+                float polaroidWidth = polaroid.rect.width;
+                float polaroidHeight = polaroid.rect.height;
+                float frameWidth = polaroidWidth * PICTURE_RATIO;
+                float frameSpacing = (polaroidWidth - frameWidth) / 2;
+                pictureFrame.SetSizeWithCurrentAnchors(Axis.Horizontal, frameWidth);
+                pictureFrame.SetSizeWithCurrentAnchors(Axis.Vertical, frameWidth);
+                pictureFrame.localPosition = new Vector3(0, polaroidHeight / 2 - frameWidth / 2 - frameSpacing, 0);
+
+                float textHeight = TEXT_RATIO * polaroidHeight;
+                caption.rectTransform.SetSizeWithCurrentAnchors(Axis.Horizontal, frameWidth * 0.95f);
+                caption.rectTransform.SetSizeWithCurrentAnchors(Axis.Vertical, textHeight);
+                caption.transform.localPosition = new Vector3(0, -polaroidHeight / 2 + textHeight / 2 + frameSpacing, 0);
             }
-
-            float polaroidWidth = polaroid.rect.width;
-            float polaroidHeight = polaroid.rect.height;
-            float frameWidth = polaroidWidth * PICTURE_RATIO;
-            float frameSpacing = (polaroidWidth - frameWidth) / 2;
-            pictureFrame.SetSizeWithCurrentAnchors(Axis.Horizontal, frameWidth);
-            pictureFrame.SetSizeWithCurrentAnchors(Axis.Vertical, frameWidth);
-            pictureFrame.localPosition = new Vector3(0, polaroidHeight / 2 - frameWidth / 2 - frameSpacing, 0);
-
-            float textHeight = TEXT_RATIO * polaroidHeight;
-            caption.rectTransform.SetSizeWithCurrentAnchors(Axis.Horizontal, frameWidth * 0.95f);
-            caption.rectTransform.SetSizeWithCurrentAnchors(Axis.Vertical, textHeight);
-            caption.transform.localPosition = new Vector3(0, -polaroidHeight / 2 + textHeight / 2 + frameSpacing, 0);
 
             this.picture.sprite = picture;
             caption.text = text;

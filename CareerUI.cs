@@ -59,7 +59,6 @@ namespace HistoricalCareer
                 );
 
                 rallyName = titleHolder.GetChild(1).GetComponent<Text>();
-                rallyName.resizeTextForBestFit = false;
                 rallyName.font = PanelPatcher.titleFont;
                 StyleText rallyStyle = rallyName.gameObject.AddComponent<StyleText>();
                 Main.SetField(rallyStyle, STYLE_PROP_NAME, BindingFlags.Instance, TextType.StageTitle);
@@ -71,7 +70,6 @@ namespace HistoricalCareer
                 carPicture = displayHolder.GetChild(2).GetChild(0).GetComponent<Image>();
 
                 contextText = transform.GetChild(2).GetComponent<Text>();
-                contextText.resizeTextForBestFit = false;
                 contextText.font = PanelPatcher.bodyFont;
                 StyleText contextStyle = contextText.gameObject.AddComponent<StyleText>();
                 Main.SetField(contextStyle, STYLE_PROP_NAME, BindingFlags.Instance, TextType.Header1);
