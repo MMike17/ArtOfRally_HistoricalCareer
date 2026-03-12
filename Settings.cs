@@ -19,6 +19,9 @@ namespace HistoricalCareer
         [Draw(DrawType.Toggle)]
         public bool disableInfoLogs = false;
         //public bool disableInfoLogs = true;
+        [Draw(DrawType.Toggle)]
+        public bool shortRallies = true;
+        //public bool shortRallies = false;
 
         public override void Save(ModEntry modEntry) => Save(this, modEntry);
 
@@ -32,6 +35,8 @@ namespace HistoricalCareer
         internal void OnGUI()
         {
             // custom GUI here
+            if (GUILayout.Button("Reset saves", GUILayout.Width(150)))
+                RallyManager.ResetRallySaves();
         }
 
         private float SnapValue(float value, float snapValue, float range, float snapPercent)
