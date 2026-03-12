@@ -64,6 +64,11 @@ namespace HistoricalCareer
                 "After dominating in the french rallies, <b>Jean-Claude Andruet</b> wildly swong his <b>Alpine A110</b> with <b>Michèle Veron</b> as copilot in this rally spanning between Germany, Austria and Hungary. The battle with Fords and Porsches was fierce but they won the French and European rally championships titles."
             );
             // TODO : Finish designing rallies for group 2
+            // TODO : Refactor in different methods for each group
+
+            // unlock first season
+            if (!SaveManager.HasSaves(rallySettings[(CarClass)0][0].season))
+                ResetRallySaves();
 
             // checks
             int count = 0;
@@ -94,7 +99,7 @@ namespace HistoricalCareer
 
         private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, Areas area)
         {
-            string path = rootPath + carClass + "_" + year + "_" + area + ".jpg";
+            string path = rootPath + GetSeasonCode(carClass, year, area) + ".jpg";
 
             using (Stream stream = assembly.GetManifestResourceStream(path))
             {
@@ -183,6 +188,10 @@ namespace HistoricalCareer
                 loreText
             );
         }
+
+        public static string GetSeasonCode(CarClass carClass, int year, Areas area) => carClass + "_" + year + "_" + area;
+
+        public static string GetSeasonCode(Season season) => GetSeasonCode(season.CarClass, season.Year, season.Rallies[0].CurrentArea);
 
         /// <summary>This method is used to add custom rallies to the mod</summary>
         /// <param name="pilotPicture">Square sprite of the pilot's picture (if it's not square it might have weird stretching)</param>
@@ -317,6 +326,36 @@ namespace HistoricalCareer
                 Main.Error("Couldn't find sprite for car \"" + carName + "\"");
 
             return result;
+        }
+
+        // TODO : How do we detect that it's the end of the game ?
+
+        public static void UnlockNextSeason(Season season)
+        {
+            List<RallySettings> currentList = rallySettings[season.CarClass];
+            RallySettings currentSettings = currentList.Find(item => string.Equals(GetSeasonCode(item.season), GetSeasonCode(season)));
+            int index = currentList.IndexOf(currentSettings);
+
+            if (index + 1 <= currentList.Count - 1)
+                SaveManager.SetSeasonStatus(currentList[index + 1].season, Season.STATUS.UNLOCKED);
+            else if (season.CarClass != CarClass.GROUP_A)
+                SaveManager.SetSeasonStatus(rallySettings[(CarClass)((int)season.CarClass + 1)][0].season, Season.STATUS.UNLOCKED);
+        }
+
+        // TODO : Call this when we reset career progress
+        public static void ResetRallySaves()
+        {
+            foreach (KeyValuePair<CarClass, List<RallySettings>> pair in rallySettings)
+            {
+                foreach (RallySettings settings in pair.Value)
+                {
+                    SaveManager.SetSeasonStatus(
+                        settings.season,
+                        pair.Key == CarClass.GROUP_2 && settings == pair.Value[0] ? Season.STATUS.UNLOCKED : Season.STATUS.LOCKED
+                    );
+                    Main.Log(GetSeasonCode(settings.season) + " : " + SaveManager.GetSeasonStatus(settings.season));
+                }
+            }
         }
     }
 }

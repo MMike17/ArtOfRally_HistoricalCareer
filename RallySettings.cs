@@ -85,13 +85,14 @@ namespace HistoricalCareer
             weathers = correctedWeathers.ToArray();
 
             // setup season
-            int restarts = 0; // TODO : What's the OG number of restarts for that season ? Do I need to change that ?
-            Season.STATUS status = Season.STATUS.UNLOCKED; // TODO : Manage season state from the save system
+            int restarts = 1; // TODO : What's the OG number of restarts for that season ? Do I need to change that ?
+            Season.STATUS status = SaveManager.GetSeasonStatus(carClass, year, area); // TODO : Manage season state from the save system
 
             season = new Season(
                 year,
                 carClass,
                 1,
+                //1, // test
                 stagesIndeces.Length,
                 restarts,
                 "UNLOCKABLE_" + year + "_BONUS",
@@ -104,8 +105,10 @@ namespace HistoricalCareer
             season.Rallies.Add(new RallyData());
             season.Rallies[0].SetArea((int)area);
             season.Rallies[0].SetStageCount(stagesIndeces.Length);
+            //season.Rallies[0].SetStageCount(1); // test
 
             for (int i = 0; i < stagesIndeces.Length; i++)
+            //for (int i = 0; i < 1; i++) // test
             {
                 int index = stagesIndeces[i];
                 Stage stage = AreaManager.GetStageByIndex(ref index, area);

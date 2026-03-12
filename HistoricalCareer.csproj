@@ -112,6 +112,7 @@
     <Compile Include="Polaroid.cs" />
     <Compile Include="RallyManager.cs" />
     <Compile Include="RallySettings.cs" />
+    <Compile Include="SaveManager.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>

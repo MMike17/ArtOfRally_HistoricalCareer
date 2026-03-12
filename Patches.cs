@@ -60,111 +60,126 @@ namespace HistoricalCareer
         [HarmonyPatch(nameof(PanelManager.AddPanelAddToHistory), new[] { typeof(Panel) })]
         static void Postfix(Panel panel)
         {
-            if (!Main.enabled)
-                return;
-
-            Main.Log("Switch to panel " + panel.name);
-
-            if (string.IsNullOrEmpty(submitUIString))
+            Main.Try("AddPanelAddToHistory Postfix", () =>
             {
-                BaseInputModule inputModule = EventSystem.current.currentInputModule;
-                submitUIString = Main.GetField<string, RewiredStandaloneInputModule>(
-                    inputModule as RewiredStandaloneInputModule,
-                    "m_SubmitButton",
-                    BindingFlags.Instance
-                );
-                int playerID = Main.GetField<int[], RewiredStandaloneInputModule>(
-                    inputModule as RewiredStandaloneInputModule,
-                    "playerIds",
-                    BindingFlags.Instance
-                )[0];
-                playerInput = ReInput.players.GetPlayer(playerID);
-            }
-
-            // main panel
-            if (panel.name == MAIN_PANEL)
-            {
-                titleFont = panel.transform.GetChild(0).GetChild(0).GetComponentInChildren<Text>().font;
-                bodyFont = panel.GetComponentInChildren<VersionText>().GetComponent<Text>().font;
-            }
-            else if (panel.name.Contains(GROUP_PANEL_FORMAT)) // group selection panel
-            {
-                HorizontalLayoutGroup layout = panel.GetComponentInChildren<HorizontalLayoutGroup>();
-                ContentSizeFitter fitter = layout.GetComponent<ContentSizeFitter>();
-
-                // should cut config short
-                if (fitter != null)
+                if (!Main.enabled)
                     return;
 
-                layout.spacing = -10;
-                layout.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+                Main.Log("Switch to panel " + panel.name);
 
-                // hide buttons
-                foreach (Transform child in layout.transform)
-                    child.gameObject.SetActive(false);
-
-                // generate buttons
-                currentGroup = CarClass.COUNT;
-
-                if (!Enum.TryParse(panel.name.Replace(GROUP_PANEL_FORMAT, "GROUP_"), out currentGroup))
+                if (string.IsNullOrEmpty(submitUIString))
                 {
-                    Main.Error("Couldn't find corresponding group for panel " + panel.name + " (this will crash the mod).");
-                    return;
+                    BaseInputModule inputModule = EventSystem.current.currentInputModule;
+                    submitUIString = Main.GetField<string, RewiredStandaloneInputModule>(
+                        inputModule as RewiredStandaloneInputModule,
+                        "m_SubmitButton",
+                        BindingFlags.Instance
+                    );
+                    int playerID = Main.GetField<int[], RewiredStandaloneInputModule>(
+                        inputModule as RewiredStandaloneInputModule,
+                        "playerIds",
+                        BindingFlags.Instance
+                    )[0];
+                    playerInput = ReInput.players.GetPlayer(playerID);
                 }
 
-                GameObject model = layout.transform.GetChild(0).gameObject;
-                List<RallySettings> settings = RallyManager.GetSettingsForClass(currentGroup);
-                settings.ForEach(setting =>
+                // main panel
+                if (panel.name == MAIN_PANEL)
                 {
-                    GameObject seasonButton = GameObject.Instantiate(model, layout.transform);
-                    SetupSeasonButton(seasonButton, setting);
-                });
-
-                //add custom UI
-                CarrouselUI carrousel = layout.GetComponent<CarrouselUI>();
-
-                if (carrousel == null)
-                    carrousel = layout.gameObject.AddComponent<CarrouselUI>();
-
-                carrousel.Reset(settings);
-                inCareer = true;
-            }
-            else if (panel.name == CAR_PANEL && inCareer) // car selection panel
-            {
-                if (careerUI == null)
-                    careerUI = Main.SpawnUI(panel.transform.parent);
-
-                panel.Hide();
-                GameObject diorama = GameObject.Find("Dioramas");
-                diorama.transform.Find("CarChooserDiorama").gameObject.SetActive(false);
-                Main.SetField(
-                    GameObject.FindObjectOfType<PanelManager>(),
-                    "carChooserManager",
-                    BindingFlags.Instance,
-                    diorama.GetComponentInChildren<CarChooserManager>()
-                );
-
-                careerUI.Set(currentRally, rally =>
+                    titleFont = panel.transform.GetChild(0).GetChild(0).GetComponentInChildren<Text>().font;
+                    bodyFont = panel.GetComponentInChildren<VersionText>().GetComponent<Text>().font;
+                }
+                else if (panel.name.Contains(GROUP_PANEL_FORMAT)) // group selection panel
                 {
-                    // have to prepare before applying settings...yeah I know...
-                    CarChooserHelper helper = panel.GetComponent<CarChooserHelper>();
-                    helper.CarButton.index = currentRally.carIndex;
-                    helper.LiveryButton.index = currentRally.liveryIndex;
+                    SeasonDashboardUI ui = panel.transform.parent.GetComponent<SeasonDashboardUI>();
+                    HorizontalLayoutGroup layout = panel.GetComponentInChildren<HorizontalLayoutGroup>();
+                    ContentSizeFitter fitter = layout.GetComponent<ContentSizeFitter>();
 
-                    RallyManager.AppyRallySettings(rally);
-                    panel.GetComponent<CarChooserHelper>().BeginEvent();
+                    // should cut config short
+                    if (fitter != null)
+                        return;
 
-                    // TODO : CarChooserHelper.BeginEvent calls LiveryButton.Save which might be causing the livery glitch
-                });
-            }
+                    layout.spacing = -10;
+                    layout.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+                    // hide buttons
+                    foreach (Transform child in layout.transform)
+                        child.gameObject.SetActive(false);
+
+                    // generate buttons
+                    currentGroup = CarClass.COUNT;
+
+                    if (!Enum.TryParse(panel.name.Replace(GROUP_PANEL_FORMAT, "GROUP_"), out currentGroup))
+                    {
+                        Main.Error("Couldn't find corresponding group for panel " + panel.name + " (this will crash the mod).");
+                        return;
+                    }
+
+                    List<CustomButtonSeason> buttons = Main.GetField<List<CustomButtonSeason>, SeasonDashboardUI>(
+                        ui,
+                        "AllSeasonButtons",
+                        BindingFlags.Instance
+                    );
+
+                    CustomButtonSeason model = layout.transform.GetChild(0).gameObject.GetComponent<CustomButtonSeason>();
+                    List<RallySettings> settings = RallyManager.GetSettingsForClass(currentGroup);
+                    settings.ForEach(setting =>
+                    {
+                        CustomButtonSeason seasonButton = GameObject.Instantiate(model, layout.transform);
+                        SetupSeasonButton(seasonButton, setting);
+
+                        buttons.Add(seasonButton);
+                    });
+
+                    Main.SetField(ui, "AllSeasonButtons", BindingFlags.Instance, buttons);
+
+                    //add custom UI
+                    CarrouselUI carrousel = layout.GetComponent<CarrouselUI>();
+
+                    if (carrousel == null)
+                        carrousel = layout.gameObject.AddComponent<CarrouselUI>();
+
+                    carrousel.Reset(settings);
+                    inCareer = true;
+                }
+                else if (panel.name == CAR_PANEL && inCareer) // car selection panel
+                {
+                    if (careerUI == null)
+                        careerUI = Main.SpawnUI(panel.transform.parent);
+
+                    panel.Hide();
+                    GameObject diorama = GameObject.Find("Dioramas");
+                    diorama.transform.Find("CarChooserDiorama").gameObject.SetActive(false);
+                    Main.SetField(
+                        GameObject.FindObjectOfType<PanelManager>(),
+                        "carChooserManager",
+                        BindingFlags.Instance,
+                        diorama.GetComponentInChildren<CarChooserManager>()
+                    );
+
+                    careerUI.Set(currentRally, rally =>
+                    {
+                        // have to prepare before applying settings...yeah I know...
+                        CarChooserHelper helper = panel.GetComponent<CarChooserHelper>();
+                        helper.CarButton.index = currentRally.carIndex;
+                        helper.LiveryButton.index = currentRally.liveryIndex;
+
+                        RallyManager.AppyRallySettings(rally);
+                        panel.GetComponent<CarChooserHelper>().BeginEvent();
+
+                        // TODO : CarChooserHelper.BeginEvent calls LiveryButton.Save which might be causing the livery glitch
+                    });
+                }
+            });
         }
 
         [HarmonyPatch(nameof(PanelManager.GoBack))]
-        static void Postfix() => inCareer = false;
+        static void GoBack_Postfix() => inCareer = false;
 
-        static void SetupSeasonButton(GameObject button, RallySettings settings)
+        static void SetupSeasonButton(CustomButtonSeason seasonButton, RallySettings settings)
         {
-            CustomButtonSeason seasonButton = button.GetComponent<CustomButtonSeason>();
+            // TODO : Setup visuals for locked seasons
+            // TODO : Setup visuals for completed seasons
             seasonButton.transform.Find("ClassImage").GetComponent<Image>().sprite = settings.pilotPicture;
 
             foreach (Text text in seasonButton.GetComponentsInChildren<Text>())
@@ -191,33 +206,97 @@ namespace HistoricalCareer
                 }
             }
 
-            button.SetActive(true);
+            seasonButton.gameObject.SetActive(true);
         }
 
         public static void SelectRally(RallySettings settings) => currentRally = settings;
     }
 
-    [HarmonyPatch(typeof(CareerManager), nameof(CareerManager.SetSeasonInProgress))]
+    // TODO : In progress seasons are not detected by the game
+
+    [HarmonyPatch(typeof(CareerManager))]
     static class CareerPatcher
     {
-        static void Postfix(CareerManager __instance, Season TheSeason)
+        [HarmonyPatch(nameof(CareerManager.SetSeasonInProgress))]
+        [HarmonyPostfix]
+        static void SetSeasonInProgress_Postfix(CareerManager __instance, Season TheSeason)
         {
-            if (TheSeason != null)
+            Main.Try("SetSeasonInProgress Postfix", () =>
             {
-                // let's just assume the season is OK since it's generated by the mod
-                TheSeason.ResetValuesForStartingNewSeason();
-                TheSeason.Status = Season.STATUS.IN_PROGRESS;
+                if (TheSeason != null)
+                {
+                    // let's just assume the season is OK since it's generated by the mod
+                    TheSeason.ResetValuesForStartingNewSeason();
+                    TheSeason.Status = Season.STATUS.IN_PROGRESS;
 
-                // checks in the og code are super weird
-                if (TheSeason != null && TheSeason.SelectedCar != null && TheSeason.SelectedCar.performancePartsCondition != null)
-                    TheSeason.SelectedCar.performancePartsCondition.ClampValues();
+                    // checks in the og code are super weird
+                    if (TheSeason != null && TheSeason.SelectedCar != null && TheSeason.SelectedCar.performancePartsCondition != null)
+                        TheSeason.SelectedCar.performancePartsCondition.ClampValues();
 
-                TheSeason.ResetStageInfo();
-                TheSeason.ResetRoadSurface();
-                TheSeason.RemoveDLCCar();
+                    TheSeason.ResetStageInfo();
+                    TheSeason.ResetRoadSurface();
+                    TheSeason.RemoveDLCCar();
 
-                Main.SetField(__instance, "CurrentSeasonInProcess", BindingFlags.Instance, TheSeason);
+                    Main.SetField(__instance, "CurrentSeasonInProcess", BindingFlags.Instance, TheSeason);
+                    SaveManager.SetSeasonStatus(TheSeason, Season.STATUS.IN_PROGRESS);
+                    Main.Log("Set season in progress");
+                }
+            });
+        }
+
+        [HarmonyPatch("CheckIfContainsSeasonAndUnlockNextOnes")]
+        [HarmonyPostfix]
+        static void CheckIfContainsSeasonAndUnlockNextOnes_Postfix(Season season)
+        {
+            Main.Try("CheckIfContainsSeasonAndUnlockNextOnes Postfix", () =>
+            {
+                if (season != null)
+                {
+                    RallyManager.UnlockNextSeason(season);
+                    Main.Log("Unlock next season " + RallyManager.GetSeasonCode(season));
+                }
+            });
+        }
+
+        [HarmonyPatch("UnlockSeasonClasses")]
+        [HarmonyPostfix]
+        static void UnlockSeasonClasses_Postfix()
+        {
+            // TODO : Do I need to do something there ?
+            Main.Log("Unlock next group");
+        }
+
+        [HarmonyPatch(nameof(CareerManager.ResetAllInProgressSeasons))]
+        [HarmonyPostfix]
+        static void ResetAllInProgressSeasons_Postfix()
+        {
+            // TODO : Do I need this ?
+            Main.Log("Reset all in progress seasons");
+        }
+    }
+
+    [HarmonyPatch(typeof(Season), nameof(Season.MarkSeasonAsComplete))]
+    static class SeasonPatcher
+    {
+        static bool Prefix(Season __instance)
+        {
+            if (__instance != null)
+            {
+                // skipping ResetValues (breaks rallies)
+                Main.Try("MarkSeasonAsComplete Postfix", () =>
+                {
+                    __instance.Status = Season.STATUS.COMPLETED;
+                    __instance.SelectedCar = null;
+                    __instance.DriverList = new List<Driver>();
+
+                    SaveManager.SetSeasonStatus(__instance, Season.STATUS.COMPLETED);
+                    Main.Log("Complete season");
+                });
+
+                return false;
             }
+            else
+                return false;
         }
     }
 
@@ -232,5 +311,14 @@ namespace HistoricalCareer
     static class ChooserPatcher
     {
         static bool Prefix() => !PanelPatcher.inCareer;
+    }
+
+    [HarmonyPatch(typeof(SeasonDashboardUI), "HideButtons", new Type[] { typeof(List<CustomButtonSeason>) })]
+    static class DashboardFixer
+    {
+        static bool Prefix(List<CustomButtonSeason> Buttons)
+        {
+            return (Main.enabled && Buttons != null) || !Main.enabled;
+        }
     }
 }
