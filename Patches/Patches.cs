@@ -29,10 +29,12 @@ namespace HistoricalCareer
 
     // TODO : In progress seasons are not always detected by the game
 
-    [HarmonyPatch(typeof(Season), nameof(Season.MarkSeasonAsComplete))]
+    [HarmonyPatch(typeof(Season))]
     static class SeasonPatcher
     {
-        static bool Prefix(Season __instance)
+        [HarmonyPatch(nameof(Season.MarkSeasonAsComplete))]
+        [HarmonyPrefix]
+        static bool MarkSeasonAsComplete_Prefix(Season __instance)
         {
             if (__instance != null)
             {
@@ -43,14 +45,28 @@ namespace HistoricalCareer
                     __instance.SelectedCar = null;
                     __instance.DriverList = new List<Driver>();
 
-                    SaveManager.SetSeasonStatus(__instance, Season.STATUS.COMPLETED);
-                    Main.Log("Complete season");
+                    SaveManager.SaveSeasonData(__instance);
+                    Main.Log("Complete season " + RallyManager.GetSeasonCode(__instance));
                 });
 
                 return false;
             }
             else
                 return false;
+        }
+
+        [HarmonyPatch(nameof(Season.ResetInProgressSeason))]
+        [HarmonyPostfix]
+        static void ResetInProgressSeason_Postfix(Season __instance) => Main.Try("ResetInProgressSeason Postfix", () => SaveIfCareer(__instance));
+
+        [HarmonyPatch(nameof(Season.ResetValuesForStartingNewSeason))]
+        [HarmonyPostfix]
+        static void ResetValuesForStartingNewSeason_Postfix(Season __instance) => Main.Try("ResetValuesForStartingNewSeason Postfix", () => SaveIfCareer(__instance)); // TODO : This is creating errors
+
+        public static void SaveIfCareer(Season season)
+        {
+            if (GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+                SaveManager.SaveSeasonData(season);
         }
     }
 
@@ -67,12 +83,35 @@ namespace HistoricalCareer
         static bool Prefix() => !PanelPatcher.inCareer;
     }
 
-    [HarmonyPatch(typeof(SeasonDashboardUI), "HideButtons", new Type[] { typeof(List<CustomButtonSeason>) })]
+    [HarmonyPatch(typeof(SeasonDashboardUI))]
     static class DashboardFixer
     {
-        static bool Prefix(List<CustomButtonSeason> Buttons)
+        [HarmonyPatch("HideButtons", new Type[] { typeof(List<CustomButtonSeason>) })]
+        [HarmonyPrefix]
+        static bool HideButtons_Prefix(List<CustomButtonSeason> Buttons)
         {
             return (Main.enabled && Buttons != null) || !Main.enabled;
         }
+
+        [HarmonyPatch("GetButtonForSeason")]
+        [HarmonyPrefix]
+        static bool GetButtonForSeason_Prefix(Season Season, SeasonDashboardUI __instance)
+        {
+            return false;
+        }
     }
+
+    [HarmonyPatch(typeof(DriverManager))]
+    static class DriverPatcher
+    {
+        [HarmonyPatch(nameof(DriverManager.CalculateStageRank))]
+        [HarmonyPostfix]
+        static void CalculateStageRank_Postfix() => Main.Try("CalculateStageRank Postfix", () => SeasonPatcher.SaveIfCareer(GameModeManager.GetSeasonDataCurrentGameMode()));
+
+        [HarmonyPatch(nameof(DriverManager.ResetStageData))]
+        [HarmonyPostfix]
+        static void ResetStageData_Postfix() => Main.Try("ResetStageData Postfix", () => SeasonPatcher.SaveIfCareer(GameModeManager.GetSeasonDataCurrentGameMode()));
+    }
+
+
 }

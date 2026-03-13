@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace HistoricalCareer
 {
@@ -7,17 +8,38 @@ namespace HistoricalCareer
     {
         public static bool HasSaves(Season season) => PlayerPrefs.HasKey(RallyManager.GetSeasonCode(season));
 
-        public static void SetSeasonStatus(Season season, Season.STATUS status)
+        public static void SaveSeasonData(Season season)
         {
-            PlayerPrefs.SetInt(RallyManager.GetSeasonCode(season), (int)status);
+            PlayerPrefs.SetString(RallyManager.GetSeasonCode(season), new SeasonData(season).ToString());
             PlayerPrefs.Save();
         }
 
-        public static Season.STATUS GetSeasonStatus(Season season) => (Season.STATUS)PlayerPrefs.GetInt(RallyManager.GetSeasonCode(season), 0);
-
-        public static Season.STATUS GetSeasonStatus(Car.CarClass carClass, int year, AreaManager.Areas area)
+        public static void LoadSeasonData(Season season)
         {
-            return (Season.STATUS)PlayerPrefs.GetInt(RallyManager.GetSeasonCode(carClass, year, area));
+            SeasonData data = JsonUtility.FromJson<SeasonData>(
+                PlayerPrefs.GetString(RallyManager.GetSeasonCode(season), new SeasonData(season).ToString()
+            ));
+
+            season.Status = data.status;
+            season.StageWins = data.stageWins;
+            season.OverallStandingPlayer = data.standingPlayer;
+        }
+
+        [Serializable]
+        public class SeasonData
+        {
+            public Season.STATUS status;
+            public int stageWins;
+            public int standingPlayer;
+
+            public SeasonData(Season season)
+            {
+                status = season.Status;
+                stageWins = season.StageWins;
+                standingPlayer = season.OverallStandingPlayer;
+            }
+
+            public override string ToString() => JsonUtility.ToJson(this);
         }
     }
 }

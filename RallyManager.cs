@@ -32,8 +32,8 @@ namespace HistoricalCareer
             GenerateGroupASeasons(assembly, pilotPicturePath);
 
             // unlock first season
-            if (!SaveManager.HasSaves(rallySettings[(CarClass)0][0].season))
-                ResetRallySaves();
+            rallySettings[0][0].season.Status = Season.STATUS.UNLOCKED;
+            SaveManager.SaveSeasonData(rallySettings[0][0].season);
 
             // checks
             int count = 0;
@@ -369,11 +369,21 @@ namespace HistoricalCareer
             List<RallySettings> currentList = rallySettings[season.CarClass];
             RallySettings currentSettings = currentList.Find(item => string.Equals(GetSeasonCode(item.season), GetSeasonCode(season)));
             int index = currentList.IndexOf(currentSettings);
+            Season selected = null;
 
             if (index + 1 <= currentList.Count - 1)
-                SaveManager.SetSeasonStatus(currentList[index + 1].season, Season.STATUS.UNLOCKED);
+                selected = currentList[index + 1].season;
             else if (season.CarClass != CarClass.GROUP_A)
-                SaveManager.SetSeasonStatus(rallySettings[(CarClass)((int)season.CarClass + 1)][0].season, Season.STATUS.UNLOCKED);
+                selected = rallySettings[(CarClass)((int)season.CarClass + 1)][0].season;
+
+            if (selected != null)
+            {
+                if (selected.Status != Season.STATUS.UNLOCKED)
+                    Main.Log("next season : " + GetSeasonCode(selected));
+
+                selected.Status = Season.STATUS.UNLOCKED;
+                SaveManager.SaveSeasonData(selected);
+            }
         }
 
         // TODO : Call this when we reset career progress
@@ -383,11 +393,9 @@ namespace HistoricalCareer
             {
                 foreach (RallySettings settings in pair.Value)
                 {
-                    SaveManager.SetSeasonStatus(
-                        settings.season,
-                        pair.Key == CarClass.GROUP_2 && settings == pair.Value[0] ? Season.STATUS.UNLOCKED : Season.STATUS.LOCKED
-                    );
-                    Main.Log(GetSeasonCode(settings.season) + " : " + SaveManager.GetSeasonStatus(settings.season));
+                    settings.season.Status = pair.Key == CarClass.GROUP_2 && settings == pair.Value[0] ?
+                        Season.STATUS.UNLOCKED : Season.STATUS.LOCKED;
+                    SaveManager.SaveSeasonData(settings.season);
                 }
             }
         }

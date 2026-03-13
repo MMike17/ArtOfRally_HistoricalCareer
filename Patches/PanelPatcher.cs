@@ -164,7 +164,7 @@ namespace HistoricalCareer
             Image lockedIcon = Main.GetField<Image, CustomButtonSeason>(seasonButton, "LockedIcon", BindingFlags.Instance);
 
             wreathIcon.enabled = settings.season.Status == Season.STATUS.COMPLETED;
-            stageWins.fillAmount = (float)settings.season.GetSeasonStageWinsPercentage() / 100f; // TODO : Do I need to save this separately ?
+            stageWins.fillAmount = (float)settings.season.GetSeasonStageWinsPercentage() / 100f;
             lockedIcon.enabled = settings.season.Status == Season.STATUS.LOCKED;
 
             Image pilotImage = seasonButton.transform.Find("ClassImage").GetComponent<Image>();
@@ -190,7 +190,7 @@ namespace HistoricalCareer
                 {
                     case STANDING_TAG:
                         text.text = settings.season.Status == Season.STATUS.COMPLETED ?
-                            settings.season.GetFormattedOverallPlayerStanding() : string.Empty; // TODO : Do I need to save this separately ?
+                            settings.season.GetFormattedOverallPlayerStanding() : string.Empty;
                         break;
 
                     case PILOT_NAME_TAG:

@@ -24,10 +24,10 @@ namespace HistoricalCareer
 
                     TheSeason.ResetStageInfo();
                     TheSeason.ResetRoadSurface();
-                    TheSeason.RemoveDLCCar();
+                    TheSeason.RemoveDLCCar(); // TODO : Do we really need that ? (check already done in RallyManager)
 
                     Main.SetField(__instance, "CurrentSeasonInProcess", BindingFlags.Instance, TheSeason);
-                    SaveManager.SetSeasonStatus(TheSeason, Season.STATUS.IN_PROGRESS);
+                    SaveManager.SaveSeasonData(TheSeason);
                     Main.Log("Set season in progress");
                 }
             });
@@ -40,10 +40,7 @@ namespace HistoricalCareer
             Main.Try("CheckIfContainsSeasonAndUnlockNextOnes Postfix", () =>
             {
                 if (season != null)
-                {
                     RallyManager.UnlockNextSeason(season);
-                    Main.Log("Unlock next season " + RallyManager.GetSeasonCode(season));
-                }
             });
         }
 

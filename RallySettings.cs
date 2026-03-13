@@ -86,7 +86,6 @@ namespace HistoricalCareer
 
             // setup season
             int restarts = 1; // TODO : What's the OG number of restarts for that season ? Do I need to change that ?
-            Season.STATUS status = SaveManager.GetSeasonStatus(carClass, year, area); // TODO : Manage season state from the save system
 
             season = new Season(
                 year,
@@ -96,8 +95,7 @@ namespace HistoricalCareer
                 restarts,
                 "UNLOCKABLE_" + year + "_BONUS",
                 true,
-                AIDriverSkillTables.AI_Skill.EASY,
-                status
+                AIDriverSkillTables.AI_Skill.EASY
             );
 
             // setup rally
@@ -112,6 +110,8 @@ namespace HistoricalCareer
                 season.Rallies[0].SetStage(i, stage);
                 season.Rallies[0].SetWeatherForStage(i, weathers[i]);
             }
+
+            SaveManager.LoadSeasonData(season);
 
             // checks for DLC use
             needsDLC = area == AreaManager.Areas.AUSTRALIA;

@@ -23,8 +23,6 @@ namespace HistoricalCareer
         private int selectedIndex;
         private bool immediateUpdate;
 
-        // TODO : Have to manage locked season status (linked to save system)
-
         private void Awake()
         {
             horizontalUIString = Main.GetField<string, RewiredStandaloneInputModule>(
