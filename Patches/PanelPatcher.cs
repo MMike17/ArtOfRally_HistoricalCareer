@@ -23,6 +23,7 @@ namespace HistoricalCareer
         const string RESTARTS_TAG = "Restarts";
         const string LOCATION_YEAR_TAG = "AiSkill";
         const string RALLY_TAG = "SeasonInfo";
+        const float LOCK_SIZE = 0.7f;
 
         public static Player playerInput { get; private set; }
         public static Font titleFont { get; private set; }
@@ -160,12 +161,28 @@ namespace HistoricalCareer
             Main.InvokeMethod(seasonButton, "AssignProperties", BindingFlags.Instance, null);
             Image wreathIcon = Main.GetField<Image, CustomButtonSeason>(seasonButton, "WreathImage", BindingFlags.Instance);
             Image stageWins = Main.GetField<Image, CustomButtonSeason>(seasonButton, "StageWinsFill", BindingFlags.Instance);
+            Image lockedIcon = Main.GetField<Image, CustomButtonSeason>(seasonButton, "LockedIcon", BindingFlags.Instance);
 
             wreathIcon.enabled = settings.season.Status == Season.STATUS.COMPLETED;
             stageWins.fillAmount = (float)settings.season.GetSeasonStageWinsPercentage() / 100f; // TODO : Do I need to save this separately ?
+            lockedIcon.enabled = settings.season.Status == Season.STATUS.LOCKED;
 
-            seasonButton.transform.Find("ClassImage").GetComponent<Image>().sprite = settings.pilotPicture;
+            Image pilotImage = seasonButton.transform.Find("ClassImage").GetComponent<Image>();
+            pilotImage.sprite = settings.pilotPicture;
             RectTransform buttonSkin = seasonButton.transform.GetChild(0).GetComponent<RectTransform>();
+
+            if (settings.season.Status == Season.STATUS.LOCKED)
+            {
+                lockedIcon.preserveAspect = true;
+                lockedIcon.transform.SetParent(pilotImage.transform);
+
+                lockedIcon.rectTransform.anchorMin = Vector2.one * (1 - LOCK_SIZE);
+                lockedIcon.rectTransform.anchorMax = Vector2.one * LOCK_SIZE;
+                lockedIcon.rectTransform.offsetMin = lockedIcon.rectTransform.offsetMax = Vector2.zero;
+
+                lockedIcon.transform.localScale = Vector3.one;
+                lockedIcon.transform.localPosition = Vector3.zero;
+            }
 
             foreach (Text text in seasonButton.GetComponentsInChildren<Text>())
             {
