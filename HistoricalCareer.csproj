@@ -105,13 +105,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CareerUI.cs" />
-    <Compile Include="CarrouselUI.cs" />
+    <Compile Include="UI\CareerUI.cs" />
+    <Compile Include="UI\CarrouselUI.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Patches\CareerPatcher.cs" />
     <Compile Include="Patches\PanelPatcher.cs" />
     <Compile Include="Patches\Patches.cs" />
-    <Compile Include="Polaroid.cs" />
+    <Compile Include="UI\Polaroid.cs" />
     <Compile Include="RallyManager.cs" />
     <Compile Include="RallySettings.cs" />
     <Compile Include="SaveManager.cs" />
