@@ -24,7 +24,46 @@ namespace HistoricalCareer
             rallySettings = new Dictionary<CarClass, List<RallySettings>>();
             string pilotPicturePath = modFolderName + PILOT_PATH;
 
-            // Group 2
+            GenerateGroup2Seasons(assembly, pilotPicturePath);
+            GenerateGroup3Seasons(assembly, pilotPicturePath);
+            GenerateGroup4Seasons(assembly, pilotPicturePath);
+            GenerateGroupBSeasons(assembly, pilotPicturePath);
+            GenerateGroupSSeasons(assembly, pilotPicturePath);
+            GenerateGroupASeasons(assembly, pilotPicturePath);
+
+            // unlock first season
+            if (!SaveManager.HasSaves(rallySettings[(CarClass)0][0].season))
+                ResetRallySaves();
+
+            // checks
+            int count = 0;
+
+            foreach (KeyValuePair<CarClass, List<RallySettings>> pair in rallySettings)
+                count += pair.Value.Count;
+
+            Main.Log("Loaded " + count + " rallies");
+
+            // load resources
+            carSprites = new List<Sprite>();
+            string[] resourcesPaths = assembly.GetManifestResourceNames();
+            string carsRootPath = modFolderName + CAR_SPRITES_PATH;
+            int carsCount = 0;
+
+            foreach (string path in resourcesPaths)
+            {
+                // load car sprites
+                if (!path.Contains(CAR_SPRITES_PATH)) // skip non car paths
+                    continue;
+
+                carsCount++;
+                LoadCarSprite(assembly, path, carsRootPath);
+            }
+
+            Main.Log("Loaded " + carsCount + " cars sprites");
+        }
+
+        private static void GenerateGroup2Seasons(Assembly assembly, string pilotPicturePath)
+        {
             CarClass group2 = CarClass.GROUP_2;
 
             AddCustomRally(
@@ -63,38 +102,33 @@ namespace HistoricalCareer
                 new int[] { 1, 8, 10, 5, 7 }, new Weather[] { Weather.Rain, Weather.Morning, Weather.Rain, Weather.Sunset, Weather.Fog },
                 "After dominating in the french rallies, <b>Jean-Claude Andruet</b> wildly swong his <b>Alpine A110</b> with <b>Michèle Veron</b> as copilot in this rally spanning between Germany, Austria and Hungary. The battle with Fords and Porsches was fierce but they won the French and European rally championships titles."
             );
+
             // TODO : Finish designing rallies for group 2
-            // TODO : Refactor in different methods for each group
+        }
 
-            // unlock first season
-            if (!SaveManager.HasSaves(rallySettings[(CarClass)0][0].season))
-                ResetRallySaves();
+        private static void GenerateGroup3Seasons(Assembly assembly, string pilotPicturePath)
+        {
+            // TODO : Finish designing rallies for group 3
+        }
 
-            // checks
-            int count = 0;
+        private static void GenerateGroup4Seasons(Assembly assembly, string pilotPicturePath)
+        {
+            // TODO : Finish designing rallies for group 4
+        }
 
-            foreach (KeyValuePair<CarClass, List<RallySettings>> pair in rallySettings)
-                count += pair.Value.Count;
+        private static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath)
+        {
+            // TODO : Finish designing rallies for group B
+        }
 
-            Main.Log("Loaded " + count + " rallies");
+        private static void GenerateGroupSSeasons(Assembly assembly, string pilotPicturePath)
+        {
+            // TODO : Finish designing rallies for group S
+        }
 
-            // load resources
-            carSprites = new List<Sprite>();
-            string[] resourcesPaths = assembly.GetManifestResourceNames();
-            string carsRootPath = modFolderName + CAR_SPRITES_PATH;
-            int carsCount = 0;
-
-            foreach (string path in resourcesPaths)
-            {
-                // load car sprites
-                if (!path.Contains(CAR_SPRITES_PATH)) // skip non car paths
-                    continue;
-
-                carsCount++;
-                LoadCarSprite(assembly, path, carsRootPath);
-            }
-
-            Main.Log("Loaded " + carsCount + " cars sprites");
+        private static void GenerateGroupASeasons(Assembly assembly, string pilotPicturePath)
+        {
+            // TODO : Finish designing rallies for group A
         }
 
         private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, Areas area)
