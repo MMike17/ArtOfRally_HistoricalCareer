@@ -18,6 +18,7 @@ namespace HistoricalCareer
         const string MAIN_PANEL = "Race";
         const string CAR_PANEL = "Choose Car";
         const string GROUP_PANEL_FORMAT = "Group";
+        const string STANDING_TAG = "OverallStanding";
         const string PILOT_NAME_TAG = "Year";
         const string RESTARTS_TAG = "Restarts";
         const string LOCATION_YEAR_TAG = "AiSkill";
@@ -100,6 +101,7 @@ namespace HistoricalCareer
 
                     CustomButtonSeason model = layout.transform.GetChild(0).gameObject.GetComponent<CustomButtonSeason>();
                     List<RallySettings> settings = RallyManager.GetSettingsForClass(currentGroup);
+
                     settings.ForEach(setting =>
                     {
                         CustomButtonSeason seasonButton = GameObject.Instantiate(model, layout.transform);
@@ -155,18 +157,29 @@ namespace HistoricalCareer
 
         static void SetupSeasonButton(CustomButtonSeason seasonButton, RallySettings settings)
         {
-            // TODO : Setup visuals for locked seasons
-            // TODO : Setup visuals for completed seasons
+            Main.InvokeMethod(seasonButton, "AssignProperties", BindingFlags.Instance, null);
+            Image wreathIcon = Main.GetField<Image, CustomButtonSeason>(seasonButton, "WreathImage", BindingFlags.Instance);
+            Image stageWins = Main.GetField<Image, CustomButtonSeason>(seasonButton, "StageWinsFill", BindingFlags.Instance);
+
+            wreathIcon.enabled = settings.season.Status == Season.STATUS.COMPLETED;
+            stageWins.fillAmount = (float)settings.season.GetSeasonStageWinsPercentage() / 100f; // TODO : Do I need to save this separately ?
+
             seasonButton.transform.Find("ClassImage").GetComponent<Image>().sprite = settings.pilotPicture;
+            RectTransform buttonSkin = seasonButton.transform.GetChild(0).GetComponent<RectTransform>();
 
             foreach (Text text in seasonButton.GetComponentsInChildren<Text>())
             {
                 switch (text.name)
                 {
-                    case PILOT_NAME_TAG:
+                    case STANDING_TAG:
+                        text.text = settings.season.Status == Season.STATUS.COMPLETED ?
+                            settings.season.GetFormattedOverallPlayerStanding() : string.Empty; // TODO : Do I need to save this separately ?
+                        break;
 
+                    case PILOT_NAME_TAG:
                         text.text = settings.pilotName;
-                        Main.DelayCall(() => text.fontSize = StyleConstants.Text.Header1.GetFontSize(StyleManager.Instance().UIScale));
+                        text.fontStyle = FontStyle.Bold;
+                        Main.DelayCall(() => text.fontSize = StyleConstants.Text.Standard.GetFontSize(StyleManager.Instance().UIScale));
                         break;
 
                     case RESTARTS_TAG:
