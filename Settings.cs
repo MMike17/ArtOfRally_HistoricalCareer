@@ -35,6 +35,7 @@ namespace HistoricalCareer
         internal void OnGUI()
         {
             // custom GUI here
+
             if (GUILayout.Button("Reset saves", GUILayout.Width(150)))
                 RallyManager.ResetRallySaves();
         }

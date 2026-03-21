@@ -37,14 +37,15 @@ namespace HistoricalCareer
         private static CarClass currentGroup;
 
         [HarmonyPatch(nameof(PanelManager.AddPanelAddToHistory), new[] { typeof(Panel) })]
-        static void Postfix(Panel panel)
+        [HarmonyPostfix]
+        static void CheckPanel(Panel panel)
         {
-            Main.Try("AddPanelAddToHistory Postfix", () =>
+            Main.Try(nameof(CheckPanel), () =>
             {
                 if (!Main.enabled)
                     return;
 
-                Main.Log("Switch to panel " + panel.name);
+                Main.Log("Switch to panel : " + panel.name);
 
                 if (string.IsNullOrEmpty(submitUIString))
                 {
@@ -113,7 +114,7 @@ namespace HistoricalCareer
 
                     Main.SetField(ui, "AllSeasonButtons", BindingFlags.Instance, buttons);
 
-                    //add custom UI
+                    // add custom UI
                     CarrouselUI carrousel = layout.GetComponent<CarrouselUI>();
 
                     if (carrousel == null)
@@ -154,6 +155,7 @@ namespace HistoricalCareer
         }
 
         [HarmonyPatch(nameof(PanelManager.GoBack))]
+        [HarmonyPostfix]
         static void GoBack_Postfix() => inCareer = false;
 
         static void SetupSeasonButton(CustomButtonSeason seasonButton, RallySettings settings)

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 
 namespace HistoricalCareer
@@ -8,9 +9,9 @@ namespace HistoricalCareer
     {
         [HarmonyPatch(nameof(CareerManager.SetSeasonInProgress))]
         [HarmonyPostfix]
-        static void SetSeasonInProgress_Postfix(CareerManager __instance, Season TheSeason)
+        static void StartCustomSeason(CareerManager __instance, Season TheSeason)
         {
-            Main.Try("SetSeasonInProgress Postfix", () =>
+            Main.Try(nameof(StartCustomSeason), () =>
             {
                 if (TheSeason != null)
                 {
@@ -24,32 +25,53 @@ namespace HistoricalCareer
 
                     TheSeason.ResetStageInfo();
                     TheSeason.ResetRoadSurface();
-                    TheSeason.RemoveDLCCar(); // TODO : Do we really need that ? (check already done in RallyManager)
 
                     Main.SetField(__instance, "CurrentSeasonInProcess", BindingFlags.Instance, TheSeason);
                     SaveManager.SaveSeasonData(TheSeason);
-                    Main.Log("Set season in progress");
+
+                    Main.Log("Starting season : " + RallyManager.GetSeasonCode(TheSeason));
                 }
             });
         }
 
         [HarmonyPatch("CheckIfContainsSeasonAndUnlockNextOnes")]
-        [HarmonyPostfix]
-        static void CheckIfContainsSeasonAndUnlockNextOnes_Postfix(Season season)
+        [HarmonyPrefix]
+        static bool CheckSeasonUnlock(Season season)
         {
-            Main.Try("CheckIfContainsSeasonAndUnlockNextOnes Postfix", () =>
+            if (Main.enabled && season != null)
             {
-                if (season != null)
-                    RallyManager.UnlockNextSeason(season);
+                RallyManager.UnlockNextSeason(season);
+                return false;
+            }
+
+            return true;
+        }
+
+        // Prevent save corruption crashes
+        [HarmonyPatch(nameof(CareerManager.GetCurrentSeasonBoot))]
+        [HarmonyPrefix]
+        static void SanitizeOGSeasons(CareerManager __instance)
+        {
+            Main.Try(nameof(SanitizeOGSeasons), () =>
+            {
+                foreach (List<Season> seasons in __instance.AllSeasons)
+                {
+                    foreach (Season season in seasons)
+                    {
+                        if (season == null)
+                            Main.Log("Null season detected");
+                        else if (season.Status == Season.STATUS.IN_PROGRESS)
+                            season.Status = Season.STATUS.UNLOCKED;
+                    }
+                }
             });
         }
 
-        [HarmonyPatch("UnlockSeasonClasses")]
+        [HarmonyPatch(nameof(CareerManager.GetCurrentSeasonBoot))]
         [HarmonyPostfix]
-        static void UnlockSeasonClasses_Postfix()
+        static void GetCustomBootSeason(ref Season __result)
         {
-            // TODO : Do I need to do something there ?
-            Main.Log("Unlock next group");
+            __result = RallyManager.GetSeasonInProgress();
         }
 
         [HarmonyPatch(nameof(CareerManager.ResetAllInProgressSeasons))]

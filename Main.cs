@@ -142,6 +142,7 @@ namespace HistoricalCareer
             info.Invoke(source, args);
         }
 
+        /// <summary>BindingFlags.NonPrivate is implicit / source can be null</summary>
         public static U InvokeMethod<T, U>(T source, string methodName, BindingFlags flags, object[] args)
         {
             MethodInfo info = typeof(T).GetMethod(methodName, flags | BindingFlags.NonPublic);

@@ -34,19 +34,19 @@ namespace HistoricalCareer
     {
         [HarmonyPatch(nameof(Season.MarkSeasonAsComplete))]
         [HarmonyPrefix]
-        static bool MarkSeasonAsComplete_Prefix(Season __instance)
+        static bool CompleteCustomSeason(Season __instance)
         {
             if (__instance != null)
             {
                 // skipping ResetValues (breaks rallies)
-                Main.Try("MarkSeasonAsComplete Postfix", () =>
+                Main.Try(nameof(CompleteCustomSeason), () =>
                 {
                     __instance.Status = Season.STATUS.COMPLETED;
                     __instance.SelectedCar = null;
                     __instance.DriverList = new List<Driver>();
 
                     SaveManager.SaveSeasonData(__instance);
-                    Main.Log("Complete season " + RallyManager.GetSeasonCode(__instance));
+                    Main.Log("Completed season : " + RallyManager.GetSeasonCode(__instance));
                 });
 
                 return false;
@@ -57,11 +57,22 @@ namespace HistoricalCareer
 
         [HarmonyPatch(nameof(Season.ResetInProgressSeason))]
         [HarmonyPostfix]
-        static void ResetInProgressSeason_Postfix(Season __instance) => Main.Try("ResetInProgressSeason Postfix", () => SaveIfCareer(__instance));
+        static void InitCurrentSeason(Season __instance)
+        {
+            Main.Try(nameof(InitCurrentSeason), () => SaveIfCareer(__instance));
+        }
 
         [HarmonyPatch(nameof(Season.ResetValuesForStartingNewSeason))]
         [HarmonyPostfix]
-        static void ResetValuesForStartingNewSeason_Postfix(Season __instance) => Main.Try("ResetValuesForStartingNewSeason Postfix", () => SaveIfCareer(__instance)); // TODO : This is creating errors
+        static void InitNewSeason(Season __instance)
+        {
+            // TODO : This is creating errors
+            Main.Try(nameof(InitNewSeason), () =>
+            {
+                //Main.Log(Environment.StackTrace);
+                SaveIfCareer(__instance);
+            });
+        }
 
         public static void SaveIfCareer(Season season)
         {
@@ -74,28 +85,60 @@ namespace HistoricalCareer
     static class CustomButtonPatcher
     {
         // we did that manually
-        static bool Prefix() => !PanelPatcher.inCareer;
+        static bool Prefix()
+        {
+            return !PanelPatcher.inCareer;
+        }
     }
 
     [HarmonyPatch(typeof(CarChooserManager), nameof(CarChooserManager.InitForClassChooser))]
     static class ChooserPatcher
     {
-        static bool Prefix() => !PanelPatcher.inCareer;
+        static bool Prefix()
+        {
+            return !PanelPatcher.inCareer;
+        }
     }
 
     [HarmonyPatch(typeof(SeasonDashboardUI))]
     static class DashboardFixer
     {
+        [HarmonyPatch("ShowNextSeasonInDashboardAnim")]
+        [HarmonyPrefix]
+        static void ShowNextSeasonInDashboardAnim_Prefix(Season Season, List<CustomButtonSeason> ButtonsForSeason)
+        {
+            // TODO : This animation isn't running at all (has to do with my custom buttons)
+
+            ButtonsForSeason.ForEach(item =>
+            {
+                Main.Try("test", () =>
+                {
+                    Main.Log(RallyManager.GetSeasonCode(Main.GetField<Season, CustomButtonSeason>(
+                        item,
+                        "currentSeason",
+                        System.Reflection.BindingFlags.Instance
+                    )));
+                });
+            });
+        }
+
+        [HarmonyPatch("ShouldShowNewGroupVideo")]
+        [HarmonyPostfix]
+        static void NewGroupVideoCheck(ref bool __result, Season currentSeason)
+        {
+            __result = RallyManager.CheckUnlockNextGroup(currentSeason);
+        }
+
         [HarmonyPatch("HideButtons", new Type[] { typeof(List<CustomButtonSeason>) })]
         [HarmonyPrefix]
-        static bool HideButtons_Prefix(List<CustomButtonSeason> Buttons)
+        static bool HideOverride(List<CustomButtonSeason> Buttons)
         {
             return (Main.enabled && Buttons != null) || !Main.enabled;
         }
 
         [HarmonyPatch("GetButtonForSeason")]
         [HarmonyPrefix]
-        static bool GetButtonForSeason_Prefix(Season Season, SeasonDashboardUI __instance)
+        static bool GetButtonForSeasonFix(Season Season, SeasonDashboardUI __instance)
         {
             return false;
         }
@@ -112,6 +155,4 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void ResetStageData_Postfix() => Main.Try("ResetStageData Postfix", () => SeasonPatcher.SaveIfCareer(GameModeManager.GetSeasonDataCurrentGameMode()));
     }
-
-
 }
