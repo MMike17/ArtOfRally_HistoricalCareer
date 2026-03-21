@@ -1,4 +1,3 @@
-using Epic.OnlineServices.Lobby;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -37,7 +36,7 @@ namespace HistoricalCareer
 
             // Harmony patching
             Harmony harmony = new Harmony(modEntry.Info.Id);
-            harmony.PatchAll();
+            Main.Try("Harmony patching", () => harmony.PatchAll(), true);
 
             // hook in mod manager event
             modEntry.OnToggle = OnToggleEvent;
@@ -86,7 +85,7 @@ namespace HistoricalCareer
         public static void Error(string message) => Logger.Error(message);
 
         /// <summary>Use this to log possible execution errors to the console</summary>
-        public static void Try(string flag, Action callback)
+        public static void Try(string flag, Action callback, bool crashOnError = false)
         {
             try
             {
@@ -95,6 +94,9 @@ namespace HistoricalCareer
             catch (Exception e)
             {
                 Error(flag + "\n" + e.ToString());
+
+                if (crashOnError)
+                    throw e;
             }
         }
 
