@@ -155,4 +155,17 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void ResetStageData_Postfix() => Main.Try("ResetStageData Postfix", () => SeasonPatcher.SaveIfCareer(GameModeManager.GetSeasonDataCurrentGameMode()));
     }
+
+    [HarmonyPatch(typeof(ResetCareerButton), nameof(ResetCareerButton.ResetCareerSave))]
+    static class ResetCareerPatcher
+    {
+        [HarmonyPostfix]
+        static void ResetCustomSaves()
+        {
+            RallyManager.ResetRallySaves();
+            PanelPatcher.forceCareerUpdate = true;
+
+            Main.Log("Reset custom rally saves");
+        }
+    }
 }

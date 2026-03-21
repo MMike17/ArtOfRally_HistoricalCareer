@@ -31,6 +31,8 @@ namespace HistoricalCareer
         public static string submitUIString { get; private set; }
         public static bool inCareer { get; private set; }
 
+        public static bool forceCareerUpdate = true;
+
         private static RallySettings currentRally;
 
         private static CareerUI careerUI;
@@ -76,9 +78,10 @@ namespace HistoricalCareer
                     ContentSizeFitter fitter = layout.GetComponent<ContentSizeFitter>();
 
                     // should cut config short
-                    if (fitter != null)
+                    if (!forceCareerUpdate)
                         return;
 
+                    forceCareerUpdate = false;
                     layout.spacing = -10;
                     layout.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 

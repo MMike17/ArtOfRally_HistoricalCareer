@@ -452,7 +452,6 @@ namespace HistoricalCareer
             return currentList.IndexOf(currentSettings) == currentList.Count - 1;
         }
 
-        // TODO : Call this when we reset career progress
         public static void ResetRallySaves()
         {
             foreach (KeyValuePair<CarClass, List<RallySettings>> pair in rallySettings)
@@ -461,6 +460,7 @@ namespace HistoricalCareer
                 {
                     settings.season.Status = Season.STATUS.LOCKED;
                     settings.season.OverallStandingPlayer = 0;
+                    settings.season.StageWins = 0;
                     SaveManager.SaveSeasonData(settings.season);
                 }
             }
