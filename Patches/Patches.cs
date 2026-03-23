@@ -1,6 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+using static Car;
 
 namespace HistoricalCareer
 {
@@ -105,21 +111,112 @@ namespace HistoricalCareer
     {
         [HarmonyPatch("ShowNextSeasonInDashboardAnim")]
         [HarmonyPrefix]
-        static void ShowNextSeasonInDashboardAnim_Prefix(Season Season, List<CustomButtonSeason> ButtonsForSeason)
+        static bool NextSeaconAnimOverride(Season Season, SeasonDashboardUI __instance)
         {
-            // TODO : This animation isn't running at all (has to do with my custom buttons)
+            if (!Main.enabled)
+                return true;
 
-            ButtonsForSeason.ForEach(item =>
+            __instance.StartCoroutine(CustomNextSeasonAnim(__instance, Season));
+            return false;
+        }
+
+        // replaces SeasonDashboardUI.ShowNextSeasonInDashboardAnim
+        private static IEnumerator CustomNextSeasonAnim(SeasonDashboardUI instance, Season season)
+        {
+            Main.Log("Starting custom next season anim");
+
+            PanelManager panelManager = UIManager.Instance.PanelManager;
+            panelManager.PopAllPanels();
+            panelManager.AddPanelAddToHistory(panelManager.MainPanel, false);
+            panelManager.AddPanelAddToHistory(panelManager.CareerClassesDashboardPanel, false);
+
+            instance.seasonCompleteProgressUI.UnfocusAllCircles();
+            instance.seasonCompleteProgressUI.SetCanvasGroupAlpha(0f);
+
+            panelManager.MoveCameraToCareer();
+            panelManager.AddCareerDashboardPanel(season.CarClass, false);
+
+            PanelPatcher.SetupSeasonPanel(instance.transform.Find(season.CarClass.ToString().Replace("GROUP_", "Group")).GetComponent<Panel>());
+
+            CustomButtonSeason currentSeasonButton = PanelPatcher.GetButtonForSeason(season);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(currentSeasonButton.gameObject);
+
+            PanelPatcher.SetCarouselState(false);
+
+            //Navigation nav = currentSeasonButton.navigation;
+            //nav.mode = Navigation.Mode.None;
+            //currentSeasonButton.navigation = nav;
+
+            PanelPatcher.ShowSeasonButton(currentSeasonButton);
+            PanelPatcher.SetCarouselSelection(season);
+            yield return currentSeasonButton.SeasonCompleteCoroutine(season);
+            PanelPatcher.SetSeasonButtonsState(currentSeasonButton, true);
+
+            //nav.mode = Navigation.Mode.Explicit;
+            PanelPatcher.SetCarouselState(true);
+
+            yield return new WaitForSeconds(0.5f);
+
+            // replaces SeasonDashboardUI.UnlockNewClassSequence
+            if (RallyManager.CheckUnlockNextGroup(season))
             {
-                Main.Try("test", () =>
-                {
-                    Main.Log(RallyManager.GetSeasonCode(Main.GetField<Season, CustomButtonSeason>(
-                        item,
-                        "currentSeason",
-                        System.Reflection.BindingFlags.Instance
-                    )));
-                });
-            });
+                CarClass unlockedClass = season.CarClass + 1;
+                Main.Log("Playing unlock anim for group " + unlockedClass);
+
+                panelManager.PopPanel();
+                PanelPatcher.SetCarouselState(false);
+                panelManager.SetBackButtonActive(false);
+
+                yield return instance.StartCoroutine(panelManager.CarTrailersPlayer.PlayVideoCoroutine(unlockedClass, false));
+
+                if (panelManager.Peek() == panelManager.VideoPlayerPanel)
+                    panelManager.GoBack();
+
+                // replaces SeasonDashboardUI.DoNewClassButtonUnlockAnimation
+                instance.isShowingAnimation = true;
+                CustomButtonCareerClass classButton = Main.InvokeMethod<SeasonDashboardUI, CustomButtonCareerClass>(
+                    instance,
+                    "GetClassButtonFromEnum",
+                    BindingFlags.Instance,
+                    new object[] { unlockedClass }
+                );
+                Main.InvokeMethod(instance, "RefreshButtons", BindingFlags.Instance, null);
+                EventSystem.current.SetSelectedGameObject(null);
+
+                PanelPatcher.SetSeasonButtonsState(null, false);
+                PanelPatcher.SetCarouselState(false);
+                panelManager.SetBackButtonActive(false);
+
+                //nav = classButton.navigation;
+                //nav.mode = Navigation.Mode.None;
+                //classButton.navigation = nav;
+
+                yield return instance.StartCoroutine(classButton.ClassUnlockedSequence());
+                yield return new WaitForSecondsRealtime(0.5f);
+
+                Main.InvokeMethod(
+                    instance,
+                    "ShowClassButtons",
+                    BindingFlags.Instance,
+                    new object[] {
+                        Main.GetField<List<CustomButtonCareerClass>, SeasonDashboardUI>(instance, "ClassButtons", BindingFlags.Instance),
+                        unlockedClass
+                    }
+                );
+
+                panelManager.SetBackButtonActive(true);
+                classButton.interactable = true;
+                EventSystem.current.SetSelectedGameObject(classButton.gameObject);
+
+                //nav.mode = Navigation.Mode.Explicit;
+                //classButton.navigation = nav;
+                PanelPatcher.SetCarouselState(true);
+
+                instance.isShowingAnimation = false;
+            }
+
+            panelManager.SetBackButtonActive(true);
         }
 
         [HarmonyPatch("ShouldShowNewGroupVideo")]
@@ -163,7 +260,7 @@ namespace HistoricalCareer
         static void ResetCustomSaves()
         {
             RallyManager.ResetRallySaves();
-            PanelPatcher.forceCareerUpdate = true;
+            PanelPatcher.ResetCareerUIs();
 
             Main.Log("Reset custom rally saves");
         }

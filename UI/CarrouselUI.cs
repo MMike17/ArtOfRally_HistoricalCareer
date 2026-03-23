@@ -22,6 +22,7 @@ namespace HistoricalCareer
         private float delay;
         private int selectedIndex;
         private bool immediateUpdate;
+        private bool inputState;
 
         private void Awake()
         {
@@ -35,6 +36,7 @@ namespace HistoricalCareer
 
         public void Reset(List<RallySettings> settings)
         {
+            inputState = true;
             selectedIndex = 0;
             panels = new List<Panel>();
 
@@ -92,15 +94,24 @@ namespace HistoricalCareer
             for (int i = 0; i < panels.Count; i++)
             {
                 bool isLocked = panels[i].settings.season.Status == Season.STATUS.LOCKED;
+
                 panels[i].Update(
-                    i == selectedIndex ? 1 : i == under || i == over ? SEMI_SELECTED_SIZE : NON_SELECTED_SIZE,
+                    i == selectedIndex ?
+                        1 :
+                        (i == under || i == over ?
+                            (inputState ?
+                                SEMI_SELECTED_SIZE :
+                                NON_SELECTED_SIZE) :
+                            NON_SELECTED_SIZE),
                     isLocked ?
                         NON_SELECTED_ALPHA :
                         (i == selectedIndex ?
                             1 :
-                            i == under || i == over ?
-                                SEMI_SELECTED_ALPHA :
-                                NON_SELECTED_ALPHA),
+                            (i == under || i == over ?
+                                (inputState ?
+                                    NON_SELECTED_ALPHA :
+                                    SEMI_SELECTED_ALPHA) :
+                                NON_SELECTED_ALPHA)),
                     (i == selectedIndex ? Main.settings.carrouselAnimSpeed * 1.5f : Main.settings.carrouselAnimSpeed) * Time.deltaTime,
                     immediateUpdate
                 );
@@ -110,6 +121,9 @@ namespace HistoricalCareer
                 immediateUpdate = false;
 
             // input
+            if (!inputState)
+                return;
+
             if (delay > 0)
                 delay = Mathf.Clamp01(delay - Time.deltaTime);
 
@@ -132,6 +146,14 @@ namespace HistoricalCareer
                 transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].settings.season);
             }
         }
+
+        public void ForceSelection(int index)
+        {
+            selectedIndex = index;
+            immediateUpdate = true;
+        }
+
+        public void SetInputState(bool state) => inputState = state;
 
         private class Panel
         {

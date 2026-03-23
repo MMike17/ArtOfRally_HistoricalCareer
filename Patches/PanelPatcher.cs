@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using FluffyUnderware.DevTools.Extensions;
 using HarmonyLib;
 using Rewired;
 using Rewired.Integration.UnityUI;
@@ -31,12 +32,10 @@ namespace HistoricalCareer
         public static string submitUIString { get; private set; }
         public static bool inCareer { get; private set; }
 
-        public static bool forceCareerUpdate = true;
-
+        private static Dictionary<string, CustomButtonSeason> seasonButtons;
         private static RallySettings currentRally;
-
+        private static CarrouselUI carrousel;
         private static CareerUI careerUI;
-        private static CarClass currentGroup;
 
         [HarmonyPatch(nameof(PanelManager.AddPanelAddToHistory), new[] { typeof(Panel) })]
         [HarmonyPostfix]
@@ -72,60 +71,7 @@ namespace HistoricalCareer
                     bodyFont = panel.GetComponentInChildren<VersionText>().GetComponent<Text>().font;
                 }
                 else if (panel.name.Contains(GROUP_PANEL_FORMAT)) // group selection panel
-                {
-                    SeasonDashboardUI ui = panel.transform.parent.GetComponent<SeasonDashboardUI>();
-                    HorizontalLayoutGroup layout = panel.GetComponentInChildren<HorizontalLayoutGroup>();
-                    ContentSizeFitter fitter = layout.GetComponent<ContentSizeFitter>();
-
-                    // should cut config short
-                    if (!forceCareerUpdate)
-                        return;
-
-                    forceCareerUpdate = false;
-                    layout.spacing = -10;
-                    layout.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-                    // hide buttons
-                    foreach (Transform child in layout.transform)
-                        child.gameObject.SetActive(false);
-
-                    // generate buttons
-                    currentGroup = CarClass.COUNT;
-
-                    if (!Enum.TryParse(panel.name.Replace(GROUP_PANEL_FORMAT, "GROUP_"), out currentGroup))
-                    {
-                        Main.Error("Couldn't find corresponding group for panel " + panel.name + " (this will crash the mod).");
-                        return;
-                    }
-
-                    List<CustomButtonSeason> buttons = Main.GetField<List<CustomButtonSeason>, SeasonDashboardUI>(
-                        ui,
-                        "AllSeasonButtons",
-                        BindingFlags.Instance
-                    );
-
-                    CustomButtonSeason model = layout.transform.GetChild(0).gameObject.GetComponent<CustomButtonSeason>();
-                    List<RallySettings> settings = RallyManager.GetSettingsForClass(currentGroup);
-
-                    settings.ForEach(setting =>
-                    {
-                        CustomButtonSeason seasonButton = GameObject.Instantiate(model, layout.transform);
-                        SetupSeasonButton(seasonButton, setting);
-
-                        buttons.Add(seasonButton);
-                    });
-
-                    Main.SetField(ui, "AllSeasonButtons", BindingFlags.Instance, buttons);
-
-                    // add custom UI
-                    CarrouselUI carrousel = layout.GetComponent<CarrouselUI>();
-
-                    if (carrousel == null)
-                        carrousel = layout.gameObject.AddComponent<CarrouselUI>();
-
-                    carrousel.Reset(settings);
-                    inCareer = true;
-                }
+                    SetupSeasonPanel(panel);
                 else if (panel.name == CAR_PANEL && inCareer) // car selection panel
                 {
                     if (careerUI == null)
@@ -160,6 +106,127 @@ namespace HistoricalCareer
         [HarmonyPatch(nameof(PanelManager.GoBack))]
         [HarmonyPostfix]
         static void GoBack_Postfix() => inCareer = false;
+
+        public static void SetupSeasonPanel(Panel panel)
+        {
+            SeasonDashboardUI ui = panel.transform.parent.GetComponent<SeasonDashboardUI>();
+            HorizontalLayoutGroup layout = panel.GetComponentInChildren<HorizontalLayoutGroup>();
+            ContentSizeFitter fitter = layout.GetComponent<ContentSizeFitter>();
+            carrousel = layout.GetComponent<CarrouselUI>();
+
+            // should cut config short
+            if (carrousel != null)
+                return;
+
+            layout.spacing = -10;
+            layout.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            // hide buttons
+            foreach (Transform child in layout.transform)
+                child.gameObject.SetActive(false);
+
+            // generate buttons
+            CarClass currentGroup = CarClass.COUNT;
+
+            if (!Enum.TryParse(panel.name.Replace(GROUP_PANEL_FORMAT, "GROUP_"), out currentGroup))
+            {
+                Main.Error("Couldn't find corresponding group for panel " + panel.name + " (this will crash the mod).");
+                return;
+            }
+
+            List<CustomButtonSeason> buttons = Main.GetField<List<CustomButtonSeason>, SeasonDashboardUI>(
+                ui,
+                "AllSeasonButtons",
+                BindingFlags.Instance
+            );
+
+            CustomButtonSeason model = layout.transform.GetChild(0).gameObject.GetComponent<CustomButtonSeason>();
+            List<RallySettings> settings = RallyManager.GetSettingsForClass(currentGroup);
+            seasonButtons = new Dictionary<string, CustomButtonSeason>();
+
+            settings.ForEach(setting =>
+            {
+                CustomButtonSeason seasonButton = GameObject.Instantiate(model, layout.transform);
+                SetupSeasonButton(seasonButton, setting);
+
+                buttons.Add(seasonButton);
+                seasonButtons.Add(RallyManager.GetSeasonCode(setting.season), seasonButton);
+            });
+
+            Main.SetField(ui, "AllSeasonButtons", BindingFlags.Instance, buttons);
+
+            // add custom UI
+            carrousel = layout.gameObject.AddComponent<CarrouselUI>();
+            carrousel.Reset(settings);
+
+            inCareer = true;
+        }
+
+        public static CustomButtonSeason GetButtonForSeason(Season season)
+        {
+            string seasonCode = RallyManager.GetSeasonCode(season);
+
+            if (seasonButtons == null)
+            {
+                Main.Error("Season buttons dictionary not initialized, panel was not setup");
+                return null;
+            }
+
+            if (!seasonButtons.ContainsKey(seasonCode))
+            {
+                Main.Error("Season code not found in dictionary (" + RallyManager.GetSeasonCode(season) + ")");
+                return null;
+            }
+
+            if (seasonButtons[seasonCode] == null)
+                Main.Error("Couldn't find button for provided season (" + RallyManager.GetSeasonCode(season) + ")");
+
+            return seasonButtons[seasonCode];
+        }
+
+        public static void ShowSeasonButton(CustomButtonSeason seasonButton)
+        {
+            SetSeasonButtonsState(seasonButton, false);
+            seasonButton.EnableCanvas();
+        }
+
+        public static void SetSeasonButtonsState(CustomButtonSeason seasonButton, bool status)
+        {
+            foreach (KeyValuePair<string, CustomButtonSeason> pair in seasonButtons)
+            {
+                if (pair.Value != seasonButton)
+                {
+                    if (status)
+                    {
+                        pair.Value.DisableCanvas();
+                        pair.Value.interactable = true;
+                    }
+                    else
+                    {
+                        pair.Value.HideCanvas();
+                        pair.Value.interactable = false;
+                    }
+                }
+            }
+        }
+
+        public static void SetCarouselState(bool state) => carrousel.SetInputState(state);
+
+        public static void SetCarouselSelection(Season season)
+        {
+            // we assume season is valid
+            int index = 0;
+
+            foreach (string key in seasonButtons.Keys)
+            {
+                if (key == RallyManager.GetSeasonCode(season))
+                    break;
+                else
+                    index++;
+            }
+
+            carrousel.ForceSelection(index);
+        }
 
         static void SetupSeasonButton(CustomButtonSeason seasonButton, RallySettings settings)
         {
@@ -222,5 +289,11 @@ namespace HistoricalCareer
         }
 
         public static void SelectRally(RallySettings settings) => currentRally = settings;
+
+        public static void ResetCareerUIs()
+        {
+            foreach (CarrouselUI carrousel in GameObject.FindObjectsOfType<CarrouselUI>())
+                GameObject.Destroy(carrousel);
+        }
     }
 }
