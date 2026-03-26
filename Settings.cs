@@ -17,11 +17,11 @@ namespace HistoricalCareer
         [Draw(DrawType.Toggle)]
         public bool showMarkers;
         [Draw(DrawType.Toggle)]
-        public bool disableInfoLogs = false;
-        //public bool disableInfoLogs = true;
+        //public bool disableInfoLogs = false;
+        public bool disableInfoLogs = true;
         [Draw(DrawType.Toggle)]
-        public bool shortRallies = true;
-        //public bool shortRallies = false;
+        //public bool shortRallies = true;
+        public bool shortRallies = false;
 
         public override void Save(ModEntry modEntry) => Save(this, modEntry);
 
