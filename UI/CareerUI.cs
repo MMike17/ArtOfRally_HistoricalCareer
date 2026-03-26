@@ -79,8 +79,6 @@ namespace HistoricalCareer
                 StyleText contextStyle = contextText.gameObject.AddComponent<StyleText>();
                 Main.SetField(contextStyle, STYLE_PROP_NAME, BindingFlags.Instance, TextType.Header1);
                 contextText.fontSize = StyleConstants.Text.Header1.GetFontSize(uiScale);
-
-                panel.Show();
             }
 
             seasonDate.text = settings.season.Year.ToString();
@@ -90,7 +88,7 @@ namespace HistoricalCareer
             carPicture.sprite = RallyManager.GetCarSprite(settings.carClass, settings.carIndex);
             contextText.text = settings.loreText;
 
-            gameObject.SetActive(true);
+            panel.Show();
         }
 
         private void Update()

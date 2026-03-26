@@ -31,7 +31,6 @@ namespace HistoricalCareer
         public static Font bodyFont { get; private set; }
         public static string submitUIString { get; private set; }
         public static string cancelUIString { get; private set; }
-        public static bool inCareer { get; private set; }
 
         private static Dictionary<string, CustomButtonSeason> seasonButtons;
         private static RallySettings currentRally;
@@ -78,7 +77,7 @@ namespace HistoricalCareer
                 }
                 else if (panel.name.Contains(GROUP_PANEL_FORMAT)) // group selection panel
                     SetupSeasonPanel(panel);
-                else if (panel.name == CAR_PANEL && inCareer) // car selection panel
+                else if (panel.name == CAR_PANEL && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER) // car selection panel
                 {
                     if (careerUI == null)
                         careerUI = Main.SpawnUI(panel.transform.parent);
@@ -113,10 +112,6 @@ namespace HistoricalCareer
                 }
             });
         }
-
-        [HarmonyPatch(nameof(PanelManager.GoBack))]
-        [HarmonyPostfix]
-        static void GoBack_Postfix() => inCareer = false;
 
         public static void SetupSeasonPanel(Panel panel)
         {
@@ -170,7 +165,7 @@ namespace HistoricalCareer
             carrousel = layout.gameObject.AddComponent<CarrouselUI>();
             carrousel.Reset(settings);
 
-            inCareer = true;
+            //inCareer = true;
         }
 
         public static CustomButtonSeason GetButtonForSeason(Season season)

@@ -89,7 +89,7 @@ namespace HistoricalCareer
         [HarmonyPrefix]
         static bool Prefix() // we did that manually
         {
-            return !PanelPatcher.inCareer;
+            return GameModeManager.GameMode != GameModeManager.GAME_MODES.CAREER;
         }
     }
 
@@ -99,7 +99,7 @@ namespace HistoricalCareer
         [HarmonyPrefix]
         static bool Prefix()
         {
-            return !PanelPatcher.inCareer;
+            return GameModeManager.GameMode != GameModeManager.GAME_MODES.CAREER;
         }
     }
 
