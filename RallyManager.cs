@@ -64,7 +64,10 @@ namespace HistoricalCareer
         private static void UnlockFirstSeason()
         {
             Season firstSeason = rallySettings[0][0].season;
-            firstSeason.Status = Season.STATUS.UNLOCKED;
+
+            if (firstSeason.Status == Season.STATUS.LOCKED)
+                firstSeason.Status = Season.STATUS.UNLOCKED;
+
             SaveManager.SaveSeasonData(firstSeason);
         }
 
@@ -249,6 +252,9 @@ namespace HistoricalCareer
 
         public static string GetSeasonCode(Season season)
         {
+            if (season.Rallies.Count <= 0)
+                Main.Log("Rallies are not setup for this (" + season.CarClass + " " + season.Year + ")");
+
             return GetSeasonCode(season.CarClass, season.Year, season.Rallies[0].CurrentArea);
         }
 
@@ -366,7 +372,7 @@ namespace HistoricalCareer
             rallySettings[group].Clear();
         }
 
-        public static void AppyRallySettings(RallySettings settings)
+        public static void ApplyRallySettings(RallySettings settings)
         {
             CarManager.SetChosenClass(settings.carClass);
             CarManager.SetChosenCar(settings.carIndex);
@@ -374,6 +380,11 @@ namespace HistoricalCareer
             // TODO : Liveries are broken (maybe)
 
             Main.Log("Applied rally settings");
+        }
+
+        public static void ApplyRallySettings(Season season)
+        {
+            ApplyRallySettings(rallySettings[season.CarClass].Find(item => GetSeasonCode(item.season) == GetSeasonCode(season)));
         }
 
         public static Sprite GetCarSprite(CarClass carClass, int carIndex)
@@ -466,9 +477,10 @@ namespace HistoricalCareer
             }
 
             UnlockFirstSeason();
+            Main.SetField(GameModeManager.CareerManager, "CurrentSeasonInProcess", BindingFlags.Instance, null);
         }
 
-        public static Season GetSeasonInProgress()
+        public static RallySettings GetRallyInProgress()
         {
             RallySettings result = null;
             int count = 0;
@@ -487,13 +499,41 @@ namespace HistoricalCareer
                 }
             }
 
+            if (count > 1)
+                Main.Error("Found more than one season in progress (this shouldn't be happening");
+
             if (result != null)
             {
                 Main.Log("Loaded custom season in progress : " + GetSeasonCode(result.season));
-                return result.season;
+                return result;
             }
             else
                 return null;
+        }
+
+        public static void ResetRallyInProgress()
+        {
+            int count = 0;
+
+            foreach (CarClass carClass in Enum.GetValues(typeof(CarClass)))
+            {
+                if (!rallySettings.ContainsKey(carClass))
+                    continue;
+
+                RallySettings settings = rallySettings[carClass].Find(item => item.season.Status == Season.STATUS.IN_PROGRESS);
+
+                if (settings != null)
+                {
+                    settings.season.Status = Season.STATUS.UNLOCKED;
+                    SaveManager.SaveSeasonData(settings.season);
+                    count++;
+                }
+            }
+
+            if (count > 1)
+                Main.Error("Found more than one season in progress (this shouldn't be happening");
+
+            Main.Log("Reset rally in progress");
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using FluffyUnderware.DevTools.Extensions;
 using HarmonyLib;
 using Rewired;
 using Rewired.Integration.UnityUI;
@@ -19,6 +18,7 @@ namespace HistoricalCareer
         const string MAIN_PANEL = "Race";
         const string CAR_PANEL = "Choose Car";
         const string GROUP_PANEL_FORMAT = "Group";
+        const string CONTINUE_PANEL = "ContinueSeasonScreen";
         const string STANDING_TAG = "OverallStanding";
         const string PILOT_NAME_TAG = "Year";
         const string RESTARTS_TAG = "Restarts";
@@ -41,12 +41,12 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void CheckPanel(Panel panel)
         {
+            if (!Main.enabled)
+                return;
+
             Main.Try(nameof(CheckPanel), () =>
             {
-                if (!Main.enabled)
-                    return;
-
-                Main.Log("Switch to panel : " + panel.name);
+                //Main.Log("Switch to panel : " + panel.name);
 
                 if (string.IsNullOrEmpty(submitUIString))
                 {
@@ -94,11 +94,16 @@ namespace HistoricalCareer
                         helper.CarButton.index = currentRally.carIndex;
                         helper.LiveryButton.index = currentRally.liveryIndex;
 
-                        RallyManager.AppyRallySettings(rally);
+                        RallyManager.ApplyRallySettings(rally);
                         panel.GetComponent<CarChooserHelper>().BeginEvent();
 
                         // TODO : CarChooserHelper.BeginEvent calls LiveryButton.Save which might be causing the livery glitch
                     });
+                }
+                else if (panel.name == CONTINUE_PANEL)
+                {
+                    RallySettings settings = RallyManager.GetRallyInProgress();
+                    panel.GetComponent<ContinueSeasonScreen>().SeasonText.text = settings.rallyName + " (" + settings.season.Year + ")";
                 }
             });
         }

@@ -33,8 +33,6 @@ namespace HistoricalCareer
     // 	}
     // }
 
-    // TODO : In progress seasons are not always detected by the game
-
     [HarmonyPatch(typeof(Season))]
     static class SeasonPatcher
     {
@@ -42,6 +40,9 @@ namespace HistoricalCareer
         [HarmonyPrefix]
         static bool CompleteCustomSeason(Season __instance)
         {
+            if (!Main.enabled)
+                return true;
+
             if (__instance != null)
             {
                 // skipping ResetValues (breaks rallies)
@@ -57,8 +58,8 @@ namespace HistoricalCareer
 
                 return false;
             }
-            else
-                return false;
+
+            return true;
         }
 
         [HarmonyPatch(nameof(Season.ResetInProgressSeason))]
@@ -72,12 +73,7 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void InitNewSeason(Season __instance)
         {
-            // TODO : This is creating errors
-            Main.Try(nameof(InitNewSeason), () =>
-            {
-                //Main.Log(Environment.StackTrace);
-                SaveIfCareer(__instance);
-            });
+            Main.Try(nameof(InitNewSeason), () => SaveIfCareer(__instance));
         }
 
         public static void SaveIfCareer(Season season)
@@ -90,8 +86,8 @@ namespace HistoricalCareer
     [HarmonyPatch(typeof(CustomButtonCars), "SaveLiveryToCarManager")]
     static class CustomButtonPatcher
     {
-        // we did that manually
-        static bool Prefix()
+        [HarmonyPrefix]
+        static bool Prefix() // we did that manually
         {
             return !PanelPatcher.inCareer;
         }
@@ -100,6 +96,7 @@ namespace HistoricalCareer
     [HarmonyPatch(typeof(CarChooserManager), nameof(CarChooserManager.InitForClassChooser))]
     static class ChooserPatcher
     {
+        [HarmonyPrefix]
         static bool Prefix()
         {
             return !PanelPatcher.inCareer;
@@ -223,7 +220,8 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void NewGroupVideoCheck(ref bool __result, Season currentSeason)
         {
-            __result = RallyManager.CheckUnlockNextGroup(currentSeason);
+            if (Main.enabled)
+                __result = RallyManager.CheckUnlockNextGroup(currentSeason);
         }
 
         [HarmonyPatch("HideButtons", new Type[] { typeof(List<CustomButtonSeason>) })]
@@ -237,7 +235,15 @@ namespace HistoricalCareer
         [HarmonyPrefix]
         static bool GetButtonForSeasonFix(Season Season, SeasonDashboardUI __instance)
         {
-            return false;
+            return !Main.enabled;
+        }
+
+        [HarmonyPatch(nameof(SeasonDashboardUI.ContinueSeason))]
+        [HarmonyPrefix]
+        static void ContinueFix()
+        {
+            if (Main.enabled)
+                RallyManager.ApplyRallySettings(GameModeManager.CareerManager.GetCurrentSeason());
         }
     }
 
@@ -246,11 +252,31 @@ namespace HistoricalCareer
     {
         [HarmonyPatch(nameof(DriverManager.CalculateStageRank))]
         [HarmonyPostfix]
-        static void CalculateStageRank_Postfix() => Main.Try("CalculateStageRank Postfix", () => SeasonPatcher.SaveIfCareer(GameModeManager.GetSeasonDataCurrentGameMode()));
+        static void SaveStageRank()
+        {
+            if (!Main.enabled)
+                return;
+
+            Main.Try(nameof(SaveStageRank), () =>
+            {
+                if (GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+                    SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason());
+            });
+        }
 
         [HarmonyPatch(nameof(DriverManager.ResetStageData))]
         [HarmonyPostfix]
-        static void ResetStageData_Postfix() => Main.Try("ResetStageData Postfix", () => SeasonPatcher.SaveIfCareer(GameModeManager.GetSeasonDataCurrentGameMode()));
+        static void SaveResetStage()
+        {
+            if (!Main.enabled)
+                return;
+
+            Main.Try(nameof(SaveResetStage), () =>
+            {
+                if (GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+                    SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason());
+            });
+        }
     }
 
     [HarmonyPatch(typeof(ResetCareerButton), nameof(ResetCareerButton.ResetCareerSave))]
@@ -259,10 +285,29 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void ResetCustomSaves()
         {
-            RallyManager.ResetRallySaves();
-            PanelPatcher.ResetCareerUIs();
+            if (!Main.enabled)
+                return;
 
-            Main.Log("Reset custom rally saves");
+            Main.Try(nameof(ResetCustomSaves), () =>
+            {
+                RallyManager.ResetRallySaves();
+                PanelPatcher.ResetCareerUIs();
+
+                Main.Log("Reset custom rally saves");
+            });
+        }
+    }
+
+    [HarmonyPatch(typeof(DriverManager), nameof(DriverManager.GenerateDrivers))]
+    static class DriverFixer
+    {
+        [HarmonyPostfix]
+        static void SaveDriverList()
+        {
+            if (!Main.enabled)
+                return;
+
+            SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason());
         }
     }
 }
