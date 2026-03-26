@@ -139,7 +139,6 @@ namespace HistoricalCareer
                 delay = INPUT_DELAY_THRESHOLD;
             }
 
-            // TODO : I feel like this is double working when I already have a career season (might already be fixed)
             if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
             {
                 PanelPatcher.SelectRally(panels[selectedIndex].settings);

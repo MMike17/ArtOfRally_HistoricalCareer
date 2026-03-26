@@ -103,7 +103,6 @@ namespace HistoricalCareer
                 return true;
 
             __result = RallyManager.GetRallyInProgress() != null;
-            Main.Error("Has season in progress : " + __result);
             return false;
         }
 
