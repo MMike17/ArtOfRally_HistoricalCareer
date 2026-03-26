@@ -37,6 +37,7 @@ namespace HistoricalCareer
             int locationPictureIndex,
             int[] stagesIndeces,
             ConditionTypes.Weather[] weathers,
+            int restarts,
             string loreText
         )
         {
@@ -85,8 +86,6 @@ namespace HistoricalCareer
             weathers = correctedWeathers.ToArray();
 
             // setup season
-            int restarts = 1; // TODO : What's the OG number of restarts for that season ? Do I need to change that ?
-
             season = new Season(
                 year,
                 carClass,
