@@ -78,11 +78,11 @@ namespace HistoricalCareer
         public static void Log(string message)
         {
             if (!settings.disableInfoLogs)
-                Logger.Log(message);
+                Logger.Log("<color=\"#fffb80\">" + message + "</color>");
         }
 
         /// <summary>Logs an error message to the console</summary>
-        public static void Error(string message) => Logger.Error(message);
+        public static void Error(string message) => Logger.Log("<color=\"#ff8080\">[Error] " + message + "</color>");
 
         /// <summary>Use this to log possible execution errors to the console</summary>
         public static void Try(string flag, Action callback, bool crashOnError = false)
