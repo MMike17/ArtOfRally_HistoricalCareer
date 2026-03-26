@@ -30,6 +30,7 @@ namespace HistoricalCareer
         public static Font titleFont { get; private set; }
         public static Font bodyFont { get; private set; }
         public static string submitUIString { get; private set; }
+        public static string cancelUIString { get; private set; }
         public static bool inCareer { get; private set; }
 
         private static Dictionary<string, CustomButtonSeason> seasonButtons;
@@ -54,6 +55,11 @@ namespace HistoricalCareer
                     submitUIString = Main.GetField<string, RewiredStandaloneInputModule>(
                         inputModule as RewiredStandaloneInputModule,
                         "m_SubmitButton",
+                        BindingFlags.Instance
+                    );
+                    cancelUIString = Main.GetField<string, RewiredStandaloneInputModule>(
+                        inputModule as RewiredStandaloneInputModule,
+                        "m_CancelButton",
                         BindingFlags.Instance
                     );
                     int playerID = Main.GetField<int[], RewiredStandaloneInputModule>(

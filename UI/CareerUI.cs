@@ -16,6 +16,8 @@ namespace HistoricalCareer
 
         public static UIScale uiScale { get; private set; }
 
+        private CanvasGroup panelGroup;
+        private Panel panel;
         private Text seasonDate;
         private Text rallyName;
         private Polaroid environmentPolaroid;
@@ -30,6 +32,9 @@ namespace HistoricalCareer
 
             if (seasonDate == null)
             {
+                panelGroup = GetComponent<CanvasGroup>();
+                panel = gameObject.AddComponent<Panel>();
+
                 Transform titleHolder = transform.GetChild(0);
                 uiScale = StyleManager.Instance().UIScale;
 
@@ -74,6 +79,8 @@ namespace HistoricalCareer
                 StyleText contextStyle = contextText.gameObject.AddComponent<StyleText>();
                 Main.SetField(contextStyle, STYLE_PROP_NAME, BindingFlags.Instance, TextType.Header1);
                 contextText.fontSize = StyleConstants.Text.Header1.GetFontSize(uiScale);
+
+                panel.Show();
             }
 
             seasonDate.text = settings.season.Year.ToString();
@@ -88,12 +95,17 @@ namespace HistoricalCareer
 
         private void Update()
         {
-            // TODO : Hide panel when we go back
+            if (panelGroup.alpha < 0.1f)
+                return;
+
             if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
             {
                 StartEvent?.Invoke();
                 StartEvent = null;
             }
+
+            if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.cancelUIString))
+                panel.Hide();
         }
     }
 }
