@@ -111,8 +111,6 @@ namespace HistoricalCareer
                 new int[] { 1, 8, 10, 5, 7 }, new Weather[] { Weather.Rain, Weather.Morning, Weather.Rain, Weather.Sunset, Weather.Fog },
                 "After dominating in the french rallies, <b>Jean-Claude Andruet</b> wildly swung his <b>Alpine A110</b> with <b>Michèle Veron</b> as copilot in this rally spanning between Germany, Austria and Hungary. The battle with Fords and Porsches was fierce but they won the French and European rally championships titles."
             );
-
-            // TODO : Finish designing rallies for group 2
         }
 
         private static void GenerateGroup3Seasons(Assembly assembly, string pilotPicturePath)
