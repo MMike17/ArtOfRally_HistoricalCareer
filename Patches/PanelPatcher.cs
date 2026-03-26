@@ -17,6 +17,7 @@ namespace HistoricalCareer
     {
         const string MAIN_PANEL = "Race";
         const string CAR_PANEL = "Choose Car";
+        const string CAREER_PANEL_FORMAT = "ClassesDashboard";
         const string GROUP_PANEL_FORMAT = "Group";
         const string CONTINUE_PANEL = "ContinueSeasonScreen";
         const string STANDING_TAG = "OverallStanding";
@@ -46,8 +47,6 @@ namespace HistoricalCareer
 
             Main.Try(nameof(CheckPanel), () =>
             {
-                //Main.Log("Switch to panel : " + panel.name);
-
                 if (string.IsNullOrEmpty(submitUIString))
                 {
                     BaseInputModule inputModule = EventSystem.current.currentInputModule;
@@ -75,7 +74,34 @@ namespace HistoricalCareer
                     titleFont = panel.transform.GetChild(0).GetChild(0).GetComponentInChildren<Text>().font;
                     bodyFont = panel.GetComponentInChildren<VersionText>().GetComponent<Text>().font;
                 }
-                else if (panel.name.Contains(GROUP_PANEL_FORMAT)) // group selection panel
+                else if (panel.name == CAREER_PANEL_FORMAT) // group selection panel
+                {
+                    CustomButtonCareerClass[] classButtons = panel.GetComponentsInChildren<CustomButtonCareerClass>();
+                    int lastValid = -1;
+
+                    foreach (CustomButtonCareerClass classButton in classButtons)
+                    {
+                        bool hasSettings = RallyManager.GetSettingsForClass(classButton.CarClass) != null;
+                        classButton.gameObject.SetActive(hasSettings);
+
+                        if (hasSettings)
+                            lastValid++;
+                    }
+
+                    if (lastValid > -1 && lastValid < classButtons.Length)
+                    {
+                        CustomButtonCareerClass classButton = classButtons[lastValid + 1];
+                        classButton.enabled = false;
+                        classButton.gameObject.SetActive(true);
+
+                        classButton.transform.Find("Class").GetComponent<Text>().text = "Coming soon";
+                        classButton.transform.Find("SeasonInProgress").GetComponent<Text>().enabled = false;
+                        classButton.transform.Find("SeasonFill").GetComponent<Image>().enabled = false;
+
+                        Main.DelayCall(() => classButton.transform.Find("LockedIcon").GetComponent<Image>().enabled = false);
+                    }
+                }
+                else if (panel.name.Contains(GROUP_PANEL_FORMAT)) // season selection panel
                     SetupSeasonPanel(panel);
                 else if (panel.name == CAR_PANEL && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER) // car selection panel
                 {
