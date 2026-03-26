@@ -10,7 +10,7 @@ namespace HistoricalCareer
         // [Draw(DrawType.)]
 
         [Header("UI")]
-        [Draw(DrawType.Slider, Min = 0.5f, Max = 2)]
+        [Draw(DrawType.Slider, Min = 0.5f, Max = 3)]
         public float carrouselAnimSpeed = 2;
 
         [Header("Debug")]
@@ -36,7 +36,7 @@ namespace HistoricalCareer
         {
             // custom GUI here
 
-            if (GUILayout.Button("Reset settings", GUILayout.Width(150)))
+            if (GUILayout.Button("Reset settings", GUILayout.Width(200)))
             {
                 carrouselAnimSpeed = 2;
             }
