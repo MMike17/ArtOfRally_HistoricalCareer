@@ -101,8 +101,6 @@ namespace HistoricalCareer
 
                         RallyManager.ApplyRallySettings(rally);
                         panel.GetComponent<CarChooserHelper>().BeginEvent();
-
-                        // TODO : CarChooserHelper.BeginEvent calls LiveryButton.Save which might be causing the livery glitch
                     });
                 }
                 else if (panel.name == CONTINUE_PANEL)
@@ -164,8 +162,6 @@ namespace HistoricalCareer
             // add custom UI
             carrousel = layout.gameObject.AddComponent<CarrouselUI>();
             carrousel.Reset(settings);
-
-            //inCareer = true;
         }
 
         public static CustomButtonSeason GetButtonForSeason(Season season)

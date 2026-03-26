@@ -48,16 +48,11 @@ namespace HistoricalCareer
 
             PanelPatcher.SetCarouselState(false);
 
-            //Navigation nav = currentSeasonButton.navigation;
-            //nav.mode = Navigation.Mode.None;
-            //currentSeasonButton.navigation = nav;
-
             PanelPatcher.ShowSeasonButton(currentSeasonButton);
             PanelPatcher.SetCarouselSelection(season);
             yield return currentSeasonButton.SeasonCompleteCoroutine(season);
             PanelPatcher.SetSeasonButtonsState(currentSeasonButton, true);
 
-            //nav.mode = Navigation.Mode.Explicit;
             PanelPatcher.SetCarouselState(true);
 
             yield return new WaitForSeconds(0.5f);
@@ -92,10 +87,6 @@ namespace HistoricalCareer
                 PanelPatcher.SetCarouselState(false);
                 panelManager.SetBackButtonActive(false);
 
-                //nav = classButton.navigation;
-                //nav.mode = Navigation.Mode.None;
-                //classButton.navigation = nav;
-
                 yield return instance.StartCoroutine(classButton.ClassUnlockedSequence());
                 yield return new WaitForSecondsRealtime(0.5f);
 
@@ -113,10 +104,7 @@ namespace HistoricalCareer
                 classButton.interactable = true;
                 EventSystem.current.SetSelectedGameObject(classButton.gameObject);
 
-                //nav.mode = Navigation.Mode.Explicit;
-                //classButton.navigation = nav;
                 PanelPatcher.SetCarouselState(true);
-
                 instance.isShowingAnimation = false;
             }
 

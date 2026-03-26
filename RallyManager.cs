@@ -386,7 +386,6 @@ namespace HistoricalCareer
             CarManager.SetChosenClass(settings.carClass);
             CarManager.SetChosenCar(settings.carIndex);
             CarManager.SetChosenLivery(settings.livery);
-            // TODO : Liveries are broken (maybe)
 
             Main.Log("Applied rally settings");
         }
@@ -406,11 +405,6 @@ namespace HistoricalCareer
 
             return result;
         }
-
-        // TODO : How do we detect that it's the end of the game ?
-        // SeasonDashboardUI.DisplayUnlocksAndDashboardSequence
-        //      (line 251 : Season.Year == GameModeManager.CareerManager.GroupASeason[GameModeManager.CareerManager.GroupASeason.Count - 1].Year)
-        // override GameCompleteDataSetup.GoToGameCompleteCutscene
 
         public static void UnlockNextSeason(Season season)
         {
