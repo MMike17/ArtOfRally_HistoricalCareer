@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace HistoricalCareer
@@ -23,6 +24,7 @@ namespace HistoricalCareer
             season.Status = data.status;
             season.StageWins = data.stageWins;
             season.OverallStandingPlayer = data.standingPlayer;
+            season.DriverList = data.driverList;
         }
 
         [Serializable]
@@ -31,12 +33,14 @@ namespace HistoricalCareer
             public Season.STATUS status;
             public int stageWins;
             public int standingPlayer;
+            public List<Driver> driverList;
 
             public SeasonData(Season season)
             {
                 status = season.Status;
                 stageWins = season.StageWins;
                 standingPlayer = season.OverallStandingPlayer;
+                driverList = season.DriverList;
             }
 
             public override string ToString() => JsonUtility.ToJson(this);
