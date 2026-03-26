@@ -1,12 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using HarmonyLib;
-using UnityEngine;
-using UnityEngine.EventSystems;
-
-using static Car;
 
 namespace HistoricalCareer
 {
@@ -32,6 +25,11 @@ namespace HistoricalCareer
     // 		//
     // 	}
     // }
+
+    // TODO : Shortcircuit this to stop end of game from being triggered early
+    // SeasonDashboardUI.DisplayUnlocksAndDashboardSequence
+    //      (line 251 : Season.Year == GameModeManager.CareerManager.GroupASeason[GameModeManager.CareerManager.GroupASeason.Count - 1].Year)
+    // override GameCompleteDataSetup.GoToGameCompleteCutscene
 
     [HarmonyPatch(typeof(Season))]
     static class SeasonPatcher
