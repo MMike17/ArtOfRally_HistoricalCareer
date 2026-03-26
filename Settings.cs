@@ -36,6 +36,11 @@ namespace HistoricalCareer
         {
             // custom GUI here
 
+            if (GUILayout.Button("Reset settings", GUILayout.Width(150)))
+            {
+                carrouselAnimSpeed = 2;
+            }
+
             if (GUILayout.Button("Reset saves", GUILayout.Width(150)))
                 RallyManager.ResetRallySaves();
         }
