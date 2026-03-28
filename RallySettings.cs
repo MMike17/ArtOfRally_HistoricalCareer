@@ -167,38 +167,45 @@ namespace HistoricalCareer
             RallyManager.AddCustomRally(
                 group, 1966, Areas.FINLAND, "Finland", "1000 Lakes rally", "Timo Mäkinen",
                 assembly, pilotPicturePath, 1966, 1, 0, 2,
-                new int[] { 0, 6 }, new Weather[] { Weather.Morning, Weather.Afternoon }, ComputeRestarts(0 / 5f, 2),
+                new int[] { 0, 6 }, new Weather[] { Weather.Morning, Weather.Afternoon }, ComputeRestarts(0 / 6f, 2),
                 "Following their 1965 win, <b>Timo Mäkinen</b> and his copilot <b>Pekka Keskitalo</b> took advantage of their Mini's front-wheel-drive and light body to excell on their home country's gravel jumps, becoming the first \"flying finns\" with <b>Simo Lampinen</b> and <b>Rauno Aaltonen</b>, who placed 3rd on the same rally."
             );
             RallyManager.AddCustomRally(
                 group, 1967, Areas.SARDINIA, "Italy", "Rally dei Fiori", "Jean-François Piot",
                 assembly, pilotPicturePath, 1967, 5, 1, 0,
-                new int[] { 2, 6, 0 }, new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Sunset }, ComputeRestarts(1 / 5f, 3),
+                new int[] { 2, 6, 0 }, new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Sunset }, ComputeRestarts(1 / 6f, 3),
                 "After winning the <b>Tour de Corse</b> and the <b>Coupe de Alpes</b> the previous year, <b>Jean-François Piot</b> joined by copilot <b>Nicolas Roure</b> armed with a prototype Renault 8 Gordini 1440 dominated tarmac-gravel mixed stages, beating its competition in the mediterranean conditions."
             );
             RallyManager.AddCustomRally(
                 group, 1968, Areas.GERMANY, "West Germany", "Wiesbaden German Rally", "Pauli Toivonen",
                 assembly, pilotPicturePath, 1969, 4, 5, 0, new int[] { 0, 5, 3, 11 },
-                new Weather[] { Weather.Rain, Weather.Sunset, Weather.Fog, Weather.Afternoon }, ComputeRestarts(2 / 5f, 4),
+                new Weather[] { Weather.Rain, Weather.Sunset, Weather.Fog, Weather.Afternoon }, ComputeRestarts(2 / 6f, 4),
                 "For his debut in a Porsche, <b>Pauli Toivonen</b> couldn't secure a <b>Monte-carlo</b> win, being overtaken by <b>Vic Elford</b>. But with the help of <b>Martti Kolari</b> as copilot, they managed a win in the <b>West German rally</b>. Pauli continued winning that same year in Austria and Swizerland with different copilots."
             );
             RallyManager.AddCustomRally(
                 group, 1969, Areas.SARDINIA, "Italy", "Rally Sanremo", "Harry Källström",
                 assembly, pilotPicturePath, 1970, 6, 3, 0, new int[] { 2, 6, 10, 0 },
-                new Weather[] { Weather.Sunset, Weather.Afternoon, Weather.Sunset, Weather.Afternoon }, ComputeRestarts(3 / 5f, 4),
+                new Weather[] { Weather.Sunset, Weather.Afternoon, Weather.Sunset, Weather.Afternoon }, ComputeRestarts(3 / 6f, 4),
                 "Nicknamed \"Sputnik\" because of how fast his career took off, driver and later actorn <b>Harry Källström</b> took the wheel of a Lancia Fulvia with his copilot <b>Häggbom Gunnar</b> to win the <b>Sanremo Rally</b> as well as the <b>Spanish RACE Rally</b> and <b>British RAC Rally</b> that year, earning their first European champions title."
             );
             RallyManager.AddCustomRally(
                 group, 1970, Areas.FINLAND, "Finland", "1000 Lakes rally", "Hannu Mikkola",
                 assembly, pilotPicturePath, 1966, 0, 1, 2, new int[] { 0, 5, 6, 8, 2 },
-                new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Morning, Weather.Sunset, Weather.Rain }, ComputeRestarts(4 / 5f, 5),
+                new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Morning, Weather.Sunset, Weather.Rain }, ComputeRestarts(4 / 6f, 5),
                 "After their win in the grueling <b>London-Mexico World Cup Rally</b>, <b>Hannu Mikkola</b> and the exceptional navigator <b>Gunnar Palm</b> brought their Ford Escort twin cam to Finland. With its engine originally developped for the Lotus Elan and its lights body shell the Escort proved to be a solid contender for the rougher rallies."
             );
             RallyManager.AddCustomRally(
                 group, 1970, Areas.GERMANY, "Austria", "Rally Munich-Vienne-Budapest", "Jean-Claude Andruet",
                 assembly, pilotPicturePath, 1977, 2, 5, 6, new int[] { 1, 8, 10, 5, 7 },
-                new Weather[] { Weather.Rain, Weather.Morning, Weather.Rain, Weather.Sunset, Weather.Fog }, ComputeRestarts(5 / 5f, 5),
+                new Weather[] { Weather.Rain, Weather.Morning, Weather.Rain, Weather.Sunset, Weather.Fog }, ComputeRestarts(5 / 6f, 5),
                 "After dominating in the french rallies, <b>Jean-Claude Andruet</b> wildly swung his <b>Alpine A110</b> with <b>Michèle Veron</b> as copilot in this rally spanning between Germany, Austria and Hungary. The battle with Fords and Porsches was fierce but they won the French and European rally championships titles."
+            );
+            RallyManager.AddCustomRally(
+                group, 1971, Areas.GERMANY, "East Germany", "Pneumant Rally", "Sobiesław Zasada",
+                assembly, pilotPicturePath, 1971, 3, 2, 0, new int[] { 7, 0, 9, 1, 4, 8 },
+                new Weather[] { Weather.Fog, Weather.Rain, Weather.Rain, Weather.Afternoon, Weather.Fog, Weather.Sunset },
+                ComputeRestarts(6 / 6f, 6),
+                "Out with the Porsche, in with a <b>BMW 2002 Ti</b> that <b>Sobiesław Zasada</b> hurls through the fog and rain of <bEast Germany</b>, as if it was a javelin from his youth. Pairing up with copilot <b>Adam Wędrychowski</b>, he ended up winning his third european champion in <b>1971</b>, winning both the <b>East Germany</b> and <b>Polish</b> rally."
             );
         }
 
