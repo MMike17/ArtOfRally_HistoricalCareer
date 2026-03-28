@@ -219,6 +219,12 @@ namespace HistoricalCareer
                 new Weather[] { Weather.Sunset, Weather.Rain }, ComputeRestarts(0 / 9f, 2),
                 "German born pilot Edgar Hermann shelved his <b>Porsche 911</b> for a <b>Datsun 1600 SSS</b>, landing him a series of wins in <b>1970</b> before winning a second <b>Safari rally</b> behind the wheel of a <b>Datsun 240Z</b>, guided by <b>Hans Schuller</b>. Hard-eyed, confident and said to be trailed by good-looking women, Edgar ended up falling in love with Kenya from which he was eventually naturalized."
             );
+            RallyManager.AddCustomRally(
+                group, 1974, Areas.SARDINIA, "Italy", "Rally Sanremo", "Sandro Munari",
+                assembly, pilotPicturePath, 1975, 3, 0, 0, new int[] { 2, 6, 0 },
+                new Weather[] { Weather.Morning, Weather.Rain, Weather.Afternoon }, ComputeRestarts(1 / 9f, 3),
+                "Although it was unreliable, the new <b>Lancia Stratos</b> proved to be a perfect match for <b>Sandro Munari</b>, the <i>Dragon of Cavarzere</i>. He secured his first wins with it the year prior and knew that it would bring him and his long time copilot <b>Mario Mannucci</b> a win at the <b>Rally Sanremo</b>, if they could tame that beast. They were closely overtaken by  <b>Timo Mäkinen</b> for best driver that year but still pulled Lancia to the top after <b>Jean-Claude Andruet</b> closed the new WRC championship with a <b>Tour de Corse</b> win."
+            );
 
             // TODO : Finish designing rallies for group 3
         }
