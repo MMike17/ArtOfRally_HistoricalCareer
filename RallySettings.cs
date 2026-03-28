@@ -213,12 +213,12 @@ namespace HistoricalCareer
         {
             CarClass group = CarClass.GROUP_3;
 
-            //RallyManager.AddCustomRally(
-            //    group, 1971, Areas.KENYA, "Kenya", "Safari rally", "Edgar Herrmann",
-            //    assembly, pilotPicturePath, 1970, 9, 0, 4, new int[] { 4, 6 },
-            //    new Weather[] { Weather.Sunset, Weather.Rain }, ComputeRestarts(0 / 9f, 2),
-            //    "German born pilot Edgar Hermann shelved his <b>Porsche 911</b> for a <b>Datsun 1600 SSS</b>, landing him a series of wins in <b>1970</b> before winning a second <b>Safari rally</b> behind the wheel of a <b>Datsun 240Z</b>, guided by <b>Hans Schuller</b>. Hard-eyed, confident and said to be trailed by good-looking women, Edgar ended up falling in love with Kenya from which he was eventually naturalized."
-            //);
+            RallyManager.AddCustomRally(
+                group, 1971, Areas.KENYA, "Kenya", "Safari rally", "Edgar Herrmann",
+                assembly, pilotPicturePath, 1970, 9, 0, 4, new int[] { 4, 6 },
+                new Weather[] { Weather.Sunset, Weather.Rain }, ComputeRestarts(0 / 9f, 2),
+                "German born pilot Edgar Hermann shelved his <b>Porsche 911</b> for a <b>Datsun 1600 SSS</b>, landing him a series of wins in <b>1970</b> before winning a second <b>Safari rally</b> behind the wheel of a <b>Datsun 240Z</b>, guided by <b>Hans Schuller</b>. Hard-eyed, confident and said to be trailed by good-looking women, Edgar ended up falling in love with Kenya from which he was eventually naturalized."
+            );
 
             // TODO : Finish designing rallies for group 3
         }
