@@ -237,6 +237,12 @@ namespace HistoricalCareer
                 new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Fog, Weather.Fog }, ComputeRestarts(3 / 9f, 4),
                 "The tires of <b>Błażej Krupa</b>'s car taste the asphalt and the dirt again in <b>1974</b> after Renault decided to fund his return to rally for an overall win in <b>Poland</b>. It's with a <b>Renault 17</b> and his copilot <b>Piotr Mystkowski</b> that Błażej went on to win the <b>1975</b> and <b>1976</b> <b>Cup of Peace and Friendship (CoPaF)</b>. In the heavy fog of <b>Rally Wartburg</b> two <b>Renault 17</b> dominated more than 5 minutes ahead of its competition closing the rally before winning again on the ice of <b>Rallye Russkaya Zima</b>."
             );
+            RallyManager.AddCustomRally(
+                group, 1976, Areas.GERMANY, "East Germany", "Rally Sachsenring", "Miloslav Zapadlo",
+                assembly, pilotPicturePath, 1977, 8, 0, 0, new int[] { 0, 9, 7, 1 },
+                new Weather[] { Weather.Rain, Weather.Fog, Weather.Sunset, Weather.Fog }, ComputeRestarts(4 / 9f, 4),
+                "<b>Miloslav Zapadlo</b>, a hot blooded pilot, took the wheel of the new <b>Skoda 130 RS</b>, the pinacle of Czech engineering based on the <b>Skoda 200 RS</b> beast, with his copilot <b>Jiří Motal</b> to defend the pride of his company and country. They didn't win in Czechoslovakia that year but won in the <b>Rally Sachsenring</b> in <b>East Germany</b> with a large gap. A brief moment of fame during the <b>1977 Monte-Carlo Rally</b> cemented Skoda's new model which went on to dominate 1978 <b>CoPaF</b> and eastern europe rallies of the <b>European Rally Championship</b>."
+            );
 
             // TODO : Finish designing rallies for group 3
         }
