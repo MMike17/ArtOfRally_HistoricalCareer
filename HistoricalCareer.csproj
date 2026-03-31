@@ -129,6 +129,7 @@
   <ItemGroup>
     <Content Include="Data\Pictures\Pilots\GROUP_3_1976_AUSTRALIA.jpg" />
     <Content Include="Data\Pictures\Pilots\GROUP_3_1976_GERMANY.jpg" />
+    <Content Include="Data\Pictures\Pilots\GROUP_3_1976_SARDINIA.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PrepareBuild" AfterTargets="BeforeBuild">
