@@ -268,8 +268,13 @@ namespace HistoricalCareer
                 ComputeRestarts(8 / 9f, 6),
                 "Rally runs in the blood of the Preston family. The father, former local champion, assisted while the team of his son, <b>Vic Preston Jr</b> and his copilot <b>John Lyall</b>, took a heavily modified <b>Porsche 911 SC</b> to the <b>Safari Rally</b>. <b>Ford</b> and <b>Fiat</b> which dominated the rest of the <b>WRC</b> rallies stepped out of the Safari which enabed our local pilots to get a 2nd position. But it's the <b>Lancia 037 Rally</b> that brought Vic to fame with back to back wins in 1985 making him one of the most distinguished Kenyan pilots."
             );
-
-            // TODO : Finish designing rallies for group 3
+            RallyManager.AddCustomRally(
+                group, 1982, Areas.SARDINIA, "Italy", "Targa Florio Rally", "Tonino Tognana",
+                assembly, pilotPicturePath, 1982, 4, 4, 10, new int[] { 3, 9, 1, 5, 7, 11 },
+                new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Afternoon, Weather.Sunset, Weather.Rain, Weather.Sunset },
+                ComputeRestarts(9 / 9f, 6),
+                "Back to the roots of automotive racing, in the mythical <b>Targa Florio Rally</b>, an unexpected sight, the renouned F1 team was here with a custom <b>Ferrari 308 GTB</b> prepared by car dealer <b>Micheletto</b> from Padua, whom was sent bear chassis and spare parts to make a true rally machine. The previous year's winner, <b>Jean-Claude Andruet</b>, was thrown out of the first position by <b>Tonino Tognana</b> and his copilot <b>Massimo De Antonio</b>. The pair won the Italian championship while Andruet finished 2nd on the <b>Tour de France</b>, proving the Ferrari was a decently competitive car."
+            );
         }
 
         public static void GenerateGroup4Seasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
