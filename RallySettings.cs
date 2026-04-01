@@ -255,6 +255,12 @@ namespace HistoricalCareer
                 new Weather[] { Weather.Rain, Weather.Rain, Weather.Morning, Weather.Afternoon, Weather.Sunset }, ComputeRestarts(6 / 9f, 5),
                 "Imported straight from <b>Finland</b>, <b>Markku Alén</b> bolted to the brand new engineering marvel from Fiat, came in to teach a lesson to Lancia on their own grounds in the <b>European Rally Championship</b>. Teamed up with <b>Ilkka Kivimäki</b>, they took a while to adapt to the unfamiliar italian roads but ended up chaining first positions. They went on to win the <b>1000 Lakes Rally</b> later that year in their home country, fighting against the new version of the <b>Ford Escort</b>."
             );
+            RallyManager.AddCustomRally(
+                group, 1976, Areas.FINLAND, "Finland", "Champion Nordic Rally", "Timo Mäkinen",
+                assembly, pilotPicturePath, 1978, 0, 5, 0, new int[] { 1, 3, 7, 10, 4 },
+                new Weather[] { Weather.Morning, Weather.Sunset, Weather.Night, Weather.Afternoon, Weather.Sunset }, ComputeRestarts(7 / 9f, 5),
+                "After 3 consecutive wins in the <b>RAC Rally</b> with the British copilot <b>Henry Liddon</b>, <b>Timo Mäkinen</b> decided to finish his Ford career on a Finish win his fellow countryman <b>Erkki Salonen</b>. The new generation of the <b>Ford Escort</b> proved to be as sturdy as its ancestor during the <b>Total Rally South Africa</b> and rushed the pair to the top of the podium in the <b>Champion Nordic Rally</b>. Timo went on to drive the competitor <b>Fiat 131</b> the next year and switched to <b>Peugeot 504 V6</b> after that."
+            );
 
             // TODO : Finish designing rallies for group 3
         }
