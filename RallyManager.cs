@@ -360,6 +360,8 @@ namespace HistoricalCareer
                         save.GroupACarClass.isLocked = false;
                         break;
                 }
+
+                global::SaveManager.SaveCareerData(save);
             }
 
             if (selected != null)
@@ -398,6 +400,7 @@ namespace HistoricalCareer
 
             UnlockFirstSeason();
             Main.SetField(GameModeManager.CareerManager, "CurrentSeasonInProcess", BindingFlags.Instance, null);
+            Main.Log("Reset rally saves");
         }
 
         public static RallySettings GetRallyInProgress()
