@@ -32,6 +32,7 @@ Here is a list of known mods that are incompatible with this mod :
 Here is the list of groups available in the mod : 
 
 - **Group 2**
+- **Group 3**
 
 Following groups are being developped actively.
 
@@ -57,5 +58,6 @@ and drop it into the mod manager's mods page.
 
 ![](Screenshots/Career.png)
 ![](Screenshots/Group%202.png)
+![](Screenshots/Group%203.png)
 ![](Screenshots/Career%20UI.png)
 ![](Screenshots/Settings.png)
