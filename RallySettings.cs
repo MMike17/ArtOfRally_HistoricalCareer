@@ -30,7 +30,7 @@ namespace HistoricalCareer
         public RallySettings(
             CarClass carClass,
             int year,
-            AreaManager.Areas area,
+            Areas area,
             string areaName,
             string rallyName,
             string pilotName,
@@ -40,7 +40,7 @@ namespace HistoricalCareer
             int liveryIndex,
             int locationPictureIndex,
             int[] stagesIndeces,
-            ConditionTypes.Weather[] weathers,
+            Weather[] weathers,
             int restarts,
             string loreText
         )

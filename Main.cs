@@ -48,7 +48,7 @@ namespace HistoricalCareer
             };
             modEntry.OnSaveGUI = settings.Save;
 
-            Try("loadBundle", () =>
+            Try("Load Bundle", () =>
             {
                 AssetBundle bundle = AssetBundle.LoadFromFile(Path.Combine(modEntry.Path, BUNDLE_NAME));
 
@@ -61,7 +61,7 @@ namespace HistoricalCareer
                     Log("Loaded bundle \"" + BUNDLE_NAME + "\"");
             });
 
-            new RallyManager(new DirectoryInfo(modEntry.Path).Name);
+            Main.Try("Create custom rallies", () => new RallyManager(new DirectoryInfo(modEntry.Path).Name));
 
             markers = new List<GameObject>();
             return true;
