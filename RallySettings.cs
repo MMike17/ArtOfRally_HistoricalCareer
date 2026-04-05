@@ -281,7 +281,12 @@ namespace HistoricalCareer
         {
             CarClass group = CarClass.GROUP_4;
 
-            // TODO : Finish designing rallies for group 4
+            RallyManager.AddCustomRally(
+                group, 1977, Areas.SARDINIA, "France", "Ronde de la Giraglia", "Guy Fréquelin",
+                assembly, pilotPicturePath, 1981, 6, 1, 2, new int[] { 7, 4, 2 },
+                new Weather[] { Weather.Afternoon, Weather.Sunset, Weather.Morning }, ComputeRestarts(0 / 9f, 3),
+                "The successor to the mythical <b>Alpine A110</b> was waiting patiently in the <b>1976</b> French rallies making it to a few podiums. But it's in <b>1977</b> with <b>Guy Fréquelin</b> and his copilot <b>Jacques Delaval</b> that the <b>Alpine A310</b> really showed the power of its brand new V6. Between <b>Guy Fréquelin</b> and <b>Bernard Béguin</b> the <b>A310</b> won 10 rallies in the <b>French Rally Championship</b> setting a new record. The car never saw use outside of France and it quickly disappeard at the end of <b>1977</b>. But for a short while the <b>A310</b> went toe to toe with the greats like the <b>Porsche 911 Carrera</b>, the <b>Lancia Stratos</b> and <b>Fiat 131 Abarth</b>."
+            );
         }
 
         public static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
