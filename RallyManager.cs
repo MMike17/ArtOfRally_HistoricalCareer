@@ -450,6 +450,7 @@ namespace HistoricalCareer
                 if (settings != null)
                 {
                     settings.season.Status = Season.STATUS.UNLOCKED;
+                    settings.season.Rallies[0].CurrentStageIndex = 0;
                     SaveManager.SaveSeasonData(settings.season);
                     count++;
                 }
