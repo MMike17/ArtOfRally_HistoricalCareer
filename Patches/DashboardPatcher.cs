@@ -137,8 +137,14 @@ namespace HistoricalCareer
         [HarmonyPrefix]
         static void ContinueFix()
         {
-            if (Main.enabled)
+            if (!Main.enabled)
+                return;
+
+            Main.Try(nameof(ContinueFix), () =>
+            {
                 RallyManager.ApplyRallySettings(GameModeManager.CareerManager.GetCurrentSeason());
+                SaveManager.LoadSeasonData(GameModeManager.CareerManager.GetCurrentSeason());
+            });
         }
     }
 }

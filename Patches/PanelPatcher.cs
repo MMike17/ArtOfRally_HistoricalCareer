@@ -50,22 +50,26 @@ namespace HistoricalCareer
                 if (string.IsNullOrEmpty(submitUIString))
                 {
                     BaseInputModule inputModule = EventSystem.current.currentInputModule;
-                    submitUIString = Main.GetField<string, RewiredStandaloneInputModule>(
-                        inputModule as RewiredStandaloneInputModule,
-                        "m_SubmitButton",
-                        BindingFlags.Instance
-                    );
-                    cancelUIString = Main.GetField<string, RewiredStandaloneInputModule>(
-                        inputModule as RewiredStandaloneInputModule,
-                        "m_CancelButton",
-                        BindingFlags.Instance
-                    );
-                    int playerID = Main.GetField<int[], RewiredStandaloneInputModule>(
-                        inputModule as RewiredStandaloneInputModule,
-                        "playerIds",
-                        BindingFlags.Instance
-                    )[0];
-                    playerInput = ReInput.players.GetPlayer(playerID);
+
+                    if (inputModule != null)
+                    {
+                        submitUIString = Main.GetField<string, RewiredStandaloneInputModule>(
+                            inputModule as RewiredStandaloneInputModule,
+                            "m_SubmitButton",
+                            BindingFlags.Instance
+                        );
+                        cancelUIString = Main.GetField<string, RewiredStandaloneInputModule>(
+                            inputModule as RewiredStandaloneInputModule,
+                            "m_CancelButton",
+                            BindingFlags.Instance
+                        );
+                        int playerID = Main.GetField<int[], RewiredStandaloneInputModule>(
+                            inputModule as RewiredStandaloneInputModule,
+                            "playerIds",
+                            BindingFlags.Instance
+                        )[0];
+                        playerInput = ReInput.players.GetPlayer(playerID);
+                    }
                 }
 
                 // main panel

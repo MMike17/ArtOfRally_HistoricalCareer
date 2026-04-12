@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using static Car;
+
 namespace HistoricalCareer
 {
     // This is replacing the game's save system
@@ -11,7 +13,15 @@ namespace HistoricalCareer
 
         public static void SaveSeasonData(Season season)
         {
-            PlayerPrefs.SetString(RallyManager.GetSeasonCode(season), new SeasonData(season).ToString());
+            SeasonData newData = new SeasonData(season);
+            SeasonData data = JsonUtility.FromJson<SeasonData>(
+                PlayerPrefs.GetString(RallyManager.GetSeasonCode(season), newData.ToString()
+            ));
+
+            if (newData.partsCondition == null && data.partsCondition != null)
+                newData.partsCondition = data.partsCondition;
+
+            PlayerPrefs.SetString(RallyManager.GetSeasonCode(season), newData.ToString());
             PlayerPrefs.Save();
         }
 
@@ -26,6 +36,9 @@ namespace HistoricalCareer
             season.OverallStandingPlayer = data.standingPlayer;
             season.Rallies[0].CurrentStageIndex = data.currentStageIndex;
             season.DriverList = data.driverList;
+
+            if (season.SelectedCar != null && data.partsCondition != null)
+                season.SelectedCar.performancePartsCondition = data.partsCondition;
         }
 
         [Serializable]
@@ -36,6 +49,7 @@ namespace HistoricalCareer
             public int standingPlayer;
             public int currentStageIndex;
             public List<Driver> driverList;
+            public PerformancePartsCondition partsCondition;
 
             public SeasonData(Season season)
             {
@@ -44,6 +58,9 @@ namespace HistoricalCareer
                 standingPlayer = season.OverallStandingPlayer;
                 currentStageIndex = season.Rallies[0].CurrentStageIndex;
                 driverList = season.DriverList;
+
+                if (season.SelectedCar != null)
+                    partsCondition = season.SelectedCar.performancePartsCondition;
             }
 
             public override string ToString() => JsonUtility.ToJson(this);
