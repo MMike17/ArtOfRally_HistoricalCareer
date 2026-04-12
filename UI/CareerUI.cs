@@ -78,7 +78,7 @@ namespace HistoricalCareer
                 contextText.font = PanelPatcher.bodyFont;
                 StyleText contextStyle = contextText.gameObject.AddComponent<StyleText>();
                 Main.SetField(contextStyle, STYLE_PROP_NAME, BindingFlags.Instance, TextType.Header1);
-                contextText.fontSize = StyleConstants.Text.Header1.GetFontSize(uiScale);
+                contextText.fontSize = StyleConstants.Text.Standard.GetFontSize(uiScale);
             }
 
             seasonDate.text = settings.season.Year.ToString();
@@ -88,7 +88,7 @@ namespace HistoricalCareer
             string pilotText = settings.pilotName;
 
             if (settings.pilotPictureYear != 0)
-                pilotText = " (" + settings.pilotPictureYear + ")";
+                pilotText += " (" + settings.pilotPictureYear + ")";
 
             pilotPolaroid.SetPicture(settings.pilotPicture, pilotText);
             carPicture.sprite = RallyManager.GetCarSprite(settings.carClass, settings.carIndex);

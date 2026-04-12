@@ -42,7 +42,7 @@ namespace HistoricalCareer
                 }
 
                 Main.SetField(captionStyle, CareerUI.STYLE_PROP_NAME, BindingFlags.Instance, TextType.Title);
-                caption.fontSize = StyleConstants.Text.Header1.GetFontSize(StyleManager.Instance().UIScale);
+                caption.fontSize = StyleConstants.Text.Standard.GetFontSize(StyleManager.Instance().UIScale);
 
                 gameObject.AddComponent<StyleImageColour>();
 

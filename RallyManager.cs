@@ -279,6 +279,8 @@ namespace HistoricalCareer
                 return null;
             }
 
+            // TODO : Need to check DLC when we add rallies so that it doesn't block career progression
+
             // check for DLC
             if (Platform.Get().IsDLCInstalled(Platform.DLCName.Australia))
                 return rallySettings[group];

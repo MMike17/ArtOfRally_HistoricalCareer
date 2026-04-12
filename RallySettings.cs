@@ -205,7 +205,7 @@ namespace HistoricalCareer
                 assembly, pilotPicturePath, 1971, 3, 2, 0, new int[] { 7, 0, 9, 1, 4, 8 },
                 new Weather[] { Weather.Fog, Weather.Rain, Weather.Rain, Weather.Afternoon, Weather.Fog, Weather.Sunset },
                 ComputeRestarts(6 / 6f, 6),
-                "Out with the Porsche, in with a <b>BMW 2002 Ti</b> that <b>Sobiesław Zasada</b> hurls through the fog and rain of <bEast Germany</b>, as if it was a javelin from his youth. Pairing up with copilot <b>Adam Wędrychowski</b>, he ended up winning his third european champion in <b>1971</b>, winning both the <b>East Germany</b> and <b>Polish</b> rally."
+                "Out with the Porsche, in with a <b>BMW 2002 Ti</b> that <b>Sobiesław Zasada</b> hurls through the fog and rain of <b>East Germany</b>, as if it was a javelin from his youth. Pairing up with copilot <b>Adam Wędrychowski</b>, he ended up winning his third european champion in <b>1971</b>, winning both the <b>East Germany</b> and <b>Polish</b> rally."
             );
         }
 
