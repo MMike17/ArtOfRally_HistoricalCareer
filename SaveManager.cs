@@ -24,6 +24,7 @@ namespace HistoricalCareer
             season.Status = data.status;
             season.StageWins = data.stageWins;
             season.OverallStandingPlayer = data.standingPlayer;
+            season.Rallies[0].CurrentStageIndex = data.currentStageIndex;
             season.DriverList = data.driverList;
         }
 
@@ -33,6 +34,7 @@ namespace HistoricalCareer
             public Season.STATUS status;
             public int stageWins;
             public int standingPlayer;
+            public int currentStageIndex;
             public List<Driver> driverList;
 
             public SeasonData(Season season)
@@ -40,6 +42,7 @@ namespace HistoricalCareer
                 status = season.Status;
                 stageWins = season.StageWins;
                 standingPlayer = season.OverallStandingPlayer;
+                currentStageIndex = season.Rallies[0].CurrentStageIndex;
                 driverList = season.DriverList;
             }
 

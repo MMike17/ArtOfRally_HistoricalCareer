@@ -81,6 +81,23 @@ namespace HistoricalCareer
         }
     }
 
+    [HarmonyPatch(typeof(RallyData))]
+    static class RallyPatcher
+    {
+        [HarmonyPatch(nameof(RallyData.IncrementCurrentStageIndex))]
+        [HarmonyPostfix]
+        static void SaveCurrentStageIndex()
+        {
+            if (!Main.enabled)
+                return;
+
+            Main.Try(
+                nameof(SaveCurrentStageIndex),
+                () => SeasonPatcher.SaveIfCareer(GameModeManager.GetSeasonDataCurrentGameMode())
+            );
+        }
+    }
+
     [HarmonyPatch(typeof(CustomButtonCars), "SaveLiveryToCarManager")]
     static class CustomButtonPatcher
     {
@@ -111,11 +128,7 @@ namespace HistoricalCareer
             if (!Main.enabled)
                 return;
 
-            Main.Try(nameof(SaveStageRank), () =>
-            {
-                if (GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
-                    SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason());
-            });
+            Main.Try(nameof(SaveStageRank), () => SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason()));
         }
 
         [HarmonyPatch(nameof(DriverManager.ResetStageData))]
@@ -125,11 +138,7 @@ namespace HistoricalCareer
             if (!Main.enabled)
                 return;
 
-            Main.Try(nameof(SaveResetStage), () =>
-            {
-                if (GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
-                    SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason());
-            });
+            Main.Try(nameof(SaveResetStage), () => SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason()));
         }
     }
 
