@@ -287,6 +287,13 @@ namespace HistoricalCareer
                 new Weather[] { Weather.Afternoon, Weather.Sunset, Weather.Morning }, ComputeRestarts(0 / 9f, 3),
                 "The successor to the mythical <b>Alpine A110</b> was waiting patiently in the <b>1976</b> French rallies making it to a few podiums. But it's in <b>1977</b> with <b>Guy Fréquelin</b> and his copilot <b>Jacques Delaval</b> that the <b>Alpine A310</b> really showed the power of its brand new V6. Between <b>Guy Fréquelin</b> and <b>Bernard Béguin</b> the <b>A310</b> won 10 rallies in the <b>French Rally Championship</b> setting a new record. The car never saw use outside of France and it quickly disappeard at the end of <b>1977</b>. But for a short while the <b>A310</b> went toe to toe with the greats like the <b>Porsche 911 Carrera</b>, the <b>Lancia Stratos</b> and <b>Fiat 131 Abarth</b>."
             );
+
+            RallyManager.AddCustomRally(
+                group, 1979, Areas.KENYA, "Kenya", "Safari rally", "Shekhar Mehta",
+                assembly, pilotPicturePath, 1979, 8, 0, 4, new int[] { 0, 8, 4, 6 },
+                new Weather[] { Weather.Sunset, Weather.Rain, Weather.Rain, Weather.Afternoon }, ComputeRestarts(1 / 9f, 4),
+                "Back again after a hiatus on the <b>Safari Rally</b>, <b>Shekhar Mehta</b> and his <b>Safari</b> copilot <b>Mike Doughty</b> started a series of five <b>Safari</b> wins that would make history. Their long-time partner <b>Datsun</b> provided them with a <b>Datsun 160J</b> that soared forward on the kenyan tracks, battleing for the top position in the <b>Kenyan championship</b> with the <b>Alfa Romeo Alfetta GTV</b>. <b>Shekhar</b> went on to place first on most of the <b>1980</b> events he raced in, switching his <b>Datsun</b> for an <b>Opel</b>."
+            );
         }
 
         public static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
