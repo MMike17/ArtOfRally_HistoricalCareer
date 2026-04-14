@@ -302,6 +302,13 @@ namespace HistoricalCareer
                 new Weather[] { Weather.Sunset, Weather.Rain, Weather.Rain, Weather.Afternoon }, ComputeRestarts(2 / 9f, 4),
                 "Back again after a hiatus on the <b>Safari Rally</b>, <b>Shekhar Mehta</b> and his <b>Safari</b> copilot <b>Mike Doughty</b> started a series of five <b>Safari</b> wins that would make history. Their long-time partner <b>Datsun</b> provided them with a <b>Datsun 160J</b> that soared forward on the kenyan tracks, battleing for the top position in the <b>Kenyan championship</b> with the <b>Alfa Romeo Alfetta GTV</b>. <b>Shekhar</b> went on to place first on most of the <b>1980</b> events he raced in, switching his <b>Datsun</b> for an <b>Opel</b>."
             );
+
+            RallyManager.AddCustomRally(
+                group, 1982, Areas.SARDINIA, "France", "Tour de Corse", "Jean Ragnotti",
+                assembly, pilotPicturePath, 1976, 0, 0, 2, new int[] { 7, 4, 2, 3 },
+                new Weather[] { Weather.Fog, Weather.Fog, Weather.Rain, Weather.Sunset }, ComputeRestarts(3 / 9f, 4),
+                "French champion in <b>1980</b>, <b>Jean Ragnotti</b>, nicknamed \"the acrobat\", teamed up with his long time copilot <b>Jean-Marc Andrié</b> to win several french events between two <b>24 hours of Le Mans</b> participations. He introduced the world to the lightning fast <b>Renault 5 Turbo</b> the previous year by winning the <b>Rally Montecarlo</b>. Followed closely by <b>Jean-Claude Andruet</b> in his <b>Ferrari 308 GTB</b>, he took advantage of the poor visibility and wet roads of <b>Corsica</b> that year to fly around curves. <b>Renault</b> was so pleased with his performance that they made a special <b>\"Tour de Corse\"</b> edition for the next rally season which was considered for the new <b>Group B</b> homologation."
+            );
         }
 
         public static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
