@@ -309,6 +309,14 @@ namespace HistoricalCareer
                 new Weather[] { Weather.Fog, Weather.Fog, Weather.Rain, Weather.Sunset }, ComputeRestarts(3 / 9f, 4),
                 "French champion in <b>1980</b>, <b>Jean Ragnotti</b>, nicknamed \"the acrobat\", teamed up with his long time copilot <b>Jean-Marc Andrié</b> to win several french events between two <b>24 hours of Le Mans</b> participations. He introduced the world to the lightning fast <b>Renault 5 Turbo</b> the previous year by winning the <b>Rally Montecarlo</b>. Followed closely by <b>Jean-Claude Andruet</b> in his <b>Ferrari 308 GTB</b>, he took advantage of the poor visibility and wet roads of <b>Corsica</b> that year to fly around curves. <b>Renault</b> was so pleased with his performance that they made a special <b>\"Tour de Corse\"</b> edition for the next rally season which was considered for the new <b>Group B</b> homologation."
             );
+
+            RallyManager.AddCustomRally(
+                group, 1982, Areas.GERMANY, "Germany", "Rallye Vorderpfalz", "Klaus Fritzinger",
+                assembly, pilotPicturePath, 1982, 3, 5, 10, new int[] { 11, 8, 3, 5, 9 },
+                new Weather[] { Weather.Rain, Weather.Afternoon, Weather.Rain, Weather.Morning, Weather.Afternoon },
+                ComputeRestarts(4 / 9f, 5),
+                "Designed by the legendary wedge drawer <b>Giorgetto Giugiaro</b>, built by the body workshop <b>Bertone</b> and assembled by <b>Baur</b>, so many hands touched this promissing darling. But even in the hands of <b>Bernard Darniche</b> and <b>Bernard Béguin</b>, the <b>BMW M1</b> couldn't bring a decent win. Too heavy, too large and too unreliable, it still provided some shockingly good results. <b>Klaus Fritzinger</b> already had a taste for competition when he won football championships in his young years. He then hopped into a <b>Toyota</b> with his copilot <b>Henning Wünsch</b> and only briefly stepped into the <b>M1</b> to score a second place in the rally, showing off the car's power with a first stage win and a total of six stage wins."
+            );
         }
 
         public static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
