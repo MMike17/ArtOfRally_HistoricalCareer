@@ -317,6 +317,14 @@ namespace HistoricalCareer
                 ComputeRestarts(4 / 9f, 5),
                 "Designed by the legendary wedge drawer <b>Giorgetto Giugiaro</b>, built by the body workshop <b>Bertone</b> and assembled by <b>Baur</b>, so many hands touched this promissing darling. But even in the hands of <b>Bernard Darniche</b> and <b>Bernard Béguin</b>, the <b>BMW M1</b> couldn't bring a decent win. Too heavy, too large and too unreliable, it still provided some shockingly good results. <b>Klaus Fritzinger</b> already had a taste for competition when he won football championships in his young years. He then hopped into a <b>Toyota</b> with his copilot <b>Henning Wünsch</b> and only briefly stepped into the <b>M1</b> to score a second place in the rally, showing off the car's power with a first stage win and a total of six stage wins."
             );
+
+            RallyManager.AddCustomRally(
+                group, 1983, Areas.KENYA, "Kenya", "Safari Rally", "Ari Vatanen",
+                assembly, pilotPicturePath, 1983, 9, 0, 4, new int[] { 0, 8, 4, 6, 10 },
+                new Weather[] { Weather.Sunset, Weather.Night, Weather.Morning, Weather.Afternoon, Weather.Sunset },
+                ComputeRestarts(5 / 9f, 5),
+                "Former <b>1981</b> <b>WRC</b> champion, <b>Ari Vatanen</b>, stepped out of his <b>Ford Escort MK2</b> and into the unbreakable <b>Opel Ascona 400</b> with his copilot <b>Terry Harryman</b> for his second ever <b>Rally Safari</b>. <b>Shekhar Mehta</b>, the previous year's winner broke his <b>Nissan 240RS</b> and left an open field for Ari while the previous year's <b>Africa</b> and <b>WRC</b> champion <b>Walter Röhrl</b> was busy with a <b>Group B</b> season for <b>Lancia</b>. Ari only drove the Ascona for that year before joining the insane <b>Group B</b> races aswell with the <b>Peugeot 205 Turbo 16</b>, but that was enough to place first and second in several rallies. Other very successfull pilots have stepped into this Ascona such as <b>Guy Fréquelin</b> in France, <b>Jimmy McRae</b> in Britain and <b>\"Miki\" Biasion</b> in Italy."
+            );
         }
 
         public static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
