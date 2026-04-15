@@ -297,16 +297,24 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
+                group, 1978, Areas.JAPAN, "Japan", "Touge Usui", "Keiichi Tsuchiya",
+                assembly, pilotPicturePath, 1984, 5, 5, 10, new int[] { 4, 11, 10, 5 },
+                new Weather[] { Weather.Sunset, Weather.Night, Weather.Night, Weather.Fog }, ComputeRestarts(2 / 9f, 4),
+                "Little <b>Keiichi Tsuchiya</b> used to listen to the sound of screeching rubber at night while the local street racers, called <b>\"hashiriya\"</b>, were going down the narrow roads of the mountain pass. In <b>1974</b> he bought his first car and started training diligently around his home town of <b>Tōmi</b> before joining circuits three years later with a <b>Datsun Sunny B110</b>. One night he headed to the <b>Usui pass</b> with a new white and black <b>Toyota Sprinter Trueno</b> and challenged the best <b>hashiriya</b> of the region, at the end of the night the pilots called him the <b>\"Mountain King\"</b>. He kept on racing and put up quite a show in <b>1984</b> and <b>1985</b> racing his <b>Trueno</b> on the circuits and introduced everyone to his art of drifting in <b>1987</b> with his drift movie <b>Pulpsy</b>."
+            );
+
+            RallyManager.AddCustomRally(
                 group, 1979, Areas.KENYA, "Kenya", "Safari rally", "Shekhar Mehta",
                 assembly, pilotPicturePath, 1979, 8, 0, 4, new int[] { 0, 8, 4, 6 },
-                new Weather[] { Weather.Sunset, Weather.Rain, Weather.Rain, Weather.Afternoon }, ComputeRestarts(2 / 9f, 4),
+                new Weather[] { Weather.Sunset, Weather.Rain, Weather.Rain, Weather.Afternoon }, ComputeRestarts(3 / 9f, 4),
                 "Back again after a hiatus on the <b>Safari Rally</b>, <b>Shekhar Mehta</b> and his <b>Safari</b> copilot <b>Mike Doughty</b> started a series of five <b>Safari</b> wins that would make history. Their long-time partner <b>Datsun</b> provided them with a <b>Datsun 160J</b> that soared forward on the kenyan tracks, battleing for the top position in the <b>Kenyan championship</b> with the <b>Alfa Romeo Alfetta GTV</b>. <b>Shekhar</b> went on to place first on most of the <b>1980</b> events he raced in, switching his <b>Datsun</b> for an <b>Opel</b>."
             );
 
             RallyManager.AddCustomRally(
                 group, 1982, Areas.SARDINIA, "France", "Tour de Corse", "Jean Ragnotti",
-                assembly, pilotPicturePath, 1976, 0, 0, 2, new int[] { 7, 4, 2, 3 },
-                new Weather[] { Weather.Fog, Weather.Fog, Weather.Rain, Weather.Sunset }, ComputeRestarts(3 / 9f, 4),
+                assembly, pilotPicturePath, 1976, 0, 0, 2, new int[] { 7, 4, 2, 3, 9 },
+                new Weather[] { Weather.Fog, Weather.Fog, Weather.Afternoon, Weather.Rain, Weather.Sunset },
+                ComputeRestarts(4 / 9f, 5),
                 "French champion in <b>1980</b>, <b>Jean Ragnotti</b>, nicknamed \"the acrobat\", teamed up with his long time copilot <b>Jean-Marc Andrié</b> to win several french events between two <b>24 hours of Le Mans</b> participations. He introduced the world to the lightning fast <b>Renault 5 Turbo</b> the previous year by winning the <b>Rally Montecarlo</b>. Followed closely by <b>Jean-Claude Andruet</b> in his <b>Ferrari 308 GTB</b>, he took advantage of the poor visibility and wet roads of <b>Corsica</b> that year to fly around curves. <b>Renault</b> was so pleased with his performance that they made a special <b>\"Tour de Corse\"</b> edition for the next rally season which was considered for the new <b>Group B</b> homologation."
             );
 
@@ -314,7 +322,7 @@ namespace HistoricalCareer
                 group, 1982, Areas.GERMANY, "Germany", "Rallye Vorderpfalz", "Klaus Fritzinger",
                 assembly, pilotPicturePath, 1982, 3, 5, 10, new int[] { 11, 8, 3, 5, 9 },
                 new Weather[] { Weather.Rain, Weather.Afternoon, Weather.Rain, Weather.Morning, Weather.Afternoon },
-                ComputeRestarts(4 / 9f, 5),
+                ComputeRestarts(5 / 9f, 5),
                 "Designed by the legendary wedge drawer <b>Giorgetto Giugiaro</b>, built by the body workshop <b>Bertone</b> and assembled by <b>Baur</b>, so many hands touched this promissing darling. But even in the hands of <b>Bernard Darniche</b> and <b>Bernard Béguin</b>, the <b>BMW M1</b> couldn't bring a decent win. Too heavy, too large and too unreliable, it still provided some shockingly good results. <b>Klaus Fritzinger</b> already had a taste for competition when he won football championships in his young years. He then hopped into a <b>Toyota</b> with his copilot <b>Henning Wünsch</b> and only briefly stepped into the <b>M1</b> to score a second place in the rally, showing off the car's power with a first stage win and a total of six stage wins."
             );
 
@@ -322,7 +330,7 @@ namespace HistoricalCareer
                 group, 1983, Areas.KENYA, "Kenya", "Safari Rally", "Ari Vatanen",
                 assembly, pilotPicturePath, 1983, 9, 0, 4, new int[] { 0, 8, 4, 6, 10 },
                 new Weather[] { Weather.Sunset, Weather.Night, Weather.Morning, Weather.Afternoon, Weather.Sunset },
-                ComputeRestarts(5 / 9f, 5),
+                ComputeRestarts(6 / 9f, 5),
                 "Former <b>1981</b> <b>WRC</b> champion, <b>Ari Vatanen</b>, stepped out of his <b>Ford Escort MK2</b> and into the unbreakable <b>Opel Ascona 400</b> with his copilot <b>Terry Harryman</b> for his second ever <b>Rally Safari</b>. <b>Shekhar Mehta</b>, the previous year's winner broke his <b>Nissan 240RS</b> and left an open field for Ari while the previous year's <b>Africa</b> and <b>WRC</b> champion <b>Walter Röhrl</b> was busy with a <b>Group B</b> season for <b>Lancia</b>. Ari only drove the Ascona for that year before joining the insane <b>Group B</b> races aswell with the <b>Peugeot 205 Turbo 16</b>, but that was enough to place first and second in several rallies. Other very successfull pilots have stepped into this Ascona such as <b>Guy Fréquelin</b> in France, <b>Jimmy McRae</b> in Britain and <b>\"Miki\" Biasion</b> in Italy."
             );
         }
