@@ -333,6 +333,14 @@ namespace HistoricalCareer
                 ComputeRestarts(6 / 9f, 5),
                 "Former <b>1981</b> <b>WRC</b> champion, <b>Ari Vatanen</b>, stepped out of his <b>Ford Escort MK2</b> and into the unbreakable <b>Opel Ascona 400</b> with his copilot <b>Terry Harryman</b> for his second ever <b>Rally Safari</b>. <b>Shekhar Mehta</b>, the previous year's winner broke his <b>Nissan 240RS</b> and left an open field for Ari while the previous year's <b>Africa</b> and <b>WRC</b> champion <b>Walter Röhrl</b> was busy with a <b>Group B</b> season for <b>Lancia</b>. Ari only drove the Ascona for that year before joining the insane <b>Group B</b> races aswell with the <b>Peugeot 205 Turbo 16</b>, but that was enough to place first and second in several rallies. Other very successfull pilots have stepped into this Ascona such as <b>Guy Fréquelin</b> in France, <b>Jimmy McRae</b> in Britain and <b>\"Miki\" Biasion</b> in Italy."
             );
+
+            RallyManager.AddCustomRally(
+                group, 1985, Areas.FINLAND, "Sweden", "Billingerundan", "Stig-Olov Walfridsson",
+                assembly, pilotPicturePath, 0, 2, 1, 8, new int[] { 1, 2, 6, 4, 7, 3 },
+                new Weather[] { Weather.Morning, Weather.Rain, Weather.Afternoon, Weather.Fog, Weather.Sunset, Weather.Night },
+                ComputeRestarts(7 / 9f, 6),
+                "A year after <b>Stig Blomqvist</b> won the <b>WRC</b> with an <b>Audi Quattro S1</b>, a young stunt driver named <b>Stig-Olov \"Stecka\" Walfridsson</b>, hopped into a <b>Volvo 240 Turbo</b> with his long time copilot <b>Gunner Barth</b> to win several small swedish rallies. His indestructible <b>Volvo</b> helped him show his skills before switching to an <b>Audi Quattro</b> for european junior rallies and later a <b>Mitsubishi Lancer</b> with which he won several <b>Group N</b> rally championships in the nineties before switching to rallycross after a high speed collision with a moose in <b>2006</b>. The reliable <b>\"Turbo Brick\"</b> was dirt cheap and fast on straights thanks to its turbo, making it a favourite among privateers."
+            );
         }
 
         public static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
