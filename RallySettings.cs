@@ -341,6 +341,16 @@ namespace HistoricalCareer
                 ComputeRestarts(7 / 9f, 6),
                 "A year after <b>Stig Blomqvist</b> won the <b>WRC</b> with an <b>Audi Quattro S1</b>, a young stunt driver named <b>Stig-Olov \"Stecka\" Walfridsson</b>, hopped into a <b>Volvo 240 Turbo</b> with his long time copilot <b>Gunner Barth</b> to win several small swedish rallies. His indestructible <b>Volvo</b> helped him show his skills before switching to an <b>Audi Quattro</b> for european junior rallies and later a <b>Mitsubishi Lancer</b> with which he won several <b>Group N</b> rally championships in the nineties before switching to rallycross after a high speed collision with a moose in <b>2006</b>. The reliable <b>\"Turbo Brick\"</b> was dirt cheap and fast on straights thanks to its turbo, making it a favourite among privateers."
             );
+
+            RallyManager.AddCustomRally(
+                group, 1988, Areas.SARDINIA, "France", "Tour de Corse", "Didier Auriol",
+                assembly, pilotPicturePath, 1984, 4, 0, 2, new int[] { 7, 4, 2, 3, 9, 6 },
+                new Weather[] {
+                    Weather.Afternoon, Weather.Sunset, Weather.Morning, Weather.Afternoon, Weather.Fog, Weather.Sunset
+                },
+                ComputeRestarts(8 / 9f, 6),
+                "You'd be worried if you discovered that the driver taking the wheel of your MG Metro 6R4 used to drive ambulances before he started racing in rally. Two years later in <b>1988</b> it was behind the wheel of a <b>Ford Sierra RS Cosworth</b> that <b>Didier Auriol</b> won his second <b>French Rally Championship</b> with <b>Bernard Occelli</b> as copilot, with whom he'd win a <b>WRC</b> title in <b>1994</b>. He went toe to toe with all wheel drive cars like the <b>Lancia Delta Integrale</b> and proved that rear wheel drive could still win on tarmac. You'd be surprised at how many accidents his reckless driving lead to when you hear his gentle tone and very strong french accent."
+            );
         }
 
         public static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
