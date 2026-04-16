@@ -29,7 +29,7 @@ namespace HistoricalCareer
 
             RallySettings.GenerateGroup2Seasons(assembly, pilotPicturePath, ComputeRestarts);
             RallySettings.GenerateGroup3Seasons(assembly, pilotPicturePath, ComputeRestarts);
-            //RallySettings.GenerateGroup4Seasons(assembly, pilotPicturePath, ComputeRestarts);
+            RallySettings.GenerateGroup4Seasons(assembly, pilotPicturePath, ComputeRestarts);
             //RallySettings.GenerateGroupBSeasons(assembly, pilotPicturePath, ComputeRestarts);
             //RallySettings.GenerateGroupSSeasons(assembly, pilotPicturePath, ComputeRestarts);
             //RallySettings.GenerateGroupASeasons(assembly, pilotPicturePath, ComputeRestarts);
@@ -78,9 +78,9 @@ namespace HistoricalCareer
             return Mathf.Max(1, Mathf.CeilToInt(Mathf.Lerp(EASY_RESTARTS, HARD_RESTARTS, percent) * stagesCount));
         }
 
-        private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, Areas area)
+        private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, string areaName)
         {
-            string path = rootPath + GetSeasonCode(carClass, year, area) + ".jpg";
+            string path = rootPath + carClass + "_" + year + "_" + areaName + ".jpg";
 
             using (Stream stream = assembly.GetManifestResourceStream(path))
             {
@@ -160,7 +160,7 @@ namespace HistoricalCareer
                 areaName,
                 rallyName,
                 pilotName,
-                LoadPilotPicture(assembly, rootPath, carClass, year, area),
+                LoadPilotPicture(assembly, rootPath, carClass, year, areaName),
                 pilotPictureYear,
                 carIndex,
                 liveryIndex,
