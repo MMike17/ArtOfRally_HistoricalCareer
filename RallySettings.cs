@@ -114,7 +114,7 @@ namespace HistoricalCareer
                 season.Rallies[0].SetWeatherForStage(i, weathers[i]);
             }
 
-            SaveManager.LoadSeasonData(season);
+            SaveManager.LoadSeasonData(this);
 
             // checks for DLC use
             needsDLC = area == AreaManager.Areas.AUSTRALIA;

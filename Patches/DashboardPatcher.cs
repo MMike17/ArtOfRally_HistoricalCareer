@@ -20,7 +20,7 @@ namespace HistoricalCareer
             if (!Main.enabled)
                 return true;
 
-            __instance.StartCoroutine(CustomNextSeasonAnim(__instance, Season));
+            Main.Try(nameof(NextSeaconAnimOverride), () => __instance.StartCoroutine(CustomNextSeasonAnim(__instance, Season)));
             return false;
         }
 
@@ -116,7 +116,11 @@ namespace HistoricalCareer
         static void NewGroupVideoCheck(ref bool __result, Season currentSeason)
         {
             if (Main.enabled)
-                __result = RallyManager.CheckUnlockNextGroup(currentSeason);
+            {
+                bool temp = __result;
+                Main.Try(nameof(NewGroupVideoCheck), () => temp = RallyManager.CheckUnlockNextGroup(currentSeason));
+                __result = temp;
+            }
         }
 
         [HarmonyPatch("HideButtons", new Type[] { typeof(List<CustomButtonSeason>) })]

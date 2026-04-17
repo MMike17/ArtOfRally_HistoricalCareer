@@ -32,9 +32,9 @@ namespace HistoricalCareer
         public static Font bodyFont { get; private set; }
         public static string submitUIString { get; private set; }
         public static string cancelUIString { get; private set; }
+        public static RallySettings currentRally { get; private set; }
 
         private static Dictionary<string, CustomButtonSeason> seasonButtons;
-        private static RallySettings currentRally;
         private static CarrouselUI carrousel;
         private static CareerUI careerUI;
 
@@ -130,6 +130,7 @@ namespace HistoricalCareer
                         helper.LiveryButton.index = currentRally.liveryIndex;
 
                         RallyManager.ApplyRallySettings(rally);
+                        SaveManager.SaveSeasonData(rally.season);
                         panel.GetComponent<CarChooserHelper>().BeginEvent();
                     });
                 }
@@ -184,7 +185,7 @@ namespace HistoricalCareer
                 SetupSeasonButton(seasonButton, setting);
 
                 buttons.Add(seasonButton);
-                seasonButtons.Add(RallyManager.GetSeasonCode(setting.season), seasonButton);
+                seasonButtons.Add(RallyManager.GetSeasonCode(setting.carClass, setting.carIndex), seasonButton);
             });
 
             Main.SetField(ui, "AllSeasonButtons", BindingFlags.Instance, buttons);

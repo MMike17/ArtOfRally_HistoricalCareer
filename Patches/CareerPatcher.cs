@@ -33,9 +33,16 @@ namespace HistoricalCareer
                         // if I don't do this it crashes
                         Main.SetField(__instance, CURRENT_SEASON_FLAG, BindingFlags.Instance, TheSeason);
                         Main.SetField(GameModeManager.CareerManager, CURRENT_SEASON_FLAG, BindingFlags.Instance, TheSeason);
-                        SaveManager.SaveSeasonData(TheSeason);
 
-                        Main.Log("Starting season : " + RallyManager.GetSeasonCode(TheSeason));
+                        string seasonCode = "";
+
+                        if (TheSeason.SelectedCar != null)
+                            RallyManager.GetSeasonCode(TheSeason);
+                        else if (PanelPatcher.currentRally != null)
+                            RallyManager.GetSeasonCode(PanelPatcher.currentRally.carClass, PanelPatcher.currentRally.carIndex);
+
+                        if (!string.IsNullOrEmpty(seasonCode))
+                            Main.Log("Starting season : " + seasonCode);
                     }
                 });
 
@@ -51,7 +58,7 @@ namespace HistoricalCareer
         {
             if (Main.enabled && season != null)
             {
-                RallyManager.UnlockNextSeason(season);
+                Main.Try(nameof(CheckSeasonUnlock), () => RallyManager.UnlockNextSeason(season));
                 return false;
             }
 
@@ -88,10 +95,17 @@ namespace HistoricalCareer
             if (!Main.enabled)
                 return true;
 
-            RallySettings settings = RallyManager.GetRallyInProgress();
-            __result = settings?.season;
+            Season temp = __result;
 
-            Main.Log("Has boot season : " + (__result != null));
+            Main.Try(nameof(GetCustomBootSeason), () =>
+            {
+                RallySettings settings = RallyManager.GetRallyInProgress();
+                temp = settings?.season;
+
+                Main.Log("Has boot season : " + (temp != null));
+            });
+
+            __result = temp;
             return false;
         }
 
@@ -102,7 +116,10 @@ namespace HistoricalCareer
             if (!Main.enabled)
                 return true;
 
-            __result = RallyManager.GetRallyInProgress() != null;
+            bool temp = __result;
+            Main.Try(nameof(HasCurrentSeason), () => temp = RallyManager.GetRallyInProgress() != null);
+            __result = temp;
+
             return false;
         }
 
@@ -111,7 +128,7 @@ namespace HistoricalCareer
         static void ResetAllInProgressSeasons_Postfix()
         {
             if (Main.enabled)
-                RallyManager.ResetRallyInProgress();
+                Main.Try(nameof(ResetAllInProgressSeasons_Postfix), () => RallyManager.ResetRallyInProgress());
         }
     }
 }

@@ -70,7 +70,7 @@ namespace HistoricalCareer
             if (firstSeason.Status == Season.STATUS.LOCKED)
                 firstSeason.Status = Season.STATUS.UNLOCKED;
 
-            SaveManager.SaveSeasonData(firstSeason);
+            SaveManager.SaveSeasonData(rallySettings[0][0]);
         }
 
         private static int ComputeRestarts(float percent, int stagesCount)
@@ -78,9 +78,9 @@ namespace HistoricalCareer
             return Mathf.Max(1, Mathf.CeilToInt(Mathf.Lerp(EASY_RESTARTS, HARD_RESTARTS, percent) * stagesCount));
         }
 
-        private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, string areaName)
+        private static Sprite LoadPilotPicture(Assembly assembly, string rootPath, CarClass carClass, int year, int carIndex)
         {
-            string path = rootPath + carClass + "_" + year + "_" + areaName + ".jpg";
+            string path = rootPath + GetSeasonCode(carClass, carIndex) + ".jpg";
 
             using (Stream stream = assembly.GetManifestResourceStream(path))
             {
@@ -160,7 +160,7 @@ namespace HistoricalCareer
                 areaName,
                 rallyName,
                 pilotName,
-                LoadPilotPicture(assembly, rootPath, carClass, year, areaName),
+                LoadPilotPicture(assembly, rootPath, carClass, year, carIndex),
                 pilotPictureYear,
                 carIndex,
                 liveryIndex,
@@ -172,14 +172,49 @@ namespace HistoricalCareer
             );
         }
 
-        public static string GetSeasonCode(CarClass carClass, int year, Areas area) => carClass + "_" + year + "_" + area;
+        public static string GetSeasonCode(CarClass carClass, int carIndex) => carClass + "_" + carIndex;
 
         public static string GetSeasonCode(Season season)
         {
             if (season.Rallies.Count <= 0)
                 Main.Log("Rallies are not setup for this (" + season.CarClass + " " + season.Year + ")");
 
-            return GetSeasonCode(season.CarClass, season.Year, season.Rallies[0].CurrentArea);
+            return GetSeasonCode(season.CarClass, GetCarIndexInClass(season.SelectedCar));
+        }
+
+        private static int GetCarIndexInClass(Car car)
+        {
+            List<Car> cars = null;
+
+            switch (car.carClass)
+            {
+                case CarClass.GROUP_2:
+                    cars = CarManager.SixtiesCarList;
+                    break;
+                case CarClass.GROUP_3:
+                    cars = CarManager.SeventiesCarList;
+                    break;
+                case CarClass.GROUP_4:
+                    cars = CarManager.EightiesCarList;
+                    break;
+                case CarClass.GROUP_B:
+                    cars = CarManager.GroupBCarList;
+                    break;
+                case CarClass.GROUP_S:
+                    cars = CarManager.GroupSCarList;
+                    break;
+                case CarClass.GROUP_A:
+                    cars = CarManager.GroupACarList;
+                    break;
+            }
+
+            if (!cars.Contains(car))
+            {
+                Main.Error("Couldn't find car " + car.prefabName + " in detected car list, this will break the mod.");
+                return -1;
+            }
+
+            return cars.IndexOf(car);
         }
 
         /// <summary>This method is used to add custom rallies to the mod</summary>
@@ -311,7 +346,27 @@ namespace HistoricalCareer
 
         public static void ApplyRallySettings(Season season)
         {
-            ApplyRallySettings(rallySettings[season.CarClass].Find(item => GetSeasonCode(item.season) == GetSeasonCode(season)));
+            RallySettings settings = rallySettings[season.CarClass].Find(item =>
+            {
+                if (item.season.CarClass != season.CarClass)
+                    return false;
+
+                if (item.season.Rallies[0].CurrentArea != season.Rallies[0].CurrentArea)
+                    return false;
+
+                if (item.season.Rallies[0].StageCount != season.Rallies[0].StageCount)
+                    return false;
+
+                for (int i = 0; i < item.season.Rallies[0].StageCount; i++)
+                {
+                    if (item.season.Rallies[0].StageList[i] != season.Rallies[0].StageList[i])
+                        return false;
+                }
+
+                return true;
+            });
+
+            ApplyRallySettings(settings);
         }
 
         public static Sprite GetCarSprite(CarClass carClass, int carIndex)
@@ -331,14 +386,14 @@ namespace HistoricalCareer
             List<RallySettings> currentList = rallySettings[season.CarClass];
             RallySettings currentSettings = currentList.Find(item => string.Equals(GetSeasonCode(item.season), GetSeasonCode(season)));
             int index = currentList.IndexOf(currentSettings);
-            Season selected = null;
+            RallySettings selected = null;
 
             if (index + 1 <= currentList.Count - 1)
-                selected = currentList[index + 1].season;
+                selected = currentList[index + 1];
             else if (season.CarClass != CarClass.GROUP_A)
             {
                 CarClass newClass = season.CarClass + 1;
-                selected = rallySettings[newClass][0].season;
+                selected = rallySettings[newClass][0];
 
                 switch (newClass)
                 {
@@ -368,13 +423,13 @@ namespace HistoricalCareer
 
             if (selected != null)
             {
-                if (selected.Status == Season.STATUS.LOCKED)
+                if (selected.season.Status == Season.STATUS.LOCKED)
                 {
-                    selected.Status = Season.STATUS.UNLOCKED;
+                    selected.season.Status = Season.STATUS.UNLOCKED;
                     SaveManager.SaveSeasonData(selected);
                 }
 
-                Main.Log("Next season : " + GetSeasonCode(selected));
+                Main.Log("Next season : " + GetSeasonCode(selected.carClass, selected.carIndex));
             }
             else
                 Main.Log("No next season detected");
@@ -396,7 +451,9 @@ namespace HistoricalCareer
                     settings.season.Status = Season.STATUS.LOCKED;
                     settings.season.OverallStandingPlayer = 0;
                     settings.season.StageWins = 0;
-                    SaveManager.SaveSeasonData(settings.season);
+                    settings.season.Rallies[0].CurrentStageIndex = 0;
+
+                    SaveManager.SaveSeasonData(settings);
                 }
             }
 
@@ -429,7 +486,7 @@ namespace HistoricalCareer
 
             if (result != null)
             {
-                Main.Log("Loaded custom season in progress : " + GetSeasonCode(result.season));
+                Main.Log("Loaded custom season in progress : " + GetSeasonCode(result.carClass, result.carIndex));
                 return result;
             }
             else
@@ -451,7 +508,7 @@ namespace HistoricalCareer
                 {
                     settings.season.Status = Season.STATUS.UNLOCKED;
                     settings.season.Rallies[0].CurrentStageIndex = 0;
-                    SaveManager.SaveSeasonData(settings.season);
+                    SaveManager.SaveSeasonData(settings);
                     count++;
                 }
             }

@@ -47,11 +47,11 @@ namespace HistoricalCareer
                 Main.Try(nameof(CompleteCustomSeason), () =>
                 {
                     __instance.Status = Season.STATUS.COMPLETED;
-                    __instance.SelectedCar = null;
                     __instance.DriverList = new List<Driver>();
 
                     SaveManager.SaveSeasonData(__instance);
                     Main.Log("Completed season : " + RallyManager.GetSeasonCode(__instance));
+                    __instance.SelectedCar = null;
                 });
 
                 return false;
@@ -77,7 +77,12 @@ namespace HistoricalCareer
         public static void SaveIfCareer(Season season)
         {
             if (GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
-                SaveManager.SaveSeasonData(season);
+            {
+                if (season.SelectedCar != null)
+                    SaveManager.SaveSeasonData(season);
+                else if (PanelPatcher.currentRally != null)
+                    SaveManager.SaveSeasonData(PanelPatcher.currentRally);
+            }
         }
     }
 
@@ -170,7 +175,7 @@ namespace HistoricalCareer
             if (!Main.enabled)
                 return;
 
-            SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason());
+            Main.Try(nameof(SaveDriverList), () => SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason()));
         }
     }
 }
