@@ -351,6 +351,16 @@ namespace HistoricalCareer
                 ComputeRestarts(8 / 9f, 6),
                 "You'd be worried if you discovered that the driver taking the wheel of your MG Metro 6R4 used to drive ambulances before he started racing in rally. Two years later in <b>1988</b> it was behind the wheel of a <b>Ford Sierra RS Cosworth</b> that <b>Didier Auriol</b> won his second <b>French Rally Championship</b> with <b>Bernard Occelli</b> as copilot, with whom he'd win a <b>WRC</b> title in <b>1994</b>. He went toe to toe with all wheel drive cars like the <b>Lancia Delta Integrale</b> and proved that rear wheel drive could still win on tarmac. You'd be surprised at how many accidents his reckless driving lead to when you hear his gentle tone and very strong french accent."
             );
+
+            RallyManager.AddCustomRally(
+                group, 1988, Areas.SARDINIA, "Italy", "Targa Florio", "Andrea Zanussi",
+                assembly, pilotPicturePath, 1987, 1, 1, 10, new int[] { 3, 9, 1, 5, 7, 11 },
+                new Weather[] {
+                    Weather.Morning, Weather.Afternoon, Weather.Sunset, Weather.Morning, Weather.Afternoon, Weather.Sunset
+                },
+                ComputeRestarts(9 / 9f, 6),
+                "The first man to go under the 11 minutes barrier at the <b>Pikes Peak hillclimb</b>, placing third at the overall in <b>1987</b>, <b>Andrea Zanussi</b> hopped into a <b>BMW M3</b> the next year with his copilot <b>Paolo Amati</b> for his last title in the <b>Italian Championship</b>. The <b>Grand Tourism</b> winning <b>BMW</b> proved to be a mighty steed, bringing him two first places and three second places, giving him the second place in the <b>Italian Championship</b> that year. The solid M3 platform has several championships under its belt in France and Belgium, its precise chassis gained popularity with privateers who still enjoyed it well after <b>2000</b>."
+            );
         }
 
         public static void GenerateGroupBSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
