@@ -23,8 +23,16 @@ namespace HistoricalCareer
                         TheSeason.ResetValuesForStartingNewSeason();
                         TheSeason.Status = Season.STATUS.IN_PROGRESS;
 
+                        if (Main.settings.shortRallies)
+                        {
+                            TheSeason.Rallies[0].StageCount = 1;
+                            TheSeason.Rallies[0].StageList = new List<Stage>() { TheSeason.Rallies[0].StageList[0] };
+                        }
+
                         // checks in the og code are super weird
-                        if (TheSeason != null && TheSeason.SelectedCar != null && TheSeason.SelectedCar.performancePartsCondition != null)
+                        bool check = TheSeason != null && TheSeason.SelectedCar != null && TheSeason.SelectedCar.performancePartsCondition != null;
+
+                        if (check)
                             TheSeason.SelectedCar.performancePartsCondition.ClampValues();
 
                         TheSeason.ResetStageInfo();
@@ -39,7 +47,7 @@ namespace HistoricalCareer
                         if (TheSeason.SelectedCar != null)
                             RallyManager.GetSeasonCode(TheSeason);
                         else if (PanelPatcher.currentRally != null)
-                            RallyManager.GetSeasonCode(PanelPatcher.currentRally.carClass, PanelPatcher.currentRally.carIndex);
+                            RallyManager.GetSeasonCode(PanelPatcher.currentRally);
 
                         if (!string.IsNullOrEmpty(seasonCode))
                             Main.Log("Starting season : " + seasonCode);

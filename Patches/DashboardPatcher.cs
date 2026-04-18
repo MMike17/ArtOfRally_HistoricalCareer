@@ -20,7 +20,7 @@ namespace HistoricalCareer
             if (!Main.enabled)
                 return true;
 
-            Main.Try(nameof(NextSeaconAnimOverride), () => __instance.StartCoroutine(CustomNextSeasonAnim(__instance, Season)));
+            __instance.StartCoroutine(CustomNextSeasonAnim(__instance, Season));
             return false;
         }
 
@@ -28,28 +28,34 @@ namespace HistoricalCareer
         private static IEnumerator CustomNextSeasonAnim(SeasonDashboardUI instance, Season season)
         {
             Main.Log("Starting custom next season anim");
+            CustomButtonSeason currentSeasonButton = null;
+            PanelManager panelManager = null;
 
-            PanelManager panelManager = UIManager.Instance.PanelManager;
-            panelManager.PopAllPanels();
-            panelManager.AddPanelAddToHistory(panelManager.MainPanel, false);
-            panelManager.AddPanelAddToHistory(panelManager.CareerClassesDashboardPanel, false);
+            Main.Try(nameof(CustomNextSeasonAnim) + "_1", () =>
+            {
+                panelManager = UIManager.Instance.PanelManager;
+                panelManager.PopAllPanels();
+                panelManager.AddPanelAddToHistory(panelManager.MainPanel, false);
+                panelManager.AddPanelAddToHistory(panelManager.CareerClassesDashboardPanel, false);
 
-            instance.seasonCompleteProgressUI.UnfocusAllCircles();
-            instance.seasonCompleteProgressUI.SetCanvasGroupAlpha(0f);
+                instance.seasonCompleteProgressUI.UnfocusAllCircles();
+                instance.seasonCompleteProgressUI.SetCanvasGroupAlpha(0f);
 
-            panelManager.MoveCameraToCareer();
-            panelManager.AddCareerDashboardPanel(season.CarClass, false);
+                panelManager.MoveCameraToCareer();
+                panelManager.AddCareerDashboardPanel(season.CarClass, false);
 
-            PanelPatcher.SetupSeasonPanel(instance.transform.Find(season.CarClass.ToString().Replace("GROUP_", "Group")).GetComponent<Panel>());
+                PanelPatcher.SetupSeasonPanel(instance.transform.Find(season.CarClass.ToString().Replace("GROUP_", "Group")).GetComponent<Panel>());
 
-            CustomButtonSeason currentSeasonButton = PanelPatcher.GetButtonForSeason(season);
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(currentSeasonButton.gameObject);
+                currentSeasonButton = PanelPatcher.GetButtonForSeason(season);
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(currentSeasonButton.gameObject);
 
-            PanelPatcher.SetCarouselState(false);
+                PanelPatcher.SetCarouselState(false);
 
-            PanelPatcher.ShowSeasonButton(currentSeasonButton);
-            PanelPatcher.SetCarouselSelection(season);
+                PanelPatcher.ShowSeasonButton(currentSeasonButton);
+                PanelPatcher.SetCarouselSelection(season);
+            });
+
             yield return currentSeasonButton.SeasonCompleteCoroutine(season);
             PanelPatcher.SetSeasonButtonsState(currentSeasonButton, true);
 
@@ -60,52 +66,64 @@ namespace HistoricalCareer
             // replaces SeasonDashboardUI.UnlockNewClassSequence
             if (RallyManager.CheckUnlockNextGroup(season))
             {
-                CarClass unlockedClass = season.CarClass + 1;
-                Main.Log("Playing unlock anim for group " + unlockedClass);
+                CarClass unlockedClass = 0;
 
-                panelManager.PopPanel();
-                PanelPatcher.SetCarouselState(false);
-                panelManager.SetBackButtonActive(false);
+                Main.Try(nameof(CustomNextSeasonAnim) + "_2", () =>
+                {
+                    unlockedClass = season.CarClass + 1;
+                    Main.Log("Playing unlock anim for group " + unlockedClass);
+
+                    panelManager.PopPanel();
+                    PanelPatcher.SetCarouselState(false);
+                    panelManager.SetBackButtonActive(false);
+                });
 
                 yield return instance.StartCoroutine(panelManager.CarTrailersPlayer.PlayVideoCoroutine(unlockedClass, false));
+                CustomButtonCareerClass classButton = null;
 
-                if (panelManager.Peek() == panelManager.VideoPlayerPanel)
-                    panelManager.GoBack();
+                Main.Try(nameof(CustomNextSeasonAnim) + "_3", () =>
+                {
+                    if (panelManager.Peek() == panelManager.VideoPlayerPanel)
+                        panelManager.GoBack();
 
-                // replaces SeasonDashboardUI.DoNewClassButtonUnlockAnimation
-                instance.isShowingAnimation = true;
-                CustomButtonCareerClass classButton = Main.InvokeMethod<SeasonDashboardUI, CustomButtonCareerClass>(
-                    instance,
-                    "GetClassButtonFromEnum",
-                    BindingFlags.Instance,
-                    new object[] { unlockedClass }
-                );
-                Main.InvokeMethod(instance, "RefreshButtons", BindingFlags.Instance, null);
-                EventSystem.current.SetSelectedGameObject(null);
+                    // replaces SeasonDashboardUI.DoNewClassButtonUnlockAnimation
+                    instance.isShowingAnimation = true;
+                    classButton = Main.InvokeMethod<SeasonDashboardUI, CustomButtonCareerClass>(
+                        instance,
+                        "GetClassButtonFromEnum",
+                        BindingFlags.Instance,
+                        new object[] { unlockedClass }
+                    );
+                    Main.InvokeMethod(instance, "RefreshButtons", BindingFlags.Instance, null);
+                    EventSystem.current.SetSelectedGameObject(null);
 
-                PanelPatcher.SetSeasonButtonsState(null, false);
-                PanelPatcher.SetCarouselState(false);
-                panelManager.SetBackButtonActive(false);
+                    PanelPatcher.SetSeasonButtonsState(null, false);
+                    PanelPatcher.SetCarouselState(false);
+                    panelManager.SetBackButtonActive(false);
+                });
 
                 yield return instance.StartCoroutine(classButton.ClassUnlockedSequence());
                 yield return new WaitForSecondsRealtime(0.5f);
 
-                Main.InvokeMethod(
-                    instance,
-                    "ShowClassButtons",
-                    BindingFlags.Instance,
-                    new object[] {
+                Main.Try(nameof(CustomNextSeasonAnim) + "_4", () =>
+                {
+                    Main.InvokeMethod(
+                        instance,
+                        "ShowClassButtons",
+                        BindingFlags.Instance,
+                        new object[] {
                         Main.GetField<List<CustomButtonCareerClass>, SeasonDashboardUI>(instance, "ClassButtons", BindingFlags.Instance),
                         unlockedClass
-                    }
-                );
+                        }
+                    );
 
-                panelManager.SetBackButtonActive(true);
-                classButton.interactable = true;
-                EventSystem.current.SetSelectedGameObject(classButton.gameObject);
+                    panelManager.SetBackButtonActive(true);
+                    classButton.interactable = true;
+                    EventSystem.current.SetSelectedGameObject(classButton.gameObject);
 
-                PanelPatcher.SetCarouselState(true);
-                instance.isShowingAnimation = false;
+                    PanelPatcher.SetCarouselState(true);
+                    instance.isShowingAnimation = false;
+                });
             }
 
             panelManager.SetBackButtonActive(true);

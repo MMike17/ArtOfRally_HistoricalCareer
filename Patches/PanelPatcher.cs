@@ -130,7 +130,7 @@ namespace HistoricalCareer
                         helper.LiveryButton.index = currentRally.liveryIndex;
 
                         RallyManager.ApplyRallySettings(rally);
-                        SaveManager.SaveSeasonData(rally.season);
+                        SaveManager.SaveSeasonData(rally);
                         panel.GetComponent<CarChooserHelper>().BeginEvent();
                     });
                 }
@@ -185,7 +185,7 @@ namespace HistoricalCareer
                 SetupSeasonButton(seasonButton, setting);
 
                 buttons.Add(seasonButton);
-                seasonButtons.Add(RallyManager.GetSeasonCode(setting.carClass, setting.carIndex), seasonButton);
+                seasonButtons.Add(RallyManager.GetSeasonCode(setting), seasonButton);
             });
 
             Main.SetField(ui, "AllSeasonButtons", BindingFlags.Instance, buttons);
@@ -197,6 +197,7 @@ namespace HistoricalCareer
 
         public static CustomButtonSeason GetButtonForSeason(Season season)
         {
+            // TODO : This is crashing the mod
             string seasonCode = RallyManager.GetSeasonCode(season);
 
             if (seasonButtons == null)

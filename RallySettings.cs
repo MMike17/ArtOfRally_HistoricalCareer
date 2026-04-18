@@ -94,7 +94,7 @@ namespace HistoricalCareer
                 year,
                 carClass,
                 1,
-                Main.settings.shortRallies ? 1 : stagesIndeces.Length,
+                stagesIndeces.Length,
                 restarts,
                 "UNLOCKABLE_" + year + "_BONUS",
                 true,
@@ -104,9 +104,9 @@ namespace HistoricalCareer
             // setup rally
             season.Rallies.Add(new RallyData());
             season.Rallies[0].SetArea((int)area);
-            season.Rallies[0].SetStageCount(Main.settings.shortRallies ? 1 : stagesIndeces.Length);
+            season.Rallies[0].SetStageCount(stagesIndeces.Length);
 
-            for (int i = 0; i < (Main.settings.shortRallies ? 1 : stagesIndeces.Length); i++)
+            for (int i = 0; i < stagesIndeces.Length; i++)
             {
                 int index = stagesIndeces[i];
                 Stage stage = AreaManager.GetStageByIndex(ref index, area);
