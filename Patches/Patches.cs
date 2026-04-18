@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 
 namespace HistoricalCareer
@@ -176,6 +178,43 @@ namespace HistoricalCareer
                 return;
 
             Main.Try(nameof(SaveDriverList), () => SeasonPatcher.SaveIfCareer(GameModeManager.CareerManager.GetCurrentSeason()));
+        }
+    }
+
+    [HarmonyPatch(typeof(GroupTitle), nameof(GroupTitle.ConstructStringUsingCareerData))]
+    static class TitlePatcher
+    {
+        [HarmonyPrefix]
+        static bool FixCareerTitle(GroupTitle __instance)
+        {
+            if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+            {
+                Main.Try(nameof(FixCareerTitle), () =>
+                {
+                    string divider = Main.GetField<string, GroupTitle>(__instance, "divider", BindingFlags.Instance);
+                    string panelName = __instance.GetComponentInParent<Panel>().name;
+                    Car.CarClass carClass = (Car.CarClass)Enum.Parse(typeof(Car.CarClass),
+                        panelName.Insert(panelName.Length - 1, "_").ToUpper());
+
+                    string group = Main.InvokeMethod<GroupTitle, string>(
+                        __instance,
+                        "GetStringFromClass",
+                        BindingFlags.Instance,
+                        new object[] { carClass }
+                    );
+
+                    string[] frags = CarrouselUI.GetSelectedInfo();
+                    string suffix = string.Concat(new[] { frags[0], " ", divider, " ", frags[1] });
+                    Main.SetField<GroupTitle>(__instance, "suffix", BindingFlags.Instance, suffix);
+                    __instance.SetString(string.Concat(new[] { group, " ", divider, " ", suffix }));
+
+                    Main.Log("Updated title");
+                });
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

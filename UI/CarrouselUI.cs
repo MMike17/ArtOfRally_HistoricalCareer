@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using Rewired.Integration.UnityUI;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Reflection;
 
 namespace HistoricalCareer
 {
@@ -16,11 +16,13 @@ namespace HistoricalCareer
         const float MOVE_RATIO = 1000;
         const float INPUT_DELAY_THRESHOLD = 0.2f;
 
-        private List<Panel> panels;
+        private static List<Panel> panels;
+        private static int selectedIndex;
+
         private CanvasGroup panelGroup;
+        private GroupTitle title;
         private string horizontalUIString;
         private float delay;
-        private int selectedIndex;
         private bool immediateUpdate;
         private bool inputState;
 
@@ -36,6 +38,8 @@ namespace HistoricalCareer
 
         public void Reset(List<RallySettings> settings)
         {
+            title = GetComponentInParent<GroupTitle>();
+
             inputState = true;
             selectedIndex = 0;
             panels = new List<Panel>();
@@ -60,11 +64,13 @@ namespace HistoricalCareer
                                 i == under || i == over ?
                                     SEMI_SELECTED_ALPHA :
                                     NON_SELECTED_ALPHA),
-                        settings[settingsIndex]
+                                    settings[settingsIndex]
                     ));
                     settingsIndex++;
                 }
             }
+
+            title.ConstructStringUsingCareerData();
         }
 
         private void OnDisabled() => immediateUpdate = true;
@@ -74,76 +80,84 @@ namespace HistoricalCareer
             if (panelGroup.alpha <= 0.1f)
                 return;
 
-            // move carrousel
-            Transform selected = panels[selectedIndex].transform;
-            float offset = transform.position.x - selected.position.x;
-
-            Vector3 target = transform.position;
-            target.x = Screen.width / 2 + offset;
-
-            transform.position = immediateUpdate ? target : Vector3.MoveTowards(
-                transform.position,
-                target,
-                MOVE_RATIO * Main.settings.carrouselAnimSpeed * Time.deltaTime
-            );
-
-            // animate panels
-            int under = selectedIndex - 1;
-            int over = selectedIndex < panels.Count - 1 ? selectedIndex + 1 : -1;
-
-            for (int i = 0; i < panels.Count; i++)
+            Main.Try(nameof(Update) + "_1", () =>
             {
-                bool isLocked = panels[i].settings.season.Status == Season.STATUS.LOCKED;
+                // move carrousel
+                Transform selected = panels[selectedIndex].transform;
+                float offset = transform.position.x - selected.position.x;
 
-                panels[i].Update(
-                    i == selectedIndex ?
-                        1 :
-                        (i == under || i == over ?
-                            (inputState ?
-                                SEMI_SELECTED_SIZE :
-                                NON_SELECTED_SIZE) :
-                            NON_SELECTED_SIZE),
-                    isLocked ?
-                        NON_SELECTED_ALPHA :
-                        (i == selectedIndex ?
+                Vector3 target = transform.position;
+                target.x = Screen.width / 2 + offset;
+
+                transform.position = immediateUpdate ? target : Vector3.MoveTowards(
+                    transform.position,
+                    target,
+                    MOVE_RATIO * Main.settings.carrouselAnimSpeed * Time.deltaTime
+                );
+
+                // animate panels
+                int under = selectedIndex - 1;
+                int over = selectedIndex < panels.Count - 1 ? selectedIndex + 1 : -1;
+
+                for (int i = 0; i < panels.Count; i++)
+                {
+                    bool isLocked = panels[i].settings.season.Status == Season.STATUS.LOCKED;
+
+                    panels[i].Update(
+                        i == selectedIndex ?
                             1 :
                             (i == under || i == over ?
                                 (inputState ?
-                                    NON_SELECTED_ALPHA :
-                                    SEMI_SELECTED_ALPHA) :
-                                NON_SELECTED_ALPHA)),
-                    (i == selectedIndex ? Main.settings.carrouselAnimSpeed * 1.5f : Main.settings.carrouselAnimSpeed) * Time.deltaTime,
-                    immediateUpdate
-                );
-            }
+                                    SEMI_SELECTED_SIZE :
+                                    NON_SELECTED_SIZE) :
+                                NON_SELECTED_SIZE),
+                        isLocked ?
+                            NON_SELECTED_ALPHA :
+                            (i == selectedIndex ?
+                                1 :
+                                (i == under || i == over ?
+                                    (inputState ?
+                                        NON_SELECTED_ALPHA :
+                                        SEMI_SELECTED_ALPHA) :
+                                    NON_SELECTED_ALPHA)),
+                        (i == selectedIndex ? Main.settings.carrouselAnimSpeed * 1.5f : Main.settings.carrouselAnimSpeed) * Time.deltaTime,
+                        immediateUpdate
+                    );
+                }
 
-            if (immediateUpdate)
-                immediateUpdate = false;
+                if (immediateUpdate)
+                    immediateUpdate = false;
+            });
 
             // input
             if (!inputState)
                 return;
 
-            if (delay > 0)
-                delay = Mathf.Clamp01(delay - Time.deltaTime);
-
-            if (delay == 0 && PanelPatcher.playerInput.GetAxis(horizontalUIString) > 0 && selectedIndex < panels.Count - 1)
+            Main.Try(nameof(Update) + "_2", () =>
             {
-                selectedIndex++;
-                delay = INPUT_DELAY_THRESHOLD;
-            }
+                if (delay > 0)
+                    delay = Mathf.Clamp01(delay - Time.deltaTime);
 
-            if (delay == 0 && PanelPatcher.playerInput.GetAxis(horizontalUIString) < 0 && selectedIndex > 0)
-            {
-                selectedIndex--;
-                delay = INPUT_DELAY_THRESHOLD;
-            }
+                if (delay == 0 && PanelPatcher.playerInput.GetAxis(horizontalUIString) > 0 && selectedIndex < panels.Count - 1)
+                {
+                    selectedIndex++;
+                    delay = INPUT_DELAY_THRESHOLD;
+                    title.ConstructStringUsingCareerData();
+                }
 
-            if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
-            {
-                PanelPatcher.SelectRally(panels[selectedIndex].settings);
-                transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].settings.season);
-            }
+                if (delay == 0 && PanelPatcher.playerInput.GetAxis(horizontalUIString) < 0 && selectedIndex > 0)
+                {
+                    selectedIndex--;
+                    delay = INPUT_DELAY_THRESHOLD;
+                    title.ConstructStringUsingCareerData();
+                }
+
+                if (PanelPatcher.playerInput.GetButtonDown(PanelPatcher.submitUIString))
+                {
+                    PanelPatcher.SelectRally(panels[selectedIndex].settings);
+                    transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].settings.season);
+                }
+            });
         }
 
         public void ForceSelection(int index)
@@ -153,6 +167,12 @@ namespace HistoricalCareer
         }
 
         public void SetInputState(bool state) => inputState = state;
+
+        public static string[] GetSelectedInfo()
+        {
+            RallySettings settings = panels[selectedIndex].settings;
+            return new string[] { settings.season.Year.ToString(), settings.rallyName };
+        }
 
         private class Panel
         {
