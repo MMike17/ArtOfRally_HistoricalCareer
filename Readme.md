@@ -59,5 +59,6 @@ and drop it into the mod manager's mods page.
 ![](Screenshots/Career.png)
 ![](Screenshots/Group%202.png)
 ![](Screenshots/Group%203.png)
+![](Screenshots/Group%204.png)
 ![](Screenshots/Career%20UI.png)
 ![](Screenshots/Settings.png)
