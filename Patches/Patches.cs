@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
+using UnityEngine;
 
 namespace HistoricalCareer
 {
@@ -218,6 +219,46 @@ namespace HistoricalCareer
             }
 
             return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(StageIntroCinematic), "DoCinematic")]
+    static class RallyIntroPatcher
+    {
+        public static StageIntroCinematic instance;
+
+        static void Prefix(StageIntroCinematic __instance)
+        {
+            if (Main.enabled)
+                instance = __instance;
+        }
+    }
+
+    [HarmonyPatch(typeof(LeanTween), nameof(LeanTween.alphaText), new[] { typeof(RectTransform), typeof(float), typeof(float) })]
+    static class RallyIntroFixer
+    {
+        [HarmonyPostfix]
+        static void FixRallyIntro()
+        {
+            if (Main.enabled && RallyIntroPatcher.instance != null)
+            {
+                Main.Try(nameof(FixRallyIntro), () =>
+                {
+                    bool checkText = RallyIntroPatcher.instance.FirstText.text ==
+                        AreaManager.GetAreaStringLocalized(GameModeManager.GetRallyDataCurrentGameMode().CurrentArea).ToLower();
+
+                    if (checkText)
+                    {
+                        RallySettings settings = RallyManager.GetSettingsFromSeason(
+                            GameModeManager.GetSeasonDataCurrentGameMode()
+                        );
+
+                        RallyIntroPatcher.instance.FirstText.text = settings.areaName;
+                        RallyIntroPatcher.instance.SecondText.text = settings.rallyName;
+                        Main.Log("Fixing rally title");
+                    }
+                });
+            }
         }
     }
 }
