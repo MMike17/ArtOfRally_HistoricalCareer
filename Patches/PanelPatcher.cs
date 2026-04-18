@@ -197,7 +197,6 @@ namespace HistoricalCareer
 
         public static CustomButtonSeason GetButtonForSeason(Season season)
         {
-            // TODO : This is crashing the mod
             string seasonCode = RallyManager.GetSeasonCode(season);
 
             if (seasonButtons == null)

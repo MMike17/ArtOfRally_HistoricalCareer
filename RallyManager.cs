@@ -231,6 +231,13 @@ namespace HistoricalCareer
             if (!rallySettings.ContainsKey(carClass))
                 rallySettings.Add(carClass, new List<RallySettings>());
 
+            // check for DLC
+            if (area == Areas.AUSTRALIA && !Platform.Get().IsDLCInstalled(Platform.DLCName.Australia))
+            {
+                Main.Log("Australia DLC not installed, skipping rally " + year + "_" + carIndex);
+                return;
+            }
+
             // check stages
             List<int> indexCount = new List<int>();
             string error = string.Empty;
@@ -300,13 +307,7 @@ namespace HistoricalCareer
                 return null;
             }
 
-            // TODO : Need to check DLC when we add rallies so that it doesn't block career progression
-
-            // check for DLC
-            if (Platform.Get().IsDLCInstalled(Platform.DLCName.Australia))
-                return rallySettings[group];
-            else
-                return rallySettings[group].FindAll(item => !item.needsDLC);
+            return rallySettings[group];
         }
 
         /// <summary>This method is used to remove all custom rallies for a given Car.CarClass</summary>
