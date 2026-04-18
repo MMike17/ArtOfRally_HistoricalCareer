@@ -34,11 +34,12 @@ namespace HistoricalCareer
                 BindingFlags.Instance
             );
             panelGroup = GetComponentInParent<CanvasGroup>();
+            title = transform.parent.GetComponentInChildren<GroupTitle>();
         }
 
         public void Reset(List<RallySettings> settings)
         {
-            title = GetComponentInParent<GroupTitle>();
+            Awake();
 
             inputState = true;
             selectedIndex = 0;
