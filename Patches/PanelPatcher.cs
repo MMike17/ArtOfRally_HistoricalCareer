@@ -20,6 +20,7 @@ namespace HistoricalCareer
         const string CAREER_PANEL_FORMAT = "ClassesDashboard";
         const string GROUP_PANEL_FORMAT = "Group";
         const string CONTINUE_PANEL = "ContinueSeasonScreen";
+        const string RESULTS_PANEL = "ResultsScreen";
         const string STANDING_TAG = "OverallStanding";
         const string PILOT_NAME_TAG = "Year";
         const string RESTARTS_TAG = "Restarts";
@@ -42,7 +43,7 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void CheckPanel(Panel panel)
         {
-            if (!Main.enabled)
+            if (!Main.enabled || GameModeManager.GameMode != GameModeManager.GAME_MODES.CAREER)
                 return;
 
             Main.Try(nameof(CheckPanel), () =>
@@ -138,6 +139,16 @@ namespace HistoricalCareer
                 {
                     RallySettings settings = RallyManager.GetRallyInProgress();
                     panel.GetComponent<ContinueSeasonScreen>().SeasonText.text = settings.rallyName + " (" + settings.season.Year + ")";
+                }
+                else if (panel.name == RESULTS_PANEL)
+                {
+                    Main.DelayCall(() =>
+                    {
+                        RallySettings settings = RallyManager.GetRallyInProgress();
+                        GroupTitle title = panel.GetComponentInChildren<GroupTitle>();
+                        title.SetString(title.Text.text.Replace("rally 1/1", settings.rallyName));
+                        panel.transform.Find("TextSubtitleStage").GetComponent<Text>().text = "Rally results";
+                    });
                 }
             });
         }

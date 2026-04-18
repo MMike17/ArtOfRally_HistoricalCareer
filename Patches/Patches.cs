@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -267,7 +268,7 @@ namespace HistoricalCareer
         [HarmonyPrefix]
         static void FixLeaderboardTitle()
         {
-            if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+            if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER && RallyResultPatcher.title != null)
             {
                 Main.Try(nameof(FixLeaderboardTitle), () =>
                 {
@@ -307,7 +308,10 @@ namespace HistoricalCareer
         {
             if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
             {
-                string area = AreaManager.GetAreaStringLocalized(GameModeManager.GetRallyDataCurrentGameMode().CurrentArea).ToLower();
+                string area = AreaManager.GetAreaStringLocalized(
+                    GameModeManager.GetRallyDataCurrentGameMode().CurrentArea
+                ).ToLower();
+
                 RallySettings settings = RallyManager.GetSettingsFromSeason(GameModeManager.GetSeasonDataCurrentGameMode());
                 __instance.panelTitleControl.heading_small.fontSize -= 5;
 
@@ -327,6 +331,19 @@ namespace HistoricalCareer
         {
             if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
                 title = __instance.LocationText;
+        }
+    }
+
+    [HarmonyPatch(typeof(SeasonStandingsScreen), nameof(SeasonStandingsScreen.Refresh))]
+    static class SeasonStandingPatcher
+    {
+        static void Postfix(SeasonStandingsScreen __instance)
+        {
+            if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+            {
+                RallySettings settings = RallyManager.GetSettingsFromSeason(GameModeManager.GetSeasonDataCurrentGameMode());
+                __instance.TitleText.text = settings.rallyName + " " + ScriptLocalization.season_standings.Replace("season", "");
+            }
         }
     }
 }
