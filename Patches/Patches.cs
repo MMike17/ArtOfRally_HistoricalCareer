@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HistoricalCareer
 {
@@ -234,9 +235,10 @@ namespace HistoricalCareer
         }
     }
 
-    [HarmonyPatch(typeof(LeanTween), nameof(LeanTween.alphaText), new[] { typeof(RectTransform), typeof(float), typeof(float) })]
+    [HarmonyPatch(typeof(LeanTween))]
     static class RallyIntroFixer
     {
+        [HarmonyPatch(nameof(LeanTween.alphaText), new[] { typeof(RectTransform), typeof(float), typeof(float) })]
         [HarmonyPostfix]
         static void FixRallyIntro()
         {
@@ -260,6 +262,21 @@ namespace HistoricalCareer
                 });
             }
         }
+
+        [HarmonyPatch(nameof(LeanTween.alphaCanvas))]
+        [HarmonyPrefix]
+        static void FixLeaderboardTitle()
+        {
+            if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+            {
+                Main.Try(nameof(FixLeaderboardTitle), () =>
+                {
+                    RallyResultPatcher.title.text = RallyManager.GetSettingsFromSeason(
+                        GameModeManager.GetSeasonDataCurrentGameMode()
+                    ).rallyName;
+                });
+            }
+        }
     }
 
     [HarmonyPatch(typeof(LoadingScreen), "ConstructCareerSuffix")]
@@ -267,7 +284,19 @@ namespace HistoricalCareer
     {
         static void Postfix(LoadingScreen __instance, int year, ref string __result)
         {
-            __result = year + " | " + RallyManager.GetSettingsFromSeason(GameModeManager.GetSeasonDataCurrentGameMode()).rallyName;
+            if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+            {
+                string result = null;
+
+                Main.Try(nameof(LoadingPatcher), () =>
+                {
+                    result = year + " | " + RallyManager.GetSettingsFromSeason(
+                        GameModeManager.GetSeasonDataCurrentGameMode()
+                    ).rallyName;
+                });
+
+                __result = result;
+            }
         }
     }
 
@@ -276,13 +305,28 @@ namespace HistoricalCareer
     {
         static void Postfix(PreStageScreen __instance)
         {
-            string area = AreaManager.GetAreaStringLocalized(GameModeManager.GetRallyDataCurrentGameMode().CurrentArea).ToLower();
-            RallySettings settings = RallyManager.GetSettingsFromSeason(GameModeManager.GetSeasonDataCurrentGameMode());
-            __instance.panelTitleControl.heading_small.fontSize -= 5;
+            if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+            {
+                string area = AreaManager.GetAreaStringLocalized(GameModeManager.GetRallyDataCurrentGameMode().CurrentArea).ToLower();
+                RallySettings settings = RallyManager.GetSettingsFromSeason(GameModeManager.GetSeasonDataCurrentGameMode());
+                __instance.panelTitleControl.heading_small.fontSize -= 5;
 
-            __instance.panelTitleControl.SetHeading(
-                __instance.panelTitleControl.heading_small.text.Replace(area, settings.rallyName)
-            );
+                __instance.panelTitleControl.SetHeading(
+                    __instance.panelTitleControl.heading_small.text.Replace(area, settings.rallyName)
+                );
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(RallyCompleteScreen), "ShowYearAndLocationForCareer")]
+    static class RallyResultPatcher
+    {
+        public static Text title;
+
+        static void Prefix(RallyCompleteScreen __instance)
+        {
+            if (Main.enabled && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
+                title = __instance.LocationText;
         }
     }
 }
