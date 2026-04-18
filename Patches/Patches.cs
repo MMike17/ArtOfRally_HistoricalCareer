@@ -184,6 +184,8 @@ namespace HistoricalCareer
     [HarmonyPatch(typeof(GroupTitle), nameof(GroupTitle.ConstructStringUsingCareerData))]
     static class TitlePatcher
     {
+        static string lastTitle;
+
         [HarmonyPrefix]
         static bool FixCareerTitle(GroupTitle __instance)
         {
@@ -193,22 +195,23 @@ namespace HistoricalCareer
                 {
                     string divider = Main.GetField<string, GroupTitle>(__instance, "divider", BindingFlags.Instance);
                     string panelName = __instance.GetComponentInParent<Panel>().name;
-                    Car.CarClass carClass = (Car.CarClass)Enum.Parse(typeof(Car.CarClass),
-                        panelName.Insert(panelName.Length - 1, "_").ToUpper());
 
-                    string group = Main.InvokeMethod<GroupTitle, string>(
-                        __instance,
-                        "GetStringFromClass",
-                        BindingFlags.Instance,
-                        new object[] { carClass }
-                    );
+                    if (Enum.TryParse(panelName.Insert(panelName.Length - 1, "_").ToUpper(), out Car.CarClass carClass))
+                    {
+                        string group = Main.InvokeMethod<GroupTitle, string>(
+                            __instance,
+                            "GetStringFromClass",
+                            BindingFlags.Instance,
+                            new object[] { carClass }
+                        );
 
-                    string[] frags = CarrouselUI.GetSelectedInfo();
-                    string suffix = string.Concat(new[] { frags[0], " ", divider, " ", frags[1] });
-                    Main.SetField<GroupTitle>(__instance, "suffix", BindingFlags.Instance, suffix);
-                    __instance.SetString(string.Concat(new[] { group, " ", divider, " ", suffix }));
-
-                    Main.Log("Updated title");
+                        string[] frags = CarrouselUI.GetSelectedInfo();
+                        string suffix = string.Concat(new[] { frags[0], " ", divider, " ", frags[1] });
+                        Main.SetField(__instance, "suffix", BindingFlags.Instance, suffix);
+                        __instance.SetString(lastTitle = string.Concat(new[] { group, " ", divider, " ", suffix }));
+                    }
+                    else
+                        __instance.SetString(lastTitle);
                 });
 
                 return false;
