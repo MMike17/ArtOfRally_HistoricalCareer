@@ -37,6 +37,7 @@ namespace HistoricalCareer
 
                         TheSeason.ResetStageInfo();
                         TheSeason.ResetRoadSurface();
+                        TheSeason.Rallies[0].CurrentStageIndex = 0;
 
                         // if I don't do this it crashes
                         Main.SetField(__instance, CURRENT_SEASON_FLAG, BindingFlags.Instance, TheSeason);
@@ -45,9 +46,9 @@ namespace HistoricalCareer
                         string seasonCode = "";
 
                         if (TheSeason.SelectedCar != null)
-                            RallyManager.GetSeasonCode(TheSeason);
+                            seasonCode = RallyManager.GetSeasonCode(TheSeason);
                         else if (PanelPatcher.currentRally != null)
-                            RallyManager.GetSeasonCode(PanelPatcher.currentRally);
+                            seasonCode = RallyManager.GetSeasonCode(PanelPatcher.currentRally);
 
                         if (!string.IsNullOrEmpty(seasonCode))
                             Main.Log("Starting season : " + seasonCode);
