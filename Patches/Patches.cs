@@ -270,4 +270,19 @@ namespace HistoricalCareer
             __result = year + " | " + RallyManager.GetSettingsFromSeason(GameModeManager.GetSeasonDataCurrentGameMode()).rallyName;
         }
     }
+
+    [HarmonyPatch(typeof(PreStageScreen), "BuildHeading")]
+    static class PreStagePatcher
+    {
+        static void Postfix(PreStageScreen __instance)
+        {
+            string area = AreaManager.GetAreaStringLocalized(GameModeManager.GetRallyDataCurrentGameMode().CurrentArea).ToLower();
+            RallySettings settings = RallyManager.GetSettingsFromSeason(GameModeManager.GetSeasonDataCurrentGameMode());
+            __instance.panelTitleControl.heading_small.fontSize -= 5;
+
+            __instance.panelTitleControl.SetHeading(
+                __instance.panelTitleControl.heading_small.text.Replace(area, settings.rallyName)
+            );
+        }
+    }
 }
