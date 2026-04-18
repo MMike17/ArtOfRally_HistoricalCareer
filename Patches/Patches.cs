@@ -261,4 +261,13 @@ namespace HistoricalCareer
             }
         }
     }
+
+    [HarmonyPatch(typeof(LoadingScreen), "ConstructCareerSuffix")]
+    static class LoadingPatcher
+    {
+        static void Postfix(LoadingScreen __instance, int year, ref string __result)
+        {
+            __result = year + " | " + RallyManager.GetSettingsFromSeason(GameModeManager.GetSeasonDataCurrentGameMode()).rallyName;
+        }
+    }
 }
