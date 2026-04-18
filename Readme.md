@@ -33,6 +33,7 @@ Here is the list of groups available in the mod :
 
 - **Group 2**
 - **Group 3**
+- **Group 4**
 
 Following groups are being developped actively.
 
