@@ -16,9 +16,9 @@ namespace HistoricalCareer
         [Header("Debug")]
         [Draw(DrawType.Toggle)]
         public bool showMarkers;
-        //[Draw(DrawType.Toggle)]
-        //public bool disableInfoLogs = true;
-        public bool disableInfoLogs => false;
+        [Draw(DrawType.Toggle)]
+        public bool disableInfoLogs = true;
+        //public bool disableInfoLogs => false;
         [Draw(DrawType.Toggle)]
         //public bool shortRallies = true;
         public bool shortRallies = false;
@@ -44,8 +44,8 @@ namespace HistoricalCareer
             if (GUILayout.Button("Reset saves", GUILayout.Width(150)))
                 RallyManager.ResetRallySaves();
 
-            if (GUILayout.Button("Setup save", GUILayout.Width(150)))
-                RallyManager.TestSave();
+            //if (GUILayout.Button("Setup save", GUILayout.Width(150)))
+            //    RallyManager.TestSave();
         }
 
         private float SnapValue(float value, float snapValue, float range, float snapPercent)
