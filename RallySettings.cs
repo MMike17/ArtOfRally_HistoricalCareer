@@ -374,6 +374,14 @@ namespace HistoricalCareer
                 "It was during a snowy test drive that the <b>Audi</b> engineers saw a military AWD <b>Volkswagen Iltis</b> plow around and thought about grafting its transmission to a road car. And in <b>1981</b> they presented the <b>Audi Quatro</b> to the <b>WRC</b> season, piloted by a former french <b>Fiat 131</b> driver, <b>Michèle Mouton</b>, and her copilot <b>Fabrizia Pons</b>. They turned out to be the first in many fields : first woman pilot, all female crew and AWD car to win a <b>WRC</b> rally. Michèle finished second of the <b>WRC</b> in <b>1982</b> and even set a new record at the <b>Pikes Peak</b> with an <b>Audi Sport Quatro S1</b>, owning the nickname \"<b>Queen of the mountain</b>\"."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1982, Areas.SARDINIA, "Portugal", "Somewhere in Portugal", "Ari Vatanen",
+                assembly, pilotPicturePath, 1983, 6, 0, 8, new int[] { 0, 10, 4, 3, 2 },
+                new Weather[] { Weather.Rain, Weather.Fog, Weather.Sunset, Weather.Afternoon, Weather.Night },
+                ComputeRestarts(1 / 15f, 5),
+                "With the upcomming <b>Group B</b> regulations, said to start in <b>1982</b>, <b>Ford</b> was looking to perpetuate their racing pedigree with a new model. Engineers asked for <b>all wheel drive</b> but Ford's direction said \"No. Ford race cars are <b>propulsion only</b>\" and so the project <b>Ford Escort RS1700T</b> was born in <b>1980</b>. Two years later, two prototypes were shipped to <b>Portugal</b> to be tested by <b>Ari Vatanen</b> and <b>Penti Airikkala</b>. Even if those cars were not very reliable, both pilots were unanimous on the performances of the turbo charged engines. The project was abandonned in <b>1983</b> but was split into two, the <b>RS200</b> for <b>Group B</b> and the <b>Sierra</b> for <b>Group 4</b>."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
