@@ -30,7 +30,7 @@ namespace HistoricalCareer
             RallySettings.GenerateGroup2Seasons(assembly, pilotPicturePath, ComputeRestarts);
             RallySettings.GenerateGroup3Seasons(assembly, pilotPicturePath, ComputeRestarts);
             RallySettings.GenerateGroup4Seasons(assembly, pilotPicturePath, ComputeRestarts);
-            //RallySettings.GenerateGroupBSeasons(assembly, pilotPicturePath, ComputeRestarts);
+            RallySettings.GenerateGroupBSeasons(assembly, pilotPicturePath, ComputeRestarts);
             //RallySettings.GenerateGroupSSeasons(assembly, pilotPicturePath, ComputeRestarts);
             //RallySettings.GenerateGroupASeasons(assembly, pilotPicturePath, ComputeRestarts);
 

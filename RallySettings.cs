@@ -367,6 +367,13 @@ namespace HistoricalCareer
         {
             CarClass group = CarClass.GROUP_B;
 
+            RallyManager.AddCustomRally(
+                group, 1981, Areas.SARDINIA, "Italy", "Rally Sanremo", "Michèle Mouton",
+                assembly, pilotPicturePath, 1981, 2, 0, 0, new int[] { 2, 6, 10, 0 },
+                new Weather[] { Weather.Sunset, Weather.Morning, Weather.Sunset, Weather.Afternoon }, ComputeRestarts(0 / 15f, 4),
+                "It was during a snowy test drive that the <b>Audi</b> engineers saw a military AWD <b>Volkswagen Iltis</b> plow around and thought about grafting its transmission to a road car. And in <b>1981</b> they presented the <b>Audi Quatro</b> to the <b>WRC</b> season, piloted by a former french <b>Fiat 131</b> driver, <b>Michèle Mouton</b>, and her copilot <b>Fabrizia Pons</b>. They turned out to be the first in many fields : first woman pilot, all female crew and AWD car to win a <b>WRC</b> rally. Michèle finished second of the <b>WRC</b> in <b>1982</b> and even set a new record at the <b>Pikes Peak</b> with an <b>Audi Sport Quatro S1</b>, owning the nickname \"<b>Queen of the mountain</b>\"."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
