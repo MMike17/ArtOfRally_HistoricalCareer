@@ -382,6 +382,14 @@ namespace HistoricalCareer
                 "With the upcomming <b>Group B</b> regulations, said to start in <b>1982</b>, <b>Ford</b> was looking to perpetuate their racing pedigree with a new model. Engineers asked for <b>all wheel drive</b> but Ford's direction said \"No. Ford race cars are <b>propulsion only</b>\" and so the project <b>Ford Escort RS1700T</b> was born in <b>1980</b>. Two years later, two prototypes were shipped to <b>Portugal</b> to be tested by <b>Ari Vatanen</b> and <b>Penti Airikkala</b>. Even if those cars were not very reliable, both pilots were unanimous on the performances of the turbo charged engines. The project was abandonned in <b>1983</b> but was split into two, the <b>RS200</b> for <b>Group B</b> and the <b>Sierra</b> for <b>Group 4</b>."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1983, Areas.GERMANY, "West Germany", "Rallye Vorderpfalz", "Erwin Weber",
+                assembly, pilotPicturePath, 1983, 16, 0, 10, new int[] { 11, 8, 3, 5, 9 },
+                new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Sunset, Weather.Morning, Weather.Afternoon },
+                ComputeRestarts(2 / 15f, 5),
+                "The new generation came swinging out the door. The young <b>Erwin Weber</b>, coached by the experienced <b>Gunter Wanger</b>, started an unstoppable ascension to the <b>German Championship</b> title. Out with the old <b>Opel Ascona 400</b>, in with the new <b>Opel Manta 400</b>, even if it retained a \"traditional\" layout. It held the top position of the <b>Rally-raid Paris-Dakar</b> for a whole week, dancing in front of the <b>AWD</b> cars even though it was a propulsion. <b>Erwin</b> went on to win the <b>German Championship</b> again in <b>1991</b> and even the <b>ERC</b> in <b>1992</b>, behind the wheel of a <b>Volkswagen</b> and of a <b>Mitsubishi</b>."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
