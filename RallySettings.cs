@@ -390,6 +390,14 @@ namespace HistoricalCareer
                 "The new generation came swinging out the door. The young <b>Erwin Weber</b>, coached by the experienced <b>Gunter Wanger</b>, started an unstoppable ascension to the <b>German Championship</b> title. Out with the old <b>Opel Ascona 400</b>, in with the new <b>Opel Manta 400</b>, even if it retained a \"traditional\" layout. It held the top position of the <b>Rally-raid Paris-Dakar</b> for a whole week, dancing in front of the <b>AWD</b> cars even though it was a propulsion. <b>Erwin</b> went on to win the <b>German Championship</b> again in <b>1991</b> and even the <b>ERC</b> in <b>1992</b>, behind the wheel of a <b>Volkswagen</b> and of a <b>Mitsubishi</b>."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1983, Areas.AUSTRALIA, "New Zealand", "Sanyo Rally of New Zealand", "Timo Salonen",
+                assembly, pilotPicturePath, 1985, 15, 0, 10, new int[] { 5, 0, 11, 8, 6 },
+                new Weather[] { Weather.Afternoon, Weather.Morning, Weather.Rain, Weather.Fog, Weather.Rain },
+                ComputeRestarts(3 / 15f, 5),
+                "The long rally specialist <b>Timo Salonen</b> with his copilot <b>Seppo Harjanne</b> hopped into the brand new <b>Nissan 240RS</b> in <b>1983</b>. He was used to <b>Nissans</b> and <b>Datsuns</b> but couldn't cope with the low reliability of this model. The <b>240RS</b> never won a single <b>WRC</b> or <b>ERC</b> rally but was seen winning local rallies in several countries. Timo finished second on this rally but his tenacity impressed <b>Peugeot</b> who signed him up for <b>1985</b>, year of his <b>WRC</b> title, after having spent five years hovering between the fifth and tenth position on the <b>WRC</b> leaderboard."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
