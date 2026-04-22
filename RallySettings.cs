@@ -398,6 +398,14 @@ namespace HistoricalCareer
                 "The long rally specialist <b>Timo Salonen</b> with his copilot <b>Seppo Harjanne</b> hopped into the brand new <b>Nissan 240RS</b> in <b>1983</b>. He was used to <b>Nissans</b> and <b>Datsuns</b> but couldn't cope with the low reliability of this model. The <b>240RS</b> never won a single <b>WRC</b> or <b>ERC</b> rally but was seen winning local rallies in several countries. Timo finished second on this rally but his tenacity impressed <b>Peugeot</b> who signed him up for <b>1985</b>, year of his <b>WRC</b> title, after having spent five years hovering between the fifth and tenth position on the <b>WRC</b> leaderboard."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1983, Areas.AUSTRALIA, "New Zealand", "Sanyo Rally of New Zealand", "Walter Röhrl",
+                assembly, pilotPicturePath, 1983, 9, 0, 10, new int[] { 5, 0, 11, 8, 6 },
+                new Weather[] { Weather.Afternoon, Weather.Morning, Weather.Rain, Weather.Fog, Weather.Rain },
+                ComputeRestarts(4 / 15f, 5),
+                "<b>Lancia</b>'s racing team director <b>Cesare Fiorio</b> saw the <b>Audi Quatro</b> dominate the beginning of <b>Group B</b> and started planning for a new rally car that could topple the giant. He went to <b>Walter Röhrl</b>, double <b>WRC</b> champion in <b>1980</b> with a <b>Fiat 131 Abarth</b> and in <b>1982</b> with an <b>Opel Ascona 400</b>. <b>Walter</b> agreed but only for a partial season with his copilot <b>Christian Geistdörfer</b>, picking the rallies where the new <b>Lancia 037 Rally</b> could perform decently given it was a propulsion. He opened the season with a <b>Monte Carlo</b> win and drove <b>Lancia</b> to victory with the help of <b>Markku Alén</b>. To this day <b>Walter</b> is the only driver to have won a <b>WRC</b>, <b>ERC</b> and <b>ARC</b> title."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
