@@ -430,6 +430,14 @@ namespace HistoricalCareer
                 "Driving straight out of his dad's barn, Juha Kankkunen hit the ground running. The 1985 Safari Rally was his first WRC win with his copilot Fred Gallagher in a Toyota Celica Twin-Cam Turbo nicknamed the \"King of Africa\". That year was a huge win for Toyota with a first and second place thanks to Björn Waldegård in Kenya and Ivory Coast. The advice Timo Makinen used to give him in his young days must have helped since he as the first consecutive WRC winner, winning in 1986 when replacing Ari Vatanen for Peugeot and in 1987 with Lancia. He came back in 2010 for Rally finland and placed an eighth position after eight years of interruption at the wheel of a Ford Focus WRC. He then built a piloting school in Finland where he teaches his wild techniques."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1985, Areas.SARDINIA, "France", "Tour de Corse", "Jean Ragnotti",
+                assembly, pilotPicturePath, 1985, 11, 0, 2, new int[] { 7, 4, 2, 3, 9 },
+                new Weather[] { Weather.Afternoon, Weather.Morning, Weather.Sunset, Weather.Rain, Weather.Rain },
+                ComputeRestarts(8 / 15f, 5),
+                "For the <b>Renault 5 Turbo</b> to be homologated in <b>Group B</b> the manufacturer had to pull all the stops, reworking the engine with F1 turbo technology, new suspensions, a frame reworked to hit 900 Kg and more refined aerodynamics. Only 20 were made and who better to drive the new <b>Renault 5 Maxi Turbo</b> than <b>Jean Ragnotti</b> and his new copilot <b>Pierre Thimonier</b>, the man who made the glory of this car's ancestor. After the <b>1986 Group B</b> ban, the french version of the <b>FIA</b> started <b>Group F</b> which continued its spirit, enableing Jean to continue his career in the ninetees. He stopped his career in <b>1996</b> because he said that <b>\"modern cars aren't as fun\"</b>. In <b>2002</b> for the return of <b>Renault</b> in F1 he was invited to drive the <b>Renault Espace F1</b> prototype which only three people could ever get their hands on."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
