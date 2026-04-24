@@ -422,6 +422,14 @@ namespace HistoricalCareer
                 "The head of <b>Peugeot Talbot Sport</b>, <b>Jean Todt</b>, was preparing a forey in the world of rallies. He hired <b>1981 WRC</b> champion <b>Ari Vatanen</b> and his copilot <b>Terry Harryman</b> to drive the brand new <b>Peugeot 205 Turbo 16</b> for the <b>1984</b> season. Ari had a habbit of celebrating his wins with a glass of milk and many were drank that year, as they won <b>The 1000 lakes rally</b>, the <b>Rally Sanremo</b> and the <b>RAC rally</b> in what <b>Jean Todt</b> called \"learning rallies\". The next year Ari pushed his car too far and had a horrible accident in <b>Argentina</b>, breaking many bones and pushing him out of the competition. In <b>1986</b> the <b>Group B</b> was banned and <b>Peugeot</b> brought Ari to the <b>Rallye Dakar</b> where he won the <b>1987</b> edition. The same year he finished second behind <b>Walter Röhrl</b> at the <b>Pikes Peak</b> challenge."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1985, Areas.KENYA, "Kenya", "Safari Rally", "Juha Kankkunen",
+                assembly, pilotPicturePath, 0, 13, 1, 4, new int[] { 0, 8, 4, 6, 10 },
+                new Weather[] { Weather.Afternoon, Weather.Rain, Weather.Morning, Weather.Sunset, Weather.Afternoon },
+                ComputeRestarts(7 / 15f, 5),
+                "Driving straight out of his dad's barn, Juha Kankkunen hit the ground running. The 1985 Safari Rally was his first WRC win with his copilot Fred Gallagher in a Toyota Celica Twin-Cam Turbo nicknamed the \"King of Africa\". That year was a huge win for Toyota with a first and second place thanks to Björn Waldegård in Kenya and Ivory Coast. The advice Timo Makinen used to give him in his young days must have helped since he as the first consecutive WRC winner, winning in 1986 when replacing Ari Vatanen for Peugeot and in 1987 with Lancia. He came back in 2010 for Rally finland and placed an eighth position after eight years of interruption at the wheel of a Ford Focus WRC. He then built a piloting school in Finland where he teaches his wild techniques."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
