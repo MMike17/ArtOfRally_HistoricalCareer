@@ -406,6 +406,14 @@ namespace HistoricalCareer
                 "<b>Lancia</b>'s racing team director <b>Cesare Fiorio</b> saw the <b>Audi Quatro</b> dominate the beginning of <b>Group B</b> and started planning for a new rally car that could topple the giant. He went to <b>Walter Röhrl</b>, double <b>WRC</b> champion in <b>1980</b> with a <b>Fiat 131 Abarth</b> and in <b>1982</b> with an <b>Opel Ascona 400</b>. <b>Walter</b> agreed but only for a partial season with his copilot <b>Christian Geistdörfer</b>, picking the rallies where the new <b>Lancia 037 Rally</b> could perform decently given it was a propulsion. He opened the season with a <b>Monte Carlo</b> win and drove <b>Lancia</b> to victory with the help of <b>Markku Alén</b>. To this day <b>Walter</b> is the only driver to have won a <b>WRC</b>, <b>ERC</b> and <b>ARC</b> title."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1984, Areas.GERMANY, "Czechoslovakia", "Rallye Škoda", "Ingvar Carlsson",
+                assembly, pilotPicturePath, 1989, 7, 0, 4, new int[] { 5, 2, 3, 10, 6 },
+                new Weather[] { Weather.Morning, Weather.Rain, Weather.Sunset, Weather.Rain, Weather.Afternoon },
+                ComputeRestarts(5 / 15f, 5),
+                "When <b>Achim Warmbold</b> created the <b>Mazda Rally Team Europe</b> he was looking for talented pilots to tame the very unstable chassis and torquey birotor engine of the <b>Mazda RX-7</b>. Given he had no support from <b>Mazda</b> headquarters, he had to find the pilots on his own and selected the swedish multi-champion <b>Ingvar Carlsson</b>. At the wheel of the <b>Group B</b> homologated <b>Mazda RX-7 Evo</b>, and with his copilot <b>Benny Melander</b>, Ingvar scored a win in <b>Poland</b> and several podiums in other rallies, including a second place in the <b>Rallye Škoda</b>. Overseas in the <b>SCCA</b>, <b>Rod Millen</b> won the <b>Pro Rally</b> category 3 times in the 80s with a <b>Mazda RX-7 4x4</b> that he modified himself. <b>MRT</b> went on to score other wins during the late 80s in <b>Sweden</b> and <b>New Zealand</b> with the <b>Mazda 323 4WD</b>."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
