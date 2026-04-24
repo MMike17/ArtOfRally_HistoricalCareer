@@ -414,6 +414,14 @@ namespace HistoricalCareer
                 "When <b>Achim Warmbold</b> created the <b>Mazda Rally Team Europe</b> he was looking for talented pilots to tame the very unstable chassis and torquey birotor engine of the <b>Mazda RX-7</b>. Given he had no support from <b>Mazda</b> headquarters, he had to find the pilots on his own and selected the swedish multi-champion <b>Ingvar Carlsson</b>. At the wheel of the <b>Group B</b> homologated <b>Mazda RX-7 Evo</b>, and with his copilot <b>Benny Melander</b>, Ingvar scored a win in <b>Poland</b> and several podiums in other rallies, including a second place in the <b>Rallye Škoda</b>. Overseas in the <b>SCCA</b>, <b>Rod Millen</b> won the <b>Pro Rally</b> category 3 times in the 80s with a <b>Mazda RX-7 4x4</b> that he modified himself. <b>MRT</b> went on to score other wins during the late 80s in <b>Sweden</b> and <b>New Zealand</b> with the <b>Mazda 323 4WD</b>."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1984, Areas.FINLAND, "Finland", "1000 Lakes rally", "Ari Vatanen",
+                assembly, pilotPicturePath, 1984, 1, 0, 2, new int[] { 0, 5, 6, 8, 2 },
+                new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Rain, Weather.Sunset, Weather.Morning },
+                ComputeRestarts(6 / 15f, 5),
+                "The head of <b>Peugeot Talbot Sport</b>, <b>Jean Todt</b>, was preparing a forey in the world of rallies. He hired <b>1981 WRC</b> champion <b>Ari Vatanen</b> and his copilot <b>Terry Harryman</b> to drive the brand new <b>Peugeot 205 Turbo 16</b> for the <b>1984</b> season. Ari had a habbit of celebrating his wins with a glass of milk and many were drank that year, as they won <b>The 1000 lakes rally</b>, the <b>Rally Sanremo</b> and the <b>RAC rally</b> in what <b>Jean Todt</b> called \"learning rallies\". The next year Ari pushed his car too far and had a horrible accident in <b>Argentina</b>, breaking many bones and pushing him out of the competition. In <b>1986</b> the <b>Group B</b> was banned and <b>Peugeot</b> brought Ari to the <b>Rallye Dakar</b> where he won the <b>1987</b> edition. The same year he finished second behind <b>Walter Röhrl</b> at the <b>Pikes Peak</b> challenge."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
