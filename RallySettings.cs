@@ -454,6 +454,14 @@ namespace HistoricalCareer
                 "The mechanic, turned test driver, Dario Benuzzi was shocked when the Ferrari 288 GTO Evoluzione came on the Fiorano test track, and that was something since Dario tested all cars since the Ferrari Dino, including F1 cars. The 288 was a civilized car on the low and felt like a turbo jet on the high, but with a bi-turbo V8, which was a first for Ferrari, an injection system pulled straight from F1 cars and a spectacular engine cartography, the 288 Evo's high turbo lag would \"throw you in the stratosphere\" and felt like \"hell started at 5001 RPM\". The aerodynamics were horrible but the car still pulled a 0-100 km/h in 2,8 seconds. The late development was stopped abruptly when the Group B ban came in and only 5 of those were ever made, but the efforts weren't lost as the car was used as a base for the development of the F40. Dario helped tame the wild Ferrari horses into civilized cars for 40 years."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1986, Areas.NORWAY, "Sweden", "South Swedish Rally", "Stig Blomqvist",
+                assembly, pilotPicturePath, 1984, 5, 0, 0, new int[] { 11, 8, 10, 0, 5, 9 },
+                new Weather[] { Weather.Fog, Weather.Snow, Weather.Afternoon, Weather.Sunset, Weather.Morning, Weather.Afternoon },
+                ComputeRestarts(11 / 15f, 6),
+                "Ford wanted to reignite its glory in rally and brought the Ford RS200 to life from a brand new chassis, new internals, an underpowered engine and the lessons they learned developing the Ford Escort RS1700T. But a tragedy soon clouded the entirety of Group B, during the Rallye de Portugal, Joaquim Santos piloting an RS200 missed a turn and hit the crowd, killing three people and injuring around thirty. This prompted the WRC to cancel Group B, so the RS200 was now competing in local rallies and moved to rally cross with an evolved version having some success. This is where 1984 WRC champion Stig Blomqvist comes in with his copilot Bruno Berglund to win the South Swedish Rally. His shy nature didn't stop him from holding many records : most WRC seasons (32), most wins on snow (equal to Marcus Grönholm), two Race of Champions titles and a Pikes Peak win in 2004 with an evolved version of the RS200."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
