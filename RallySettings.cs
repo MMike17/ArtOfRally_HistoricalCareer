@@ -462,6 +462,14 @@ namespace HistoricalCareer
                 "Ford wanted to reignite its glory in rally and brought the Ford RS200 to life from a brand new chassis, new internals, an underpowered engine and the lessons they learned developing the Ford Escort RS1700T. But a tragedy soon clouded the entirety of Group B, during the Rallye de Portugal, Joaquim Santos piloting an RS200 missed a turn and hit the crowd, killing three people and injuring around thirty. This prompted the WRC to cancel Group B, so the RS200 was now competing in local rallies and moved to rally cross with an evolved version having some success. This is where 1984 WRC champion Stig Blomqvist comes in with his copilot Bruno Berglund to win the South Swedish Rally. His shy nature didn't stop him from holding many records : most WRC seasons (32), most wins on snow (equal to Marcus Grönholm), two Race of Champions titles and a Pikes Peak win in 2004 with an evolved version of the RS200."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1986, Areas.KENYA, "North Africa", "Rallye Paris-Dakar", "René Metge",
+                assembly, pilotPicturePath, 1986, 14, 0, 6, new int[] { 4, 0, 9, 1, 3, 7 },
+                new Weather[] { Weather.Afternoon, Weather.Fog, Weather.Night, Weather.Sunset, Weather.Fog, Weather.Morning },
+                ComputeRestarts(12 / 15f, 6),
+                "After their win in 1984 with a 911 SC 4x4, Porsche decided to make a super car and thew it at the biggest rally raid they could think of : the Paris-Dakar. In 1985 all three of the cars broke down but in 1986 the two teams lead by the long rally specialist René Metge, nicknamed the \"cowboy from Malakoff\", and Jacky Ickx finished first and second. That edition of the Paris-Dakar was the hardest and deadliest of its story. On the second day Yazuko Keneko was ran over during a liaison, Jean-Michel Baron broke his spine on a liaison and ended up paralized and Gianpaolo Marianoni ruptured his spleen, got back on his bike and finished the rally but died two days later. Half of the teams with cars were out of the race but the desert stages had barely started when a tragic event happened. The hellicopter transporting the organizer of the event, Thierry Sabine, crashed in a dune and killed the 5 people on board."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
