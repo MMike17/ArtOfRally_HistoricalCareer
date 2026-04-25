@@ -438,6 +438,14 @@ namespace HistoricalCareer
                 "For the <b>Renault 5 Turbo</b> to be homologated in <b>Group B</b> the manufacturer had to pull all the stops, reworking the engine with F1 turbo technology, new suspensions, a frame reworked to hit 900 Kg and more refined aerodynamics. Only 20 were made and who better to drive the new <b>Renault 5 Maxi Turbo</b> than <b>Jean Ragnotti</b> and his new copilot <b>Pierre Thimonier</b>, the man who made the glory of this car's ancestor. After the <b>1986 Group B</b> ban, the french version of the <b>FIA</b> started <b>Group F</b> which continued its spirit, enableing Jean to continue his career in the ninetees. He stopped his career in <b>1996</b> because he said that <b>\"modern cars aren't as fun\"</b>. In <b>2002</b> for the return of <b>Renault</b> in F1 he was invited to drive the <b>Renault Espace F1</b> prototype which only three people could ever get their hands on."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1985, Areas.SARDINIA, "Italy", "Rally Sanremo", "Walter Röhrl",
+                assembly, pilotPicturePath, 1984, 3, 0, 0, new int[] { 2, 6, 10, 0, 8, 5 },
+                new Weather[] { Weather.Afternoon, Weather.Morning, Weather.Fog, Weather.Fog, Weather.Night, Weather.Afternoon },
+                ComputeRestarts(9 / 15f, 6),
+                "The latest evolution of the <b>Audi Quattro</b>, an extravagant aero package, an early anti-lag system, it's practically a supercar and with the ban on <b>Group B</b> in <b>1986</b> it's the most powerfull rally car ever made, the last of the <b>Group B</b> monsters, and it fit <b>Walter Röhr</b>l and his copilot <b>Christian Geistdörfer</b> like a glove. He was a perfectionist pilot who didn't like to be at a disadvantage and begrudged participating in complex rallies like the <b>RAC</b> where he rolled over his <b>Audi Sport Quattro S1</b> that year, or the finish rallies that he deemed \"too dangerous\". He won every rally where he drove the <b>S1</b> that year and beat <b>Andrea Zanussi</b> at the <b>Pikes Peak</b> with a modified version in <b>1987</b>. After an impressive <b>WRC</b> career, having won <b>WRC</b> rallies with cars from four different constructors, he was hired by <b>Porsche</b> as a test pilot in <b>1992</b>. He's still considered as one of the best rally pilots in the world."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
