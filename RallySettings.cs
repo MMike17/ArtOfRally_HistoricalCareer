@@ -446,6 +446,14 @@ namespace HistoricalCareer
                 "The latest evolution of the <b>Audi Quattro</b>, an extravagant aero package, an early anti-lag system, it's practically a supercar and with the ban on <b>Group B</b> in <b>1986</b> it's the most powerfull rally car ever made, the last of the <b>Group B</b> monsters, and it fit <b>Walter Röhr</b>l and his copilot <b>Christian Geistdörfer</b> like a glove. He was a perfectionist pilot who didn't like to be at a disadvantage and begrudged participating in complex rallies like the <b>RAC</b> where he rolled over his <b>Audi Sport Quattro S1</b> that year, or the finish rallies that he deemed \"too dangerous\". He won every rally where he drove the <b>S1</b> that year and beat <b>Andrea Zanussi</b> at the <b>Pikes Peak</b> with a modified version in <b>1987</b>. After an impressive <b>WRC</b> career, having won <b>WRC</b> rallies with cars from four different constructors, he was hired by <b>Porsche</b> as a test pilot in <b>1992</b>. He's still considered as one of the best rally pilots in the world."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1986, Areas.SARDINIA, "Italy", "Somewhere around Fiorano", "Dario Benuzzi",
+                assembly, pilotPicturePath, 0, 10, 5, 4, new int[] { 5, 8, 0, 11, 1, 4 },
+                new Weather[] { Weather.Sunset, Weather.Rain, Weather.Morning, Weather.Rain, Weather.Night, Weather.Afternoon },
+                ComputeRestarts(10 / 15f, 6),
+                "The mechanic, turned test driver, Dario Benuzzi was shocked when the Ferrari 288 GTO Evoluzione came on the Fiorano test track, and that was something since Dario tested all cars since the Ferrari Dino, including F1 cars. The 288 was a civilized car on the low and felt like a turbo jet on the high, but with a bi-turbo V8, which was a first for Ferrari, an injection system pulled straight from F1 cars and a spectacular engine cartography, the 288 Evo's high turbo lag would \"throw you in the stratosphere\" and felt like \"hell started at 5001 RPM\". The aerodynamics were horrible but the car still pulled a 0-100 km/h in 2,8 seconds. The late development was stopped abruptly when the Group B ban came in and only 5 of those were ever made, but the efforts weren't lost as the car was used as a base for the development of the F40. Dario helped tame the wild Ferrari horses into civilized cars for 40 years."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
