@@ -486,6 +486,14 @@ namespace HistoricalCareer
                 "Tensions were rising in <b>Group B</b>, <b>Markku Alén</b> and <b>Henri Toivonen</b> were leading the charge against <b>Peugeot</b> with the new <b>Lancia Delta S4</b>, based on the <b>205</b>, loaded with a turbo charger and a compressor, competitive on dirt, gravel and asphalt. This race for power combined with very poor security, as seen with the <b>RS200</b> accident in <b>Portugal</b>, were scaring the pilots who decided to come together for the <b>Tour de Corse</b> and tell the <b>FIA</b> to tone it down. At the end of the <b>Safari rally</b>, Markku was already pointing it out : <b>\"I come in sideways at 200km/h, it isn't funny anymore\"</b>. Tragedy struck when the young <b>Henri Toivonen</b> crashed into a tree setting his car on fire, only the chassis was recovered. Markku had been around in the top ten of the <b>WRC</b> for years and finished second in <b>1986</b> with his copilot <b>Ilkka Kivimäki</b>."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1987, Areas.GERMANY, "Germany", "Somewhere in Bavaria", "Walter Röhrl",
+                assembly, pilotPicturePath, 1984, 8, 2, 6, new int[] { 8, 1, 10, 6, 8, 2 },
+                new Weather[] { Weather.Rain, Weather.Fog, Weather.Afternoon, Weather.Fog, Weather.Sunset, Weather.Rain },
+                ComputeRestarts(15 / 15f, 6),
+                "The head of <b>Audi Ferdinand Piëch</b> was pushing the development teams to keep tinkering with the <b>S1</b> after the <b>Group B</b> ban by the <b>FIA</b>, but a group of engineers saw the writing on the wall, their front-engined car with a heavy five cylinders engine would never hold against the mid-engined <b>Peugeot 205</b> and <b>Lancia S4</b>. <b>Group S</b> needed a new car and so the engineering team under <b>Roland Gumpert</b> decided to phone <b>Porsche</b> for help and developped the <b>Audi Sport Quattro RS 001</b>, a short mid-engined prototype. <b>Walter Röhrl</b> tested it somewhere in bavaria around <b>1987</b> and said that this was now a true weapon againts its rivals. Journalists managed to take a few pictures and broke the story to the news in <b>Austria</b>. <b>Piëch</b> was so furious that he ordered the prototypes to be destroyed under his eyes, but he didn't know that a prototype lay dormant at <b>Neckarsul</b>."
+                );
+
             // TODO : Finish designing rallies for group B
         }
 
