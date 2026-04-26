@@ -470,6 +470,14 @@ namespace HistoricalCareer
                 "After their win in 1984 with a 911 SC 4x4, Porsche decided to make a super car and thew it at the biggest rally raid they could think of : the Paris-Dakar. In 1985 all three of the cars broke down but in 1986 the two teams lead by the long rally specialist René Metge, nicknamed the \"cowboy from Malakoff\", and Jacky Ickx finished first and second. That edition of the Paris-Dakar was the hardest and deadliest of its story. On the second day Yazuko Keneko was ran over during a liaison, Jean-Michel Baron broke his spine on a liaison and ended up paralized and Gianpaolo Marianoni ruptured his spleen, got back on his bike and finished the rally but died two days later. Half of the teams with cars were out of the race but the desert stages had barely started when a tragic event happened. The hellicopter transporting the organizer of the event, Thierry Sabine, crashed in a dune and killed the 5 people on board."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1986, Areas.FINLAND, "Finland", "Mänttä 200-ajo", "Malcolm Wilson",
+                assembly, pilotPicturePath, 1986, 0, 0, 0, new int[] { 8, 11, 5, 0, 10, 9 },
+                new Weather[] { Weather.Fog, Weather.Morning, Weather.Afternoon, Weather.Rain, Weather.Sunset, Weather.Night },
+                ComputeRestarts(13 / 15f, 6),
+                "<b>MG</b> wanted to enter the big leagues with a <b>Group B</b> homologated car, they studied the rally leaders and settled on a base similar to the <b>MG Metro</b>, a small chassis akin to the <b>Renault 5</b>, an AWD system inspired by the <b>Audi Quattro</b>, a naturally aspirated V6 giving a stable torque from low RPM and max power at the redline making this a zippy screamer that sticks to the road like glue. Unfortunately the <b>MG Metro 6R4</b> came too late and could not compete against the likes of the <b>205</b>, its best <b>WRC</b> result being a third place at the <b>RAC rally</b>. But the car won on local championships with the <b>1978-1979</b> double british rally champion <b>Malcolm Wilson</b>, who had a knack for prototypes after having tested the <b>Ford Escort RS1700T</b>, and his copilot <b>Nigel Harris</b>. He went on to found the legendary <b>M-Sport</b> rally team after retiring from the competition. Another notable win is in the french rally championship with pilot <b>Didier Auriol</b>."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
