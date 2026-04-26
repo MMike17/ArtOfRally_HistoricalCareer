@@ -34,13 +34,15 @@ Here is the list of groups available in the mod :
 - **Group 2**
 - **Group 3**
 - **Group 4**
+- **Group B**
 
 Following groups are being developped actively.
 
 ## Usage
 
 Press Ctrl + F10 to open the mod manager menu.\
-By default, the mod replaces the career mode entirely and blocks car/livery selection.\
+By default, the mod replaces the career mode entirely and blocks car/livery selection.
+
 Please reset career progress from the "profile" settings panel before starting to use the mod as native season saves might crash the mod.
 
 - **carrouselAnimSpeed** : will change the speed at which the carrousel moves with player input.
@@ -61,5 +63,6 @@ and drop it into the mod manager's mods page.
 ![](Screenshots/Group%202.png)
 ![](Screenshots/Group%203.png)
 ![](Screenshots/Group%204.png)
+![](Screenshots/Group%20B.png)
 ![](Screenshots/Career%20UI.png)
 ![](Screenshots/Settings.png)
