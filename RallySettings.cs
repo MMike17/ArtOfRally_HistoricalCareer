@@ -478,6 +478,14 @@ namespace HistoricalCareer
                 "<b>MG</b> wanted to enter the big leagues with a <b>Group B</b> homologated car, they studied the rally leaders and settled on a base similar to the <b>MG Metro</b>, a small chassis akin to the <b>Renault 5</b>, an AWD system inspired by the <b>Audi Quattro</b>, a naturally aspirated V6 giving a stable torque from low RPM and max power at the redline making this a zippy screamer that sticks to the road like glue. Unfortunately the <b>MG Metro 6R4</b> came too late and could not compete against the likes of the <b>205</b>, its best <b>WRC</b> result being a third place at the <b>RAC rally</b>. But the car won on local championships with the <b>1978-1979</b> double british rally champion <b>Malcolm Wilson</b>, who had a knack for prototypes after having tested the <b>Ford Escort RS1700T</b>, and his copilot <b>Nigel Harris</b>. He went on to found the legendary <b>M-Sport</b> rally team after retiring from the competition. Another notable win is in the french rally championship with pilot <b>Didier Auriol</b>."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1986, Areas.SARDINIA, "Italy", "Rally Sanremo", "Markku Alén",
+                assembly, pilotPicturePath, 1984, 4, 0, 0, new int[] { 2, 6, 10, 0, 8, 5 },
+                new Weather[] { Weather.Afternoon, Weather.Night, Weather.Morning, Weather.Sunset, Weather.Fog, Weather.Fog },
+                ComputeRestarts(14 / 15f, 6),
+                "Tensions were rising in <b>Group B</b>, <b>Markku Alén</b> and <b>Henri Toivonen</b> were leading the charge against <b>Peugeot</b> with the new <b>Lancia Delta S4</b>, based on the <b>205</b>, loaded with a turbo charger and a compressor, competitive on dirt, gravel and asphalt. This race for power combined with very poor security, as seen with the <b>RS200</b> accident in <b>Portugal</b>, were scaring the pilots who decided to come together for the <b>Tour de Corse</b> and tell the <b>FIA</b> to tone it down. At the end of the <b>Safari rally</b>, Markku was already pointing it out : <b>\"I come in sideways at 200km/h, it isn't funny anymore\"</b>. Tragedy struck when the young <b>Henri Toivonen</b> crashed into a tree setting his car on fire, only the chassis was recovered. Markku had been around in the top ten of the <b>WRC</b> for years and finished second in <b>1986</b> with his copilot <b>Ilkka Kivimäki</b>."
+            );
+
             // TODO : Finish designing rallies for group B
         }
 
