@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Epic.OnlineServices.AntiCheatCommon;
 using UnityEngine;
 
 using static AreaManager;
@@ -487,7 +488,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1987, Areas.GERMANY, "Germany", "Somewhere in Bavaria", "Walter Röhrl",
+                group, 1987, Areas.GERMANY, "West Germany", "Somewhere in Bavaria", "Walter Röhrl",
                 assembly, pilotPicturePath, 1984, 8, 2, 6, new int[] { 8, 1, 10, 6, 8, 2 },
                 new Weather[] { Weather.Rain, Weather.Fog, Weather.Afternoon, Weather.Fog, Weather.Sunset, Weather.Rain },
                 ComputeRestarts(15 / 15f, 6),
@@ -498,6 +499,14 @@ namespace HistoricalCareer
         public static void GenerateGroupSSeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
         {
             CarClass group = CarClass.GROUP_S;
+
+            RallyManager.AddCustomRally(
+                group, 1985, Areas.GERMANY, "West Germany", "Neustadt Rallye", "Jørgen Nielsen",
+                assembly, pilotPicturePath, 0, 6, 0, 0, new int[] { 2, 6, 11, 4 },
+                new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Afternoon, Weather.Sunset },
+                ComputeRestarts(0 / 7f, 4),
+                "While the <b>Opel Ascona 400</b> was getting overtaken by the competition Opel was working on a new platform. The engine of the Ascona originally used in the new <b>Opel Kadett</b> was not reliable enough at hight power and pushed them towards <b>Zakspeed</b> in <b>1985</b> for help transplanting a <b>Ford</b> engine into it. The result was a semi-reliable 500hp turbo beast that could rival <b>Group B</b> but Opel saw the bill and redirected its efforts towards the future <b>Group S</b> with lower power targets. After the <b>Group B</b> ban Opel repurposed two Kadetts for the <b>Paris-Dakar</b> and finished with disapointing results, but the development teams considered it a win. <b>Andrew Wood</b> scored a fourth position at the <b>Audi Sport Rally</b> in <b>Britain</b> and the Kadett was seen in local rallies like the <b>Neustadt Rallye</b> with <b>Denmark</b> champion <b>Jørgen Nielsen</b> and copilot <b>Poul Andreasen</b> who finished first followed by another Kadett. <b>John Welch</b> had a more successful run in rallycross sticking an <b>F1</b> grade <b>BMW</b> turbo on his Kadett for 650hp."
+            );
 
             // TODO : Finish designing rallies for group S
         }
