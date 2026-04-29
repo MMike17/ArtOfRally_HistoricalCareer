@@ -523,6 +523,13 @@ namespace HistoricalCareer
                 ComputeRestarts(2 / 7f, 5),
                 "What originally started in a hidden side room of a truck factory became a possible <b>Group B</b> entry for the <b>USSR</b>. Codenamed \"<b>Lada Turbo</b>\" the project saw humble beginnings but quickly took up as <b>USSR</b> officials learned of its existance and decided to place the <b>USSR</b> champion <b>Stasys Brundza</b> as head of the project in <b>1986</b>. The project moved into the <b>Vilnius</b> factory in <b>Lithuania</b> and took the name <b>Lada Samara EVA</b>. The initial prototype based on a heavily modified version of the <b>Lada 1600</b>'s engine was already pushing <b>300hp</b> which was impressive for such a small team and used fuel injection which was rare for soviet cars of the time. Given its propulsion architecture and low power compared to <b>Group B</b> it was scheduled for <b>Group S</b> but only saw an exhibition rally in <b>1987</b>."
             );
+            RallyManager.AddCustomRally(
+                group, 1986, Areas.SARDINIA, "Italy", "Somewhere around Turin", "Sergio Limone",
+                assembly, pilotPicturePath, 1992, 3, 0, 0, new int[] { 2, 6, 10, 0, 8 },
+                new Weather[] { Weather.Fog, Weather.Rain, Weather.Fog, Weather.Afternoon, Weather.Sunset },
+                ComputeRestarts(3 / 7f, 5),
+                "<b>Lancia</b> was seeing its <b>Delta S4</b> rivaling with the <b>Peugeot 205 T16</b> and was already planning for the future <b>Group S</b>. In their usual tactic of making a rally monster to dominate the competition, the <b>Lancia ECV</b> (for <b>Experimental Composite Vehicle</b>) saw the light of day under <b>Sergio Limone</b>, with a revolutionary \"<b>Triflux</b>\" engine based on double reverse flow intake technology, extensive use of <b>kevlar</b> and <b>carbon fiber</b> to reduce the weight by 20% and computer assisted bodywork conception, only seen in <b>F1</b> until then. Sergio having worked on the <b>Fiat 131</b>, <b>Lancia Delta S4</b> and <b>037</b> he knew exactly how to fix the aerodynamic problems of the S4 and the ECV was finally presented in <b>Bologna</b> in <b>December 1986</b>."
+            );
 
             // TODO : Finish designing rallies for group S
         }
