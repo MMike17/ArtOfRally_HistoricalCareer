@@ -508,6 +508,14 @@ namespace HistoricalCareer
                 "While the <b>Opel Ascona 400</b> was getting overtaken by the competition Opel was working on a new platform. The engine of the Ascona originally used in the new <b>Opel Kadett</b> was not reliable enough at hight power and pushed them towards <b>Zakspeed</b> in <b>1985</b> for help transplanting a <b>Ford</b> engine into it. The result was a semi-reliable 500hp turbo beast that could rival <b>Group B</b> but Opel saw the bill and redirected its efforts towards the future <b>Group S</b> with lower power targets. After the <b>Group B</b> ban Opel repurposed two Kadetts for the <b>Paris-Dakar</b> and finished with disapointing results, but the development teams considered it a win. <b>Andrew Wood</b> scored a fourth position at the <b>Audi Sport Rally</b> in <b>Britain</b> and the Kadett was seen in local rallies like the <b>Neustadt Rallye</b> with <b>Denmark</b> champion <b>Jørgen Nielsen</b> and copilot <b>Poul Andreasen</b> who finished first followed by another Kadett. <b>John Welch</b> had a more successful run in rallycross sticking an <b>F1</b> grade <b>BMW</b> turbo on his Kadett for 650hp."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1986, Areas.GERMANY, "West Germany", "Somewhere around Cologne", "Ove Anderson",
+                assembly, pilotPicturePath, 1979, 2, 5, 8, new int[] { 0, 5, 3, 11, 2 },
+                new Weather[] { Weather.Rain, Weather.Afternoon, Weather.Night, Weather.Morning, Weather.Sunset },
+                ComputeRestarts(1 / 7f, 5),
+                "Toyota had dominance over the African rallies with their Toyota Celica Twin-Cam Turbo but they had a hard time scoring any points in the european alphalt and dirt rallies. So in 1985 Toyota Team Europe started working on the Toyota 222D, built from an MR2 with an AWD transmission from X-Trac. Eleven prototypes were created and eight of them were destroyed during tests. The huge turbo lag combined to a weight of only 750kg and a very short wheelbase created a nimble but unstable monster. Ove Anderson, the head of Toyota Team Europe said that \"at high speed you'd never know where it would go\". Several test drivers said that the most powerful version with a one to one power to weight ratio were scary. Three models survived, one white which was sent to japan and two black which stayed in Europe."
+            );
+
             // TODO : Finish designing rallies for group S
         }
 
