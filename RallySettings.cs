@@ -516,6 +516,14 @@ namespace HistoricalCareer
                 "Toyota had dominance over the African rallies with their Toyota Celica Twin-Cam Turbo but they had a hard time scoring any points in the european alphalt and dirt rallies. So in 1985 Toyota Team Europe started working on the Toyota 222D, built from an MR2 with an AWD transmission from X-Trac. Eleven prototypes were created and eight of them were destroyed during tests. The huge turbo lag combined to a weight of only 750kg and a very short wheelbase created a nimble but unstable monster. Ove Anderson, the head of Toyota Team Europe said that \"at high speed you'd never know where it would go\". Several test drivers said that the most powerful version with a one to one power to weight ratio were scary. Three models survived, one white which was sent to japan and two black which stayed in Europe."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1986, Areas.FINLAND, "Finland", "1000 Lakes rally", "Stasys Brundza",
+                assembly, pilotPicturePath, 1983, 7, 0, 2, new int[] { 0, 5, 6, 8, 2 },
+                new Weather[] { Weather.Afternoon, Weather.Sunset, Weather.Morning, Weather.Rain, Weather.Rain },
+                ComputeRestarts(2 / 7f, 5),
+                "What originally started in a hidden side room of a truck factory became a possible <b>Group B</b> entry for the <b>USSR</b>. Codenamed \"<b>Lada Turbo</b>\" the project saw humble beginnings but quickly took up as <b>USSR</b> officials learned of its existance and decided to place the <b>USSR</b> champion <b>Stasys Brundza</b> as head of the project in <b>1986</b>. The project moved into the <b>Vilnius</b> factory in <b>Lithuania</b> and took the name <b>Lada Samara EVA</b>. The initial prototype based on a heavily modified version of the <b>Lada 1600</b>'s engine was already pushing <b>300hp</b> which was impressive for such a small team and used fuel injection which was rare for soviet cars of the time. Given its propulsion architecture and low power compared to <b>Group B</b> it was scheduled for <b>Group S</b> but only saw an exhibition rally in <b>1987</b>."
+            );
+
             // TODO : Finish designing rallies for group S
         }
 
