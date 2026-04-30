@@ -202,11 +202,11 @@ namespace HistoricalCareer
                 "After dominating in the french rallies, <b>Jean-Claude Andruet</b> wildly swung his <b>Alpine A110</b> with <b>Michèle Veron</b> as copilot in this rally spanning between Germany, Austria and Hungary. The battle with Fords and Porsches was fierce but they won the French and European rally championships titles."
             );
             RallyManager.AddCustomRally(
-                group, 1971, Areas.GERMANY, "East Germany", "Pneumant Rally", "Sobiesław Zasada",
-                assembly, pilotPicturePath, 1971, 3, 2, 0, new int[] { 7, 0, 9, 1, 4, 8 },
-                new Weather[] { Weather.Fog, Weather.Rain, Weather.Rain, Weather.Afternoon, Weather.Fog, Weather.Sunset },
+                group, 1971, Areas.GERMANY, "West Germany", "Rallye Vorderpfalz", "Achim Warmbold",
+                assembly, pilotPicturePath, 0, 3, 2, 10, new int[] { 11, 8, 3, 5, 9, 7 },
+                new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Night, Weather.Morning, Weather.Rain, Weather.Sunset },
                 ComputeRestarts(6 / 6f, 6),
-                "Out with the Porsche, in with a <b>BMW 2002 Ti</b> that <b>Sobiesław Zasada</b> hurls through the fog and rain of <b>East Germany</b>, as if it was a javelin from his youth. Pairing up with copilot <b>Adam Wędrychowski</b>, he ended up winning his third european champion in <b>1971</b>, winning both the <b>East Germany</b> and <b>Polish</b> rally."
+                "In order to replace the <b>1600 Ti</b>, <b>BMW</b> produced the <b>BMW 2002 Ti</b>, first of the series 2 cars with a new engine. The 2002 made a strong impression at <b>Monte-Carlo</b> in <b>1971</b> but had to retire, which didn't prevent <b>Achim Warmbold</b> and his copilot <b>Hans-Christoph Mehmel</b> from chaining an impressive series of wins in <b>West Germany</b> that year and be crowned champions. <b>Sobiesław Zasada</b> also won the <b>ERC</b> that year with the same car with wins in <b>East Germany</b> and <b>Poland</b>. Achim switched to copilot <b>Jean Todt</b> in <b>1973</b> which probably had an impact on his role as founder of <b>Mazda Rally Team Europe</b>."
             );
         }
 
