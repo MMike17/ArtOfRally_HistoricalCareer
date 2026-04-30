@@ -542,8 +542,8 @@ namespace HistoricalCareer
 
             RallyManager.AddCustomRally(
                 group, 1987, Areas.GERMANY, "Czechoslovakia", "Somwhere around Desna", "Roland Gumpert",
-                assembly, pilotPicturePath, 1984, 0, 3, 4, new int[] { 5, 2, 3, 10, 6, },
-                new Weather[] { Weather.Afternoon, Weather.Fog, Weather.Rain, Weather.Sunset, Weather.Fog, Weather.},
+                assembly, pilotPicturePath, 1984, 0, 3, 4, new int[] { 5, 2, 3, 10, 6, 0 },
+                new Weather[] { Weather.Afternoon, Weather.Fog, Weather.Rain, Weather.Sunset, Weather.Fog, Weather.Rain },
                 ComputeRestarts(5 / 7f, 6),
                 "After supervising the destruction of all <b>Audi quattro RS 001</b> prototypes <b>Ferdinand Piëch</b> was absolutely sure none of them survived. Thankfully for us a final prototype lay hidden in <b>Neckarsul</b> and saw additional development with an extensive use of resin for the body and a shape reminiscing of a small <b>Group C</b> cars. Tests have taken place in <b>Czechoslovakia</b> to hide it from the higher ups behind the <b>iron curtain</b>. <b>Roland Gumpert</b> who spearheaded most of <b>Audi Sport</b>'s most successful developments moved on from his position shortly after. The <b>Audi quattro RS 002</b> prototype was driven by both <b>Walter Rörhl</b> in <b>2016</b> and <b>Ken Block</b> in <b>2022</b>, the last one saying that the car was \"too scary to drive on gravel\"."
             );
