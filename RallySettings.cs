@@ -540,6 +540,14 @@ namespace HistoricalCareer
                 "After supervising the destruction of all <b>Audi quattro RS 001</b> prototypes <b>Ferdinand Piëch</b> was absolutely sure none of them survived. Thankfully for us a final prototype lay hidden in <b>Neckarsul</b> and saw additional development with an extensive use of resin for the body and a shape reminiscing of a small <b>Group C</b> cars. Tests have taken place in <b>Czechoslovakia</b> to hide it from the higher ups behind the <b>iron curtain</b>. <b>Roland Gumpert</b> who spearheaded most of <b>Audi Sport</b>'s most successful developments moved on from his position shortly after. The <b>Audi quattro RS 002</b> prototype was driven by both <b>Walter Rörhl</b> in <b>2016</b> and <b>Ken Block</b> in <b>2022</b>, the last one saying that the car was \"too scary to drive on gravel\"."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1989, Areas.KENYA, "North Africa", "Rallye Paris-Dakar", "Ari Vatanen",
+                assembly, pilotPicturePath, 1989, 4, 1, 6, new int[] { 4, 0, 9, 1, 3, 7 },
+                new Weather[] { Weather.Afternoon, Weather.Night, Weather.Morning, Weather.Sunset, Weather.Fog, Weather.Sunset },
+                ComputeRestarts(5 / 7f, 6),
+                "With the ban on <b>Group B</b> the natural path for the <b>205 T16</b> was the rally-raids of <b>North Africa</b>. During the previous <b>Paris-Dakar rally</b> and <b>Pikes Peak</b> attemps in <b>1987</b> the engineers tried to lengthen the 205 wheelbase to add stability to the car but that damaged the aerodynamics immensly. So they decided to take the engine and throw it in a 405 instead creating the <b>Group S Peugeot 405 Turbo 16</b> prototype. The double suspensions on all four corners of the car pleased the <b>WRC</b> champion and <b>Safari</b> specialist <b>Ari Vatanen</b> who won in <b>1987</b> but lost to <b>Juha Kankkunen</b> in <b>1988</b> due to mechanical problems. Back in <b>1989</b> with a more stable version Ari won the rally with his new copilot <b>Bruno Berglund</b> and won the <b>Pikes Peak</b> the same year. <b>Peugeot</b>'s efforts were then switched to the <b>24 hours of Le Mans</b>."
+            );
+
             // TODO : Finish designing rallies for group S
         }
 
