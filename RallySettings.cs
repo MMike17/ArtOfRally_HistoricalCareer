@@ -541,10 +541,18 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
+                group, 1988, Areas.SARDINIA, "Italy", "Somewhere around Turin", "Claudio Lombardi",
+                assembly, pilotPicturePath, 1988, 5, 1, 0, new int[] { 2, 6, 10, 0, 8, 5 },
+                new Weather[] { Weather.Fog, Weather.Rain, Weather.Afternoon, Weather.Sunset, Weather.Morning, Weather.Afternoon },
+                ComputeRestarts(5 / 7f, 6),
+                "After the <b>Bologna Auto Show</b> of <b>1986</b> the work continued on the <b>Lancia ECV</b>. The prototype was dismantled and rebuilt with a whole new body designed by <b>Carlo Gaino</b> giving it a futuristic spaceship silhouette. The extensive use of fiber glass panels made the new body even lighter than the ECV and a sober color was selected to contrast with the bold new shape of the <b>Lancia ECV 2</b>. The new detached rear wing gave the finishing touches to the huge aerodynamics improvement of the car and the inside was reworked to show a huge turbo pressure gauge in the middle of the dashboard. In <b>1988</b> the father of the triflux engine <b>Claudio Lombardi</b> who had been with <b>Lancia</b> since the late sixties did a test drive of the new prototype, he then went on to follow <b>Cesare Fiorio</b> to the <b>Ferrari F1</b> team and lead it until <b>1993</b>."
+            );
+
+            RallyManager.AddCustomRally(
                 group, 1989, Areas.KENYA, "North Africa", "Rallye Paris-Dakar", "Ari Vatanen",
                 assembly, pilotPicturePath, 1989, 4, 1, 6, new int[] { 4, 0, 9, 1, 3, 7 },
                 new Weather[] { Weather.Afternoon, Weather.Night, Weather.Morning, Weather.Sunset, Weather.Fog, Weather.Sunset },
-                ComputeRestarts(5 / 7f, 6),
+                ComputeRestarts(7 / 7f, 6),
                 "With the ban on <b>Group B</b> the natural path for the <b>205 T16</b> was the rally-raids of <b>North Africa</b>. During the previous <b>Paris-Dakar rally</b> and <b>Pikes Peak</b> attemps in <b>1987</b> the engineers tried to lengthen the 205 wheelbase to add stability to the car but that damaged the aerodynamics immensly. So they decided to take the engine and throw it in a 405 instead creating the <b>Group S Peugeot 405 Turbo 16</b> prototype. The double suspensions on all four corners of the car pleased the <b>WRC</b> champion and <b>Safari</b> specialist <b>Ari Vatanen</b> who won in <b>1987</b> but lost to <b>Juha Kankkunen</b> in <b>1988</b> due to mechanical problems. Back in <b>1989</b> with a more stable version Ari won the rally with his new copilot <b>Bruno Berglund</b> and won the <b>Pikes Peak</b> the same year. <b>Peugeot</b>'s efforts were then switched to the <b>24 hours of Le Mans</b>."
             );
 
