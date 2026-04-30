@@ -336,9 +336,9 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1985, Areas.FINLAND, "Sweden", "Billingerundan", "Stig-Olov Walfridsson",
-                assembly, pilotPicturePath, 0, 2, 1, 8, new int[] { 1, 2, 6, 4, 7, 3 },
-                new Weather[] { Weather.Morning, Weather.Rain, Weather.Afternoon, Weather.Fog, Weather.Sunset, Weather.Night },
+                group, 1985, Areas.NORWAY, "Sweden", "Billingerundan", "Stig-Olov Walfridsson",
+                assembly, pilotPicturePath, 0, 2, 1, 8, new int[] { 4, 2, 1, 7, 6, 3 },
+                new Weather[] { Weather.Morning, Weather.Snow, Weather.Afternoon, Weather.Fog, Weather.Sunset, Weather.Night },
                 ComputeRestarts(7 / 9f, 6),
                 "A year after <b>Stig Blomqvist</b> won the <b>WRC</b> with an <b>Audi Quattro S1</b>, a young stunt driver named <b>Stig-Olov \"Stecka\" Walfridsson</b>, hopped into a <b>Volvo 240 Turbo</b> with his long time copilot <b>Gunner Barth</b> to win several small swedish rallies. His indestructible <b>Volvo</b> helped him show his skills before switching to an <b>Audi Quattro</b> for european junior rallies and later a <b>Mitsubishi Lancer</b> with which he won several <b>Group N</b> rally championships in the nineties before switching to rallycross after a high speed collision with a moose in <b>2006</b>. The reliable <b>\"Turbo Brick\"</b> was dirt cheap and fast on straights thanks to its turbo, making it a favourite among privateers."
             );
