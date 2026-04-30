@@ -523,12 +523,21 @@ namespace HistoricalCareer
                 ComputeRestarts(2 / 7f, 5),
                 "What originally started in a hidden side room of a truck factory became a possible <b>Group B</b> entry for the <b>USSR</b>. Codenamed \"<b>Lada Turbo</b>\" the project saw humble beginnings but quickly took up as <b>USSR</b> officials learned of its existance and decided to place the <b>USSR</b> champion <b>Stasys Brundza</b> as head of the project in <b>1986</b>. The project moved into the <b>Vilnius</b> factory in <b>Lithuania</b> and took the name <b>Lada Samara EVA</b>. The initial prototype based on a heavily modified version of the <b>Lada 1600</b>'s engine was already pushing <b>300hp</b> which was impressive for such a small team and used fuel injection which was rare for soviet cars of the time. Given its propulsion architecture and low power compared to <b>Group B</b> it was scheduled for <b>Group S</b> but only saw an exhibition rally in <b>1987</b>."
             );
+
             RallyManager.AddCustomRally(
                 group, 1986, Areas.SARDINIA, "Italy", "Somewhere around Turin", "Sergio Limone",
                 assembly, pilotPicturePath, 1992, 3, 0, 0, new int[] { 2, 6, 10, 0, 8 },
                 new Weather[] { Weather.Fog, Weather.Rain, Weather.Fog, Weather.Afternoon, Weather.Sunset },
                 ComputeRestarts(3 / 7f, 5),
                 "<b>Lancia</b> was seeing its <b>Delta S4</b> rivaling with the <b>Peugeot 205 T16</b> and was already planning for the future <b>Group S</b>. In their usual tactic of making a rally monster to dominate the competition, the <b>Lancia ECV</b> (for <b>Experimental Composite Vehicle</b>) saw the light of day under <b>Sergio Limone</b>, with a revolutionary \"<b>Triflux</b>\" engine based on double reverse flow intake technology, extensive use of <b>kevlar</b> and <b>carbon fiber</b> to reduce the weight by 20% and computer assisted bodywork conception, only seen in <b>F1</b> until then. Sergio having worked on the <b>Fiat 131</b>, <b>Lancia Delta S4</b> and <b>037</b> he knew exactly how to fix the aerodynamic problems of the S4 and the ECV was finally presented in <b>Bologna</b> in <b>December 1986</b>."
+            );
+
+            RallyManager.AddCustomRally(
+                group, 1987, Areas.GERMANY, "Czechoslovakia", "Somwhere around Desna", "Roland Gumpert",
+                assembly, pilotPicturePath, 1984, 0, 3, 4, new int[] { 5, 2, 3, 10, 6 },
+                new Weather[] { Weather.Afternoon, Weather.Fog, Weather.Rain, Weather.Sunset, Weather.Fog },
+                ComputeRestarts(4 / 7f, 5),
+                "After supervising the destruction of all <b>Audi quattro RS 001</b> prototypes <b>Ferdinand Piëch</b> was absolutely sure none of them survived. Thankfully for us a final prototype lay hidden in <b>Neckarsul</b> and saw additional development with an extensive use of resin for the body and a shape reminiscing of a small <b>Group C</b> cars. Tests have taken place in <b>Czechoslovakia</b> to hide it from the higher ups behind the <b>iron curtain</b>. <b>Roland Gumpert</b> who spearheaded most of <b>Audi Sport</b>'s most successful developments moved on from his position shortly after. The <b>Audi quattro RS 002</b> prototype was driven by both <b>Walter Rörhl</b> in <b>2016</b> and <b>Ken Block</b> in <b>2022</b>, the last one saying that the car was \"too scary to drive on gravel\"."
             );
 
             // TODO : Finish designing rallies for group S
