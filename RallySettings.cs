@@ -563,8 +563,6 @@ namespace HistoricalCareer
                 ComputeRestarts(7 / 7f, 6),
                 "With the ban on <b>Group B</b> the natural path for the <b>205 T16</b> was the rally-raids of <b>North Africa</b>. During the previous <b>Paris-Dakar rally</b> and <b>Pikes Peak</b> attemps in <b>1987</b> the engineers tried to lengthen the 205 wheelbase to add stability to the car but that damaged the aerodynamics immensly. So they decided to take the engine and throw it in a 405 instead creating the <b>Group S Peugeot 405 Turbo 16</b> prototype. The double suspensions on all four corners of the car pleased the <b>WRC</b> champion and <b>Safari</b> specialist <b>Ari Vatanen</b> who won in <b>1987</b> but lost to <b>Juha Kankkunen</b> in <b>1988</b> due to mechanical problems. Back in <b>1989</b> with a more stable version Ari won the rally with his new copilot <b>Bruno Berglund</b> and won the <b>Pikes Peak</b> the same year. <b>Peugeot</b>'s efforts were then switched to the <b>24 hours of Le Mans</b>."
             );
-
-            // TODO : Finish designing rallies for group S
         }
 
         public static void GenerateGroupASeasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)

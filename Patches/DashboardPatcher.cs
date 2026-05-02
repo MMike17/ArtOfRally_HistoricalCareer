@@ -104,6 +104,7 @@ namespace HistoricalCareer
                     panelManager.SetBackButtonActive(false);
                 });
 
+                PanelPatcher.SetupGroupPanel(instance.transform.parent.GetChild(1).GetComponent<Panel>());
                 yield return instance.StartCoroutine(classButton.ClassUnlockedSequence());
                 yield return new WaitForSecondsRealtime(0.5f);
 
