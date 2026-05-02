@@ -405,11 +405,15 @@ namespace HistoricalCareer
 
         public static bool CheckUnlockNextGroup(Season season)
         {
+            if (season.CarClass == CarClass.GROUP_A)
+                return false;
+
             List<RallySettings> currentList = rallySettings[season.CarClass];
             RallySettings currentSettings = currentList.Find(item => string.Equals(
                 GetSeasonCode(item.season),
                 GetSeasonCode(season)
             ));
+
             return currentList.IndexOf(currentSettings) == currentList.Count - 1;
         }
 
