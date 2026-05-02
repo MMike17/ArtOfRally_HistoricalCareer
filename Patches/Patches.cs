@@ -346,4 +346,19 @@ namespace HistoricalCareer
             }
         }
     }
+
+    [HarmonyPatch(typeof(CustomButtonSeason), nameof(CustomButtonSeason.SetText))]
+    static class CustomButtonFixer
+    {
+        static bool Prefix()
+        {
+            if (DashboardPatcher.skipSetText)
+            {
+                DashboardPatcher.skipSetText = false;
+                return false;
+            }
+
+            return true;
+        }
+    }
 }

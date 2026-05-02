@@ -13,9 +13,11 @@ namespace HistoricalCareer
     [HarmonyPatch(typeof(SeasonDashboardUI))]
     static class DashboardPatcher
     {
+        public static bool skipSetText;
+
         [HarmonyPatch("ShowNextSeasonInDashboardAnim")]
         [HarmonyPrefix]
-        static bool NextSeaconAnimOverride(Season Season, SeasonDashboardUI __instance)
+        static bool NextSeasonAnimOverride(Season Season, SeasonDashboardUI __instance)
         {
             if (!Main.enabled)
                 return true;
@@ -56,9 +58,9 @@ namespace HistoricalCareer
                 PanelPatcher.SetCarouselSelection(season);
             });
 
+            skipSetText = true;
             yield return currentSeasonButton.SeasonCompleteCoroutine(season);
             PanelPatcher.SetSeasonButtonsState(currentSeasonButton, true);
-
             PanelPatcher.SetCarouselState(true);
 
             yield return new WaitForSeconds(0.5f);
