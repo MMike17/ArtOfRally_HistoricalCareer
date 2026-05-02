@@ -35,6 +35,7 @@ Here is the list of groups available in the mod :
 - **Group 3**
 - **Group 4**
 - **Group B**
+- **Group S**
 
 Following groups are being developped actively.
 
@@ -64,5 +65,6 @@ and drop it into the mod manager's mods page.
 ![](Screenshots/Group%203.png)
 ![](Screenshots/Group%204.png)
 ![](Screenshots/Group%20B.png)
+![](Screenshots/Group%20S.png)
 ![](Screenshots/Career%20UI.png)
 ![](Screenshots/Settings.png)
