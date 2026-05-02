@@ -135,7 +135,8 @@ namespace HistoricalCareer
 
             foreach (CustomButtonCareerClass classButton in classButtons)
             {
-                bool hasSettings = RallyManager.GetSettingsForClass(classButton.CarClass) != null;
+                List<RallySettings> settings = RallyManager.GetSettingsForClass(classButton.CarClass);
+                bool hasSettings = settings != null && settings.Count > 0;
                 classButton.gameObject.SetActive(hasSettings);
 
                 if (hasSettings)
