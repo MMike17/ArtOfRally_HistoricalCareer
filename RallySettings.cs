@@ -569,6 +569,14 @@ namespace HistoricalCareer
         {
             CarClass group = CarClass.GROUP_A;
 
+            RallyManager.AddCustomRally(
+                group, 1988, Areas.SARDINIA, "Italy", "Rally Sanremo", "Massimo Biasion",
+                assembly, pilotPicturePath, 1988, 0, 1, 0, new int[] { 2, 6, 10, 0, 8 },
+                new Weather[] { Weather.Sunset, Weather.Rain, Weather.Night, Weather.Rain, Weather.Morning },
+                ComputeRestarts(0 / 5f, 5),
+                "As the stricter <b>Group A</b> took over, top of the line rally cars became more tame, the engines moved to the front and the power was capped, resulting in the <b>Lancia Delta Integrale</b> almost looking like a regular hatchback save for its very wide wheel arches, but it still dominated placing four cars at the top of the <b>Sanremo</b> rally in <b>1988</b>. To drive it <b>Lancia</b> bet on <b>Massimo \"Miki\" Biasion</b> and his copilot <b>Tiziano Siviero</b>, who won the <b>1983 ERC</b> with a <b>Lancia 037 Rally</b> only four years after having started rallying and ended second the previous year on the <b>WRC</b> only six points behind <b>Juha Kankkunen</b>. in <b>1988</b> they broke down during the <b>Monte-Carlo rally</b> giving them the energy of desperation to win every <b>WRC</b> rally but one and did the same thing the year after winning two <b>WRC</b> titles. Miki opened the <b>Sanremo rally</b> in <b>2025</b> with the new <b>Lancia Ypsilon</b> marking the return of the mythical team in the <b>WRC</b>."
+            );
+
             // TODO : Finish designing rallies for group A
         }
     }
