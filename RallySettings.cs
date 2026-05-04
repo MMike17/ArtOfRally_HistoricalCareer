@@ -595,6 +595,16 @@ namespace HistoricalCareer
                 "Ford was planning their next rally car with the idea of winning the <b>WRC</b>. They started from a <b>Sierra Cosworth</b> but its new turbo and all wheel drive system made the <b>Ford Escort RS Cosworth</b> outperform most hot hatchbacks. It never won a <b>WRC</b> but <b>Fançois Delecour</b> with his copilot <b>Daniel Grataloup</b> managed to place second on the <b>Monte-Carlo rally</b> of <b>1993</b> behind their rival <b>Didier Auriol</b>, whom they overtook in <b>Corsica</b> placing first, they then went on to win a couple of rallies and placed second on the <b>WRC</b>. In <b>Sanremo</b> peculiar circumstances pushed for the win of an italian privateer in an <b>Escort RS</b> which hadn't happened for years at that level of the competition."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1997, Areas.KENYA, "Kenya", "Safari Rally", "Colin McRae",
+                assembly, pilotPicturePath, 1995, 1, 0, 4, new int[] { 0, 8, 4, 6, 10, 3 },
+                new Weather[] {
+                    Weather.Morning, Weather.Sunset, Weather.Afternoon, Weather.Night, Weather.Morning, Weather.Sunset
+                },
+                ComputeRestarts(3 / 5f, 6),
+                "The mostly unknown <b>Subaru team 555</b> was looking for fresh talent for its rally lineup, having hired <b>Ari Vatenen</b> and <b>Markku Alén</b>, they turned to a very young <b>Colin McRae</b> and his new copilot <b>Nicky Grist</b>. This partnership gave colin access to the rides he needed for several british championship titles and a <b>WRC</b> win in <b>1995</b> with the <b>Subaru Impreza WRC</b> as well as several second places in the <b>WRC</b>. The rather cheeky Colin who coined the moto \"in case of doubt, flat out\" had a sensationalist style that lead to accidents, he was always fearless, always sideways and always on the limit. He also proved to be a competent engineer during the <b>1998 Argentina rally</b> where a certain belgian pilot advised him to bend his lower control arm back into shape by bashing it with a rock."
+            );
+
             // TODO : Finish designing rallies for group A
         }
     }
