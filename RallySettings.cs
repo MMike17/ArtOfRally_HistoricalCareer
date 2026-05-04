@@ -248,7 +248,7 @@ namespace HistoricalCareer
                 group, 1976, Areas.AUSTRALIA, "West Australia", "Commonwealth Bank Rally", "Frank Johnson",
                 assembly, pilotPicturePath, 0, 2, 4, 4, new int[] { 10, 7, 4, 2 },
                 new Weather[] { Weather.Rain, Weather.Morning, Weather.Afternoon, Weather.Morning }, ComputeRestarts(5 / 9f, 4),
-                "The strong winds and wet weather of <b>Australia</b> left several stages of the <b>Commonwealth Bank Rally</b> out of order. The sun came back and gave <b>Frank Johnson</b> and his copilot <b>Bill Clark</b> a chance at a win with their <b>Mazda RX-3</b> in their second ever rally. They ended up in second position but the <b>RX-3</b> couldn't keep up with Porsches and Datsuns in other Australian rallies. The <b>RX-3</b> left a lasting impression in Australia rally and tourning races driven by teams like the <b>Kabel</b> brothers."
+                "The strong winds and wet weather of <b>Australia</b> left several stages of the <b>Commonwealth Bank Rally</b> out of order. The sun came back and gave <b>Frank Johnson</b> and his copilot <b>Bill Clark</b> a chance at a win with their <b>Mazda RX-3</b> in their second ever rally. They ended up in second position but the <b>RX-3</b> couldn't keep up with Porsches and Datsuns in other Australian rallies. The <b>RX-3</b> left a lasting impression in Australia rally and touring races driven by teams like the <b>Kabel</b> brothers."
             );
             RallyManager.AddCustomRally(
                 group, 1976, Areas.SARDINIA, "Italy", "Rally of the Elba island", "Markku Alén",
@@ -575,6 +575,14 @@ namespace HistoricalCareer
                 new Weather[] { Weather.Sunset, Weather.Rain, Weather.Night, Weather.Rain, Weather.Morning },
                 ComputeRestarts(0 / 5f, 5),
                 "As the stricter <b>Group A</b> took over, top of the line rally cars became more tame, the engines moved to the front and the power was capped, resulting in the <b>Lancia Delta Integrale</b> almost looking like a regular hatchback save for its very wide wheel arches, but it still dominated placing four cars at the top of the <b>Sanremo</b> rally in <b>1988</b>. To drive it <b>Lancia</b> bet on <b>Massimo \"Miki\" Biasion</b> and his copilot <b>Tiziano Siviero</b>, who won the <b>1983 ERC</b> with a <b>Lancia 037 Rally</b> only four years after having started rallying and ended second the previous year on the <b>WRC</b> only six points behind <b>Juha Kankkunen</b>. in <b>1988</b> they broke down during the <b>Monte-Carlo rally</b> giving them the energy of desperation to win every <b>WRC</b> rally but one and did the same thing the year after winning two <b>WRC</b> titles. Miki opened the <b>Sanremo rally</b> in <b>2025</b> with the new <b>Lancia Ypsilon</b> marking the return of the mythical team in the <b>WRC</b>."
+            );
+
+            RallyManager.AddCustomRally(
+                group, 1992, Areas.AUSTRALIA, "New Zealand", "Rally New Zealand", "Carlos Sainz",
+                assembly, pilotPicturePath, 1991, 2, 0, 10, new int[] { 5, 0, 11, 8, 6, 3 },
+                new Weather[] { Weather.Fog, Weather.Sunset, Weather.Fog, Weather.Night, Weather.Fog, Weather.Afternoon },
+                ComputeRestarts(1 / 5f, 6),
+                "The previous generation Celica was racking up wins in the middle east and britain while the Lancias were leading the show in europe, but this ended with the new <b>Toyota Celica GT4</b> driven by <b>1990 WRC</b> and <b>APRC</b> champion <b>Carlos Sainz</b> and his copilot <b>Luis Moya</b>. The pair had already given a strong impression during the <b>1000 Lakes rally</b> in <b>1990</b> being the first non-nordic crew to win it, they went on to win the <b>Safari rally</b>, proving the resilience of the Celica, and stole the <b>WRC</b> title from <b>Juha Kankkunen</b> in <b>1992</b>. Carlos coached a young <b>Sébastien Loeb</b> in his debut before switching to the <b>Paris-Dakar</b> of which he scored his fourth win in <b>2024</b>."
             );
 
             // TODO : Finish designing rallies for group A
