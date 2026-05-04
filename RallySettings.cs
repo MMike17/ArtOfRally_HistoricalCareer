@@ -509,7 +509,7 @@ namespace HistoricalCareer
 
             RallyManager.AddCustomRally(
                 group, 1987, Areas.GERMANY, "West Germany", "Somewhere in Bavaria", "Walter Röhrl",
-                assembly, pilotPicturePath, 1984, 8, 2, 6, new int[] { 8, 1, 10, 6, 8, 2 },
+                assembly, pilotPicturePath, 1984, 8, 2, 6, new int[] { 8, 1, 6, 2, 4, 10 },
                 new Weather[] { Weather.Rain, Weather.Fog, Weather.Afternoon, Weather.Fog, Weather.Sunset, Weather.Rain },
                 ComputeRestarts(15 / 15f, 6),
                 "The head of <b>Audi Ferdinand Piëch</b> was pushing the development teams to keep tinkering with the <b>S1</b> after the <b>Group B</b> ban by the <b>FIA</b>, but a group of engineers saw the writing on the wall, their front-engined car with a heavy five cylinders engine would never hold against the mid-engined <b>Peugeot 205</b> and <b>Lancia S4</b>. <b>Group S</b> needed a new car and so the engineering team under <b>Roland Gumpert</b> decided to phone <b>Porsche</b> for help and developped the <b>Audi Sport Quattro RS 001</b>, a short mid-engined prototype. <b>Walter Röhrl</b> tested it somewhere in bavaria around <b>1987</b> and said that this was now a true weapon againts its rivals. Journalists managed to take a few pictures and broke the story to the news in <b>Austria</b>. <b>Piëch</b> was so furious that he ordered the prototypes to be destroyed under his eyes, but he didn't know that a prototype lay dormant at <b>Neckarsul</b>."
