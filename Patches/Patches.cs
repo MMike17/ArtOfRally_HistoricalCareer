@@ -8,34 +8,6 @@ using UnityEngine.UI;
 
 namespace HistoricalCareer
 {
-    // Patch model
-    // [HarmonyPatch(typeof(), nameof())]
-    // [HarmonyPatch(typeof(), MethodType.)]
-    // static class type_method_Patch
-    // {
-    // 	static void Prefix()
-    // 	{
-    // 		//
-    // 	}
-
-    //	this will negate the method
-    //  	static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
-    //  	{
-    //      	foreach (var instruction in instructions)
-    //          	yield return new CodeInstruction(OpCodes.Ret);
-    //  	}
-
-    // 	static void Postfix()
-    // 	{
-    // 		//
-    // 	}
-    // }
-
-    // TODO : Shortcircuit this to stop end of game from being triggered early
-    // SeasonDashboardUI.DisplayUnlocksAndDashboardSequence
-    //      (line 251 : Season.Year == GameModeManager.CareerManager.GroupASeason[GameModeManager.CareerManager.GroupASeason.Count - 1].Year)
-    // override GameCompleteDataSetup.GoToGameCompleteCutscene
-
     [HarmonyPatch(typeof(Season))]
     static class SeasonPatcher
     {

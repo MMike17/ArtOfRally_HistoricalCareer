@@ -171,5 +171,102 @@ namespace HistoricalCareer
                 SaveManager.LoadSeasonData(GameModeManager.CareerManager.GetCurrentSeason());
             });
         }
+
+        [HarmonyPatch("DisplayUnlocksAndDashboardSequence")]
+        [HarmonyPrefix]
+        static bool UnlocksFixer(SeasonDashboardUI __instance, Season Season, List<CustomButtonSeason> ButtonsForSeason)
+        {
+            if (Main.enabled)
+                __instance.StartCoroutine(CustomUnlocksAnim(__instance, Season, ButtonsForSeason));
+
+            return !Main.enabled;
+        }
+
+        static IEnumerator CustomUnlocksAnim(SeasonDashboardUI instance, Season Season, List<CustomButtonSeason> ButtonsForSeason)
+        {
+            Main.Log("Start " + nameof(CustomUnlocksAnim));
+
+            CarChooserManager carChooserManager = GameObject.Find("CarChooser").GetComponent<CarChooserManager>();
+            Car selectedCar = Season.SelectedCar;
+            Car car = CarManager.UnlockCar(Season.Year);
+            List<Car> BonusUnlockCars = new List<Car>();
+
+            Main.Try(nameof(CustomUnlocksAnim) + "_1", () =>
+            {
+                Main.InvokeMethod(instance, "SetSeasonComplete", BindingFlags.Instance, null);
+                instance.isShowingAnimation = true;
+                GameObject.Find("Dioramas").GetComponent<DioramaManager>();
+
+                if (Season.RestartsRemaining > 0)
+                {
+                    BonusUnlockCars = CarManager.UnlockBonusForCar(Season.Year);
+                    Main.InvokeMethod(instance, "DoAllUnlocksCompleteAchievementCheck", BindingFlags.Instance, null);
+                }
+            });
+
+            if (car != null)
+            {
+                Main.Try(nameof(CustomUnlocksAnim) + "_2", () =>
+                {
+                    UIManager.Instance.PanelManager.DioramaManager.SetCarUnlockDiorama();
+                    UIManager.Instance.PanelManager.AddCarUnlockedPanel();
+                });
+
+                yield return instance.carUnlockScreen.ShowCarUnlockedAnimation(
+                    car,
+                    carChooserManager,
+                    BonusUnlockCars.Count,
+                    false
+                );
+
+                instance.seasonCompleteProgressUI.FocusNextCircle();
+            }
+
+            if (Season.RestartsRemaining > 0 && BonusUnlockCars.Count > 0)
+            {
+                Main.Try(nameof(CustomUnlocksAnim) + "_2", () => UIManager.Instance.PanelManager.AddBonusUnlockedPanel());
+
+                yield return instance.bonusUnlockScreen.BonusUnlockAnimation(
+                    Season.RestartsRemaining,
+                    Season.InitialRestarts,
+                    BonusUnlockCars,
+                    carChooserManager,
+                    Season.CarClass,
+                    false
+                );
+            }
+
+            List<RallySettings> groupASettings = RallyManager.GetSettingsForClass(CarClass.GROUP_A);
+            RallySettings lastSettings = groupASettings[groupASettings.Count - 1];
+
+            if (RallyManager.GetSeasonCode(Season) == RallyManager.GetSeasonCode(lastSettings))
+            {
+                Main.Try(nameof(CustomUnlocksAnim) + "_2", () =>
+                {
+                    SaveGame.SetInt(SaveConstants.PLAY_COMPLETE_CUTSCENE, 1);
+                    SaveGame.SetInt(SaveConstants.GAME_COMPLETE, 1);
+                    SaveGame.Save();
+                    GameCompleteDataSetup.GoToGameCompleteCutscene(selectedCar);
+                });
+            }
+            else
+            {
+                yield return new WaitForSecondsRealtime(0.5f);
+                SceneLoader.FadeAndHoldForFun(0.3f, 0.5f, 0.75f, true);
+
+                yield return new WaitForSecondsRealtime(0.5f);
+                IEnumerator routine = Main.InvokeMethod<SeasonDashboardUI, IEnumerator>(
+                    instance,
+                    "ShowNextSeasonInDashboardAnim",
+                    BindingFlags.Instance,
+                    new object[] { Season, ButtonsForSeason }
+                );
+
+                yield return instance.StartCoroutine(routine);
+            }
+
+            instance.isShowingAnimation = false;
+            yield break;
+        }
     }
 }
