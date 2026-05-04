@@ -143,7 +143,7 @@ namespace HistoricalCareer
                     lastValid++;
             }
 
-            if (lastValid > -1 && lastValid < classButtons.Length)
+            if (lastValid > -1 && lastValid < classButtons.Length - 1)
             {
                 CustomButtonCareerClass classButton = classButtons[lastValid + 1];
                 classButton.enabled = false;
