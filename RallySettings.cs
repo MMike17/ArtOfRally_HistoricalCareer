@@ -633,7 +633,14 @@ namespace HistoricalCareer
                 "When <b>Tommi Mäkinen</b> switched to <b>Mitsubishi</b> in <b>1995</b> the Lancer was at its third itteration and cotinued to grow alongside him. He's been competing with <b>Colin McRae</b> snatching the <b>WRC</b> title with a single point lead in <b>1995</b> and won his fourth <b>WRC title</b> in <b>1999</b> with copilot <b>Risto Mannisenmäki</b> in a <b>Mitsubishi Lancer Evolution VI</b>. The flying finn saw his ride get bigger wheels, a better differential and reworked aerodynamics while his style was getting more refined, more in controll especially on snow and gravel stages which contrasted with Colin's \"all out\" style. He officially retired from the competition at the end of the <b>2003</b> season but came back as head of the <b>Toyota Gazoo Racing team</b> between <b>2017</b> and <b>2020</b>."
             );
 
-            // TODO : Finish designing rallies for group A
+            RallyManager.AddCustomRally(
+                group, 2002, Areas.KENYA, "Kenya", "Safari Rally", "Colin McRae",
+                assembly, pilotPicturePath, 2002, 5, 4, 4, new int[] { 0, 8, 4, 6, 10, 3 },
+                new Weather[] {
+                    Weather.Morning, Weather.Sunset, Weather.Afternoon, Weather.Night, Weather.Morning, Weather.Sunset
+                }, ComputeRestarts(5 / 5f, 6),
+                "The <b>Escort RS</b> didn't bring any championship luck to Ford but the bold <b>\"New Edge\"</b> lines of the <b>Ford Focus WRC</b> eventually proved to be a winning bet after some upgrades in <b>2004</b> for one of the most sold cars in the world. The <b>2002</b> team had the duo <b>Colin McRae</b> and <b>Carlos Sainz</b> back in the same team to fight <b>Tommi Mäkinen</b> who was now with <b>Subaru</b> and Colin had finished second of the <b>WRC</b> the year prior getting a better grasp of the Focus. His competitors followed his lead and caught up to him including Carlos leaving Colin with only three podiums that year and a fourth <b>WRC</b> position that year."
+            );
         }
     }
 }
