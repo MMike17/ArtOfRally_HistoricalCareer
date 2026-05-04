@@ -585,6 +585,16 @@ namespace HistoricalCareer
                 "The previous generation Celica was racking up wins in the middle east and britain while the Lancias were leading the show in europe, but this ended with the new <b>Toyota Celica GT4</b> driven by <b>1990 WRC</b> and <b>APRC</b> champion <b>Carlos Sainz</b> and his copilot <b>Luis Moya</b>. The pair had already given a strong impression during the <b>1000 Lakes rally</b> in <b>1990</b> being the first non-nordic crew to win it, they went on to win the <b>Safari rally</b>, proving the resilience of the Celica, and stole the <b>WRC</b> title from <b>Juha Kankkunen</b> in <b>1992</b>. Carlos coached a young <b>Sébastien Loeb</b> in his debut before switching to the <b>Paris-Dakar</b> of which he scored his fourth win in <b>2024</b>."
             );
 
+            RallyManager.AddCustomRally(
+                group, 1993, Areas.SARDINIA, "France", "Tour de Corse", "François Delecour",
+                assembly, pilotPicturePath, 1993, 4, 1, 2, new int[] { 7, 4, 2, 3, 9, 6 },
+                new Weather[] {
+                    Weather.Rain, Weather.Morning, Weather.Sunset, Weather.Afternoon, Weather.Night, Weather.Morning
+                },
+                ComputeRestarts(2 / 5f, 6),
+                "Ford was planning their next rally car with the idea of winning the <b>WRC</b>. They started from a <b>Sierra Cosworth</b> but its new turbo and all wheel drive system made the <b>Ford Escort RS Cosworth</b> outperform most hot hatchbacks. It never won a <b>WRC</b> but <b>Fançois Delecour</b> with his copilot <b>Daniel Grataloup</b> managed to place second on the <b>Monte-Carlo rally</b> of <b>1993</b> behind their rival <b>Didier Auriol</b>, whom they overtook in <b>Corsica</b> placing first, they then went on to win a couple of rallies and placed second on the <b>WRC</b>. In <b>Sanremo</b> peculiar circumstances pushed for the win of an italian privateer in an <b>Escort RS</b> which hadn't happened for years at that level of the competition."
+            );
+
             // TODO : Finish designing rallies for group A
         }
     }
