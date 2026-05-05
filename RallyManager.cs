@@ -493,32 +493,5 @@ namespace HistoricalCareer
 
             Main.Log("Reset rally in progress");
         }
-
-        public static void TestSave()
-        {
-            CareerData save = Main.GetField<CareerData, CareerManager>(
-                GameModeManager.CareerManager,
-                "CareerData",
-                BindingFlags.Instance
-            );
-            save.Group3CarClass.isLocked = false;
-            save.Group4CarClass.isLocked = false;
-            save.GroupBCarClass.isLocked = false;
-            save.GroupSCarClass.isLocked = false;
-            save.GroupACarClass.isLocked = false;
-            global::SaveManager.SaveCareerData(save);
-
-            rallySettings[CarClass.GROUP_3][0].season.Status = Season.STATUS.UNLOCKED;
-            rallySettings[CarClass.GROUP_4][0].season.Status = Season.STATUS.UNLOCKED;
-            rallySettings[CarClass.GROUP_B][0].season.Status = Season.STATUS.UNLOCKED;
-            rallySettings[CarClass.GROUP_S][0].season.Status = Season.STATUS.UNLOCKED;
-            rallySettings[CarClass.GROUP_A][0].season.Status = Season.STATUS.UNLOCKED;
-
-            SaveManager.SaveSeasonData(rallySettings[CarClass.GROUP_3][0]);
-            SaveManager.SaveSeasonData(rallySettings[CarClass.GROUP_4][0]);
-            SaveManager.SaveSeasonData(rallySettings[CarClass.GROUP_B][0]);
-            SaveManager.SaveSeasonData(rallySettings[CarClass.GROUP_S][0]);
-            SaveManager.SaveSeasonData(rallySettings[CarClass.GROUP_A][0]);
-        }
     }
 }
