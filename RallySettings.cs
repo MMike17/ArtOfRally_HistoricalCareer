@@ -165,7 +165,7 @@ namespace HistoricalCareer
             CarClass group = CarClass.GROUP_2;
 
             RallyManager.AddCustomRally(
-                group, 1966, Areas.FINLAND, "Finland", "1000 Lakes rally", "Timo Mäkinen",
+                group, 1966, Areas.FINLAND, "Finland", "Rally of the 1000 Lakes", "Timo Mäkinen",
                 assembly, pilotPicturePath, 1966, 1, 0, 2,
                 new int[] { 0, 6 }, new Weather[] { Weather.Morning, Weather.Afternoon }, ComputeRestarts(0 / 6f, 2),
                 "Following their <b>1965</b> win at the <b>Monte-Carlo rally</b>, <b>Timo Mäkinen</b> and his copilot <b>Pekka Keskitalo</b> took advantage of their <b>Austin Mini Cooper S</b> front-wheel-drive and light body to excel on their home country's gravel jumps, becoming the first \"<b>flying finns</b>\" with <b>Simo Lampinen</b> and <b>Rauno Aaltonen</b>, who placed third on the same rally. He snatched the finish champion title that year cementing his position as one of the first great finish drivers. He's also known for having won the longest rally stage in the world during the <b>Morocco rally</b> of <b>1975</b>."
@@ -180,7 +180,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1968, Areas.GERMANY, "West Germany", "Wiesbaden German Rally", "Pauli Toivonen",
+                group, 1968, Areas.GERMANY, "West Germany", "Wiesbaden Deutschlandrallye", "Pauli Toivonen",
                 assembly, pilotPicturePath, 1969, 4, 5, 0, new int[] { 0, 5, 3, 11 },
                 new Weather[] { Weather.Rain, Weather.Sunset, Weather.Fog, Weather.Afternoon }, ComputeRestarts(2 / 6f, 4),
                 "For his debut in a <b>Porsche 911</b>, <b>1962</b> finish champion <b>Pauli Toivonen</b> couldn't secure a <b>Monte-Carlo</b> win, being overtaken by <b>Vic Elford</b>. But with the help of <b>Martti Kolari</b> as copilot, they managed to win many rallies during the <b>1968</b> season chaining an impressive series of first places. Pauli continued winning that same year with different copilots and secured an <b>ERC</b> title. He’s the father of the <b>Group B</b> pilot <b>Henri Toivonen</b>."
@@ -195,7 +195,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1970, Areas.FINLAND, "Finland", "1000 Lakes rally", "Hannu Mikkola",
+                group, 1970, Areas.FINLAND, "Finland", "Rally of the 1000 Lakes", "Hannu Mikkola",
                 assembly, pilotPicturePath, 1966, 0, 1, 2, new int[] { 0, 5, 6, 8, 2 },
                 new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Morning, Weather.Sunset, Weather.Rain },
                 ComputeRestarts(4 / 6f, 5),
@@ -203,7 +203,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1970, Areas.GERMANY, "Austria", "Rally Munich-Vienne-Budapest", "Jean-Claude Andruet",
+                group, 1970, Areas.GERMANY, "Austria", "Rallye München-Wien-Budapest", "Jean-Claude Andruet",
                 assembly, pilotPicturePath, 1977, 2, 5, 6, new int[] { 1, 8, 10, 5, 7 },
                 new Weather[] { Weather.Rain, Weather.Morning, Weather.Rain, Weather.Sunset, Weather.Fog },
                 ComputeRestarts(5 / 6f, 5),
@@ -224,7 +224,7 @@ namespace HistoricalCareer
             CarClass group = CarClass.GROUP_3;
 
             RallyManager.AddCustomRally(
-                group, 1971, Areas.KENYA, "Kenya", "Safari rally", "Edgar Herrmann",
+                group, 1971, Areas.KENYA, "Kenya", "East African Safari Rally", "Edgar Herrmann",
                 assembly, pilotPicturePath, 1970, 9, 0, 4, new int[] { 4, 6 },
                 new Weather[] { Weather.Sunset, Weather.Rain }, ComputeRestarts(0 / 9f, 2),
                 "German born pilot <b>Edgar Hermann</b> shelved his <b>Porsche 911</b> for a <b>Datsun 1600 SSS</b>, landing him a series of wins in <b>1970</b> before winning a second <b>Safari rally</b> in <b>1971</b> behind the wheel of the japanese 911, a <b>Datsun 240Z ”Fairlady”</b>, guided by <b>Hans Schuller</b>. <b>Shekhar Mehta</b> was following closely also with a 240Z and ended up scoring a second <b>Safari</b> win for the Z in <b>1973</b>. Hard-eyed, confident and said to be trailed by good-looking women, Edgar ended up falling in love with <b>Kenya</b> from which he was eventually naturalized."
@@ -245,14 +245,14 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1975, Areas.GERMANY, "East Germany", "Rally Wartburg", "Błażej Krupa",
+                group, 1975, Areas.GERMANY, "East Germany", "Rallye Wartburg", "Błażej Krupa",
                 assembly, pilotPicturePath, 1975, 6, 0, 0, new int[] { 9, 4, 1, 8 },
                 new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Fog, Weather.Fog }, ComputeRestarts(3 / 9f, 4),
                 "The tires of <b>Błażej Krupa</b>'s car tasted the asphalt and the dirt again in <b>1974</b> after Renault decided to fund his return to rally for an overall win in <b>Poland</b>. It's with a <b>Renault 17 Gordini</b> and his copilot <b>Piotr Mystkowski</b> that Błażej went on to win the <b>1975</b> and <b>1976</b> <b>Cup of Peace and Friendship (CoPaF)</b>. In the heavy fog of <b>Rally Wartburg</b> two <b>Renault 17</b> dominated more than five minutes ahead of their competition and won again on the ice of <b>Rallye Russkaya Zima</b>. Błażej’s rally career took off with a <b>Renault 12</b> and continued with Renault until <b>1988</b> when he switched to a <b>Ford Sierra</b>."
             );
 
             RallyManager.AddCustomRally(
-                group, 1976, Areas.GERMANY, "East Germany", "Rally Sachsenring", "Miloslav Zapadlo",
+                group, 1976, Areas.GERMANY, "East Germany", "Rallye Sachsenring", "Miloslav Zapadlo",
                 assembly, pilotPicturePath, 1977, 8, 0, 0, new int[] { 0, 9, 7, 1 },
                 new Weather[] { Weather.Rain, Weather.Fog, Weather.Sunset, Weather.Fog }, ComputeRestarts(4 / 9f, 4),
                 "<b>Miloslav Zapadlo</b>, a hot blooded pilot, took the wheel of the new <b>Skoda 130 RS</b>, the pinnacle of czech engineering based on the <b>Skoda 200 RS</b> beast, with his copilot <b>Jiří Motal</b> to defend the pride of his company and country. They didn't win in <b>Czechoslovakia</b> that year but won in the <b>Rally Sachsenring</b> in <b>East Germany</b> with a large gap. A brief moment of fame during the <b>1977 Monte-Carlo Rally</b> cemented Skoda's new model which went on to dominate the <b>1978 CoPaF</b> and eastern europe rallies of the <b>European Rally Championship</b>."
@@ -411,7 +411,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1983, Areas.AUSTRALIA, "New Zealand", "Sanyo Rally of New Zealand", "Timo Salonen",
+                group, 1983, Areas.AUSTRALIA, "New Zealand", "Rally of New Zealand", "Timo Salonen",
                 assembly, pilotPicturePath, 1985, 15, 0, 10, new int[] { 5, 0, 11, 8, 6 },
                 new Weather[] { Weather.Afternoon, Weather.Morning, Weather.Rain, Weather.Fog, Weather.Rain },
                 ComputeRestarts(3 / 15f, 5),
@@ -419,7 +419,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1983, Areas.AUSTRALIA, "New Zealand", "Sanyo Rally of New Zealand", "Walter Röhrl",
+                group, 1983, Areas.AUSTRALIA, "New Zealand", "Rally of New Zealand", "Walter Röhrl",
                 assembly, pilotPicturePath, 1983, 9, 0, 10, new int[] { 5, 0, 11, 8, 6 },
                 new Weather[] { Weather.Afternoon, Weather.Morning, Weather.Rain, Weather.Fog, Weather.Rain },
                 ComputeRestarts(4 / 15f, 5),
@@ -435,7 +435,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1984, Areas.FINLAND, "Finland", "1000 Lakes rally", "Ari Vatanen",
+                group, 1984, Areas.FINLAND, "Finland", "Rally of the 1000 Lakes", "Ari Vatanen",
                 assembly, pilotPicturePath, 1984, 1, 0, 2, new int[] { 0, 5, 6, 8, 2 },
                 new Weather[] { Weather.Morning, Weather.Afternoon, Weather.Rain, Weather.Sunset, Weather.Morning },
                 ComputeRestarts(6 / 15f, 5),
@@ -484,7 +484,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1986, Areas.KENYA, "North Africa", "Rallye Paris-Dakar", "René Metge",
+                group, 1986, Areas.KENYA, "North Africa", "Rallye Paris-Alger-Dakar", "René Metge",
                 assembly, pilotPicturePath, 1986, 14, 0, 6, new int[] { 4, 0, 9, 1, 3, 7 },
                 new Weather[] { Weather.Afternoon, Weather.Fog, Weather.Night, Weather.Sunset, Weather.Fog, Weather.Morning },
                 ComputeRestarts(12 / 15f, 6),
@@ -545,7 +545,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1986, Areas.FINLAND, "Finland", "1000 Lakes rally", "Stasys Brundza",
+                group, 1986, Areas.FINLAND, "Finland", "Rally of the 1000 Lakes", "Stasys Brundza",
                 assembly, pilotPicturePath, 1983, 7, 0, 2, new int[] { 0, 5, 6, 8, 2 },
                 new Weather[] { Weather.Afternoon, Weather.Sunset, Weather.Morning, Weather.Rain, Weather.Rain },
                 ComputeRestarts(3 / 7f, 5),
@@ -578,7 +578,7 @@ namespace HistoricalCareer
             );
 
             RallyManager.AddCustomRally(
-                group, 1989, Areas.KENYA, "North Africa", "Rallye Paris-Dakar", "Ari Vatanen",
+                group, 1989, Areas.KENYA, "North Africa", "Paris-Tunis-Dakar", "Ari Vatanen",
                 assembly, pilotPicturePath, 1989, 4, 1, 6, new int[] { 4, 0, 9, 1, 3, 7 },
                 new Weather[] { Weather.Afternoon, Weather.Night, Weather.Morning, Weather.Sunset, Weather.Fog, Weather.Sunset },
                 ComputeRestarts(7 / 7f, 6),
