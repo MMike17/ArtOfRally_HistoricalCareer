@@ -227,42 +227,42 @@ namespace HistoricalCareer
                 group, 1971, Areas.KENYA, "Kenya", "Safari rally", "Edgar Herrmann",
                 assembly, pilotPicturePath, 1970, 9, 0, 4, new int[] { 4, 6 },
                 new Weather[] { Weather.Sunset, Weather.Rain }, ComputeRestarts(0 / 9f, 2),
-                "German born pilot Edgar Hermann shelved his <b>Porsche 911</b> for a <b>Datsun 1600 SSS</b>, landing him a series of wins in <b>1970</b> before winning a second <b>Safari rally</b> behind the wheel of a <b>Datsun 240Z</b>, guided by <b>Hans Schuller</b>. Hard-eyed, confident and said to be trailed by good-looking women, Edgar ended up falling in love with Kenya from which he was eventually naturalized."
+                "German born pilot <b>Edgar Hermann</b> shelved his <b>Porsche 911</b> for a <b>Datsun 1600 SSS</b>, landing him a series of wins in <b>1970</b> before winning a second <b>Safari rally</b> in <b>1971</b> behind the wheel of the japanese 911, a <b>Datsun 240Z ”Fairlady”</b>, guided by <b>Hans Schuller</b>. <b>Shekhar Mehta</b> was following closely also with a 240Z and ended up scoring a second <b>Safari</b> win for the Z in <b>1973</b>. Hard-eyed, confident and said to be trailed by good-looking women, Edgar ended up falling in love with <b>Kenya</b> from which he was eventually naturalized."
             );
 
             RallyManager.AddCustomRally(
                 group, 1974, Areas.SARDINIA, "Italy", "Rally Sanremo", "Sandro Munari",
                 assembly, pilotPicturePath, 1975, 3, 0, 0, new int[] { 2, 6, 0 },
                 new Weather[] { Weather.Morning, Weather.Rain, Weather.Afternoon }, ComputeRestarts(1 / 9f, 3),
-                "Although it was unreliable, the new <b>Lancia Stratos</b> proved to be a perfect match for <b>Sandro Munari</b>, the <i>Dragon of Cavarzere</i>. He secured his first wins with it the year prior and knew that it would bring him and his long time copilot <b>Mario Mannucci</b> a win at the <b>Rally Sanremo</b>, if they could tame that beast. They were closely overtaken by  <b>Timo Mäkinen</b> for best driver that year but still pulled Lancia to the top after <b>Jean-Claude Andruet</b> closed the new WRC championship with a <b>Tour de Corse</b> win."
+                "Although it was unreliable, the new Ferrari powered <b>Lancia Stratos</b> proved to be a perfect match for the <b>1973 ERC</b> champion <b>Sandro Munari</b>, the <b>Dragon of Cavarzere</b>. He secured his first wins with it the year prior and knew that it would bring him and his long time copilot <b>Mario Mannucci</b> a win at the <b> 1974 Rally Sanremo</b>, if they could tame that beast. They were closely overtaken by <b>Timo Mäkinen</b> for best driver that year but still pulled Lancia to the top after <b>Jean-Claude Andruet</b> closed the new <b>WRC</b> championship with a <b>Tour de Corse</b> win. The Stratos brought many wins to Sandro during his rally career and helped establish Lancia as a strong <b>ERC</b> and <b>WRC</b> contender."
             );
 
             RallyManager.AddCustomRally(
                 group, 1974, Areas.GERMANY, "Czechoslovakia", "Rally Jeseníky", "Jiří Šedivý",
                 assembly, pilotPicturePath, 1974, 7, 0, 4, new[] { 5, 2, 3 },
                 new Weather[] { Weather.Sunset, Weather.Morning, Weather.Afternoon }, ComputeRestarts(2 / 9f, 3),
-                "In <b>1974</b>, the engineers and pilots <b>Jiří Šedivý</b> and <b>Jiří Janeček</b> were hard at work in the Skoda factory of Kvasiny, cooking up the <b>Skoda 200 RS</b>, a heavily modified <i>Rally Sport</i> prototype. They took their learnings from their work on the <b>Skoda 110 R</b> to give the <b>200 RS</b> incredible power and acceleration as well as new rear suspension geometry. They ripped the asphalt of <b>Czechoslovakia</b> and impressed the FIA so much that they decided to ban that type of heavy modification for the <b>1975</b> WRC season. But <b>Jiří</b> and <b>Jiří</b> were not done with their tinkering and presented the <b>Skoda 130 RS</b> the next year."
+                "In <b>1974</b>, the engineers and pilots <b>Jiří Šedivý</b> and <b>Jiří Janeček</b> were hard at work in the Skoda factory of <b>Kvasiny</b>, cooking up the <b>Skoda 200 RS</b>, a heavily modified <b>Rally Sport</b> prototype. They took their learnings from their work on the <b>Skoda 110 R</b> to give the 200 RS incredible power and acceleration as well as new rear suspension geometry. They ripped the asphalt of <b>Czechoslovakia</b> and impressed the <b>FIA</b> so much that they decided to ban that type of heavy modification for the <b>1975 WRC</b> season. But the two <b>Jiří</b> were not done with their tinkering and presented the <b>Skoda 130 RS</b> the next year which brought them a <b>CoPaF</b> win in <b>1978</b>."
             );
 
             RallyManager.AddCustomRally(
                 group, 1975, Areas.GERMANY, "East Germany", "Rally Wartburg", "Błażej Krupa",
                 assembly, pilotPicturePath, 1975, 6, 0, 0, new int[] { 9, 4, 1, 8 },
                 new Weather[] { Weather.Fog, Weather.Afternoon, Weather.Fog, Weather.Fog }, ComputeRestarts(3 / 9f, 4),
-                "The tires of <b>Błażej Krupa</b>'s car taste the asphalt and the dirt again in <b>1974</b> after Renault decided to fund his return to rally for an overall win in <b>Poland</b>. It's with a <b>Renault 17</b> and his copilot <b>Piotr Mystkowski</b> that Błażej went on to win the <b>1975</b> and <b>1976</b> <b>Cup of Peace and Friendship (CoPaF)</b>. In the heavy fog of <b>Rally Wartburg</b> two <b>Renault 17</b> dominated more than 5 minutes ahead of its competition closing the rally before winning again on the ice of <b>Rallye Russkaya Zima</b>."
+                "The tires of <b>Błażej Krupa</b>'s car tasted the asphalt and the dirt again in <b>1974</b> after Renault decided to fund his return to rally for an overall win in <b>Poland</b>. It's with a <b>Renault 17 Gordini</b> and his copilot <b>Piotr Mystkowski</b> that Błażej went on to win the <b>1975</b> and <b>1976</b> <b>Cup of Peace and Friendship (CoPaF)</b>. In the heavy fog of <b>Rally Wartburg</b> two <b>Renault 17</b> dominated more than five minutes ahead of their competition and won again on the ice of <b>Rallye Russkaya Zima</b>. Błażej’s rally career took off with a <b>Renault 12</b> and continued with Renault until <b>1988</b> when he switched to a <b>Ford Sierra</b>."
             );
 
             RallyManager.AddCustomRally(
                 group, 1976, Areas.GERMANY, "East Germany", "Rally Sachsenring", "Miloslav Zapadlo",
                 assembly, pilotPicturePath, 1977, 8, 0, 0, new int[] { 0, 9, 7, 1 },
                 new Weather[] { Weather.Rain, Weather.Fog, Weather.Sunset, Weather.Fog }, ComputeRestarts(4 / 9f, 4),
-                "<b>Miloslav Zapadlo</b>, a hot blooded pilot, took the wheel of the new <b>Skoda 130 RS</b>, the pinacle of Czech engineering based on the <b>Skoda 200 RS</b> beast, with his copilot <b>Jiří Motal</b> to defend the pride of his company and country. They didn't win in Czechoslovakia that year but won in the <b>Rally Sachsenring</b> in <b>East Germany</b> with a large gap. A brief moment of fame during the <b>1977 Monte-Carlo Rally</b> cemented Skoda's new model which went on to dominate 1978 <b>CoPaF</b> and eastern europe rallies of the <b>European Rally Championship</b>."
+                "<b>Miloslav Zapadlo</b>, a hot blooded pilot, took the wheel of the new <b>Skoda 130 RS</b>, the pinnacle of czech engineering based on the <b>Skoda 200 RS</b> beast, with his copilot <b>Jiří Motal</b> to defend the pride of his company and country. They didn't win in <b>Czechoslovakia</b> that year but won in the <b>Rally Sachsenring</b> in <b>East Germany</b> with a large gap. A brief moment of fame during the <b>1977 Monte-Carlo Rally</b> cemented Skoda's new model which went on to dominate the <b>1978 CoPaF</b> and eastern europe rallies of the <b>European Rally Championship</b>."
             );
 
             RallyManager.AddCustomRally(
                 group, 1976, Areas.AUSTRALIA, "West Australia", "Commonwealth Bank Rally", "Frank Johnson",
                 assembly, pilotPicturePath, 0, 2, 4, 4, new int[] { 10, 7, 4, 2 },
                 new Weather[] { Weather.Rain, Weather.Morning, Weather.Afternoon, Weather.Morning }, ComputeRestarts(5 / 9f, 4),
-                "The strong winds and wet weather of <b>Australia</b> left several stages of the <b>Commonwealth Bank Rally</b> out of order. The sun came back and gave <b>Frank Johnson</b> and his copilot <b>Bill Clark</b> a chance at a win with their <b>Mazda RX-3</b> in their second ever rally. They ended up in second position but the <b>RX-3</b> couldn't keep up with Porsches and Datsuns in other Australian rallies. The <b>RX-3</b> left a lasting impression in Australia rally and touring races driven by teams like the <b>Kabel</b> brothers."
+                "The strong winds and wet weather of <b>Australia</b> left several stages of the <b>Commonwealth Bank Rally</b> out of order. The sun came back and gave <b>Frank Johnson</b> and his copilot <b>Bill Clark</b> a chance at a win with their <b>Mazda RX-3</b> in their second ever rally. They ended up in second position but the RX-3 couldn't keep up with Porsches and Datsuns in other australian rallies. The RX-3 left a lasting impression in australian rally driven by teams like the <b>Kabel</b> brothers and touring races in <b>Japan</b> where it beat a whole team of <b>Nissan Skyline GT-R</b> in <b>1971</b> during the <b>500km of Fuji</b>."
             );
 
             RallyManager.AddCustomRally(
@@ -270,14 +270,14 @@ namespace HistoricalCareer
                 assembly, pilotPicturePath, 1976, 1, 1, 6, new int[] { 9, 7, 2, 6, 8 },
                 new Weather[] { Weather.Rain, Weather.Rain, Weather.Morning, Weather.Afternoon, Weather.Sunset },
                 ComputeRestarts(6 / 9f, 5),
-                "Imported straight from <b>Finland</b>, <b>Markku Alén</b> bolted to the brand new engineering marvel from Fiat, came in to teach a lesson to Lancia on their own grounds in the <b>European Rally Championship</b>. Teamed up with <b>Ilkka Kivimäki</b>, they took a while to adapt to the unfamiliar italian roads but ended up chaining first positions. They went on to win the <b>1000 Lakes Rally</b> later that year in their home country, fighting against the new version of the <b>Ford Escort</b>."
+                "Imported straight from <b>Finland</b>, <b>Markku Alén</b> bolted to the brand new triple carbureted engineering marvel from Fiat, the <b>Fiat 131 Abarth</b>, came in to teach a lesson to Lancia on their own grounds in the <b>European Rally Championship</b>. Teamed up with <b>Ilkka Kivimäki</b>, they took a while to adapt to the unfamiliar italian roads but ended up chaining first positions in front of the Stratos. They went on to win the <b>1000 Lakes Rally</b> later that year in their home country, fighting against the new version of the <b>Ford Escort</b>."
             );
 
             RallyManager.AddCustomRally(
                 group, 1976, Areas.FINLAND, "Finland", "Champion Nordic Rally", "Timo Mäkinen",
                 assembly, pilotPicturePath, 1978, 0, 5, 0, new int[] { 1, 3, 7, 10, 4 },
                 new Weather[] { Weather.Morning, Weather.Sunset, Weather.Night, Weather.Afternoon, Weather.Sunset }, ComputeRestarts(7 / 9f, 5),
-                "After 3 consecutive wins in the <b>RAC Rally</b> with the British copilot <b>Henry Liddon</b>, <b>Timo Mäkinen</b> decided to finish his Ford career on a Finish win his fellow countryman <b>Erkki Salonen</b>. The new generation of the <b>Ford Escort</b> proved to be as sturdy as its ancestor during the <b>Total Rally South Africa</b> and rushed the pair to the top of the podium in the <b>Champion Nordic Rally</b>. Timo went on to drive the competitor <b>Fiat 131</b> the next year and switched to <b>Peugeot 504 V6</b> after that."
+                "After three consecutive wins in the <b>RAC Rally</b> with the british copilot <b>Henry Liddon</b>, <b>Timo Mäkinen</b> decided to finish his Ford career in <b>Finland</b> with his fellow countryman <b>Erkki Salonen</b>. The new generation of the <b>Ford Escort</b> proved to be as sturdy as its ancestor during the <b>Total Rally South Africa</b> and rushed the pair to the top of the podium in the <b>Champion Nordic Rally</b>. Timo went on to drive the competitor <b>Fiat 131 Abarth</b> the next year and switched to <b>Peugeot 504 V6</b> after that for the more grueling african rallies."
             );
 
             RallyManager.AddCustomRally(
@@ -286,7 +286,7 @@ namespace HistoricalCareer
                 new Weather[] {
                     Weather.Sunset, Weather.Night, Weather.Morning, Weather.Afternoon, Weather.Sunset, Weather.Afternoon
                 }, ComputeRestarts(8 / 9f, 6),
-                "Rally runs in the blood of the Preston family. The father, former local champion, assisted while the team of his son, <b>Vic Preston Jr</b> and his copilot <b>John Lyall</b>, took a heavily modified <b>Porsche 911 SC</b> to the <b>Safari Rally</b>. <b>Ford</b> and <b>Fiat</b> which dominated the rest of the <b>WRC</b> rallies stepped out of the Safari which enabed our local pilots to get a 2nd position. But it's the <b>Lancia 037 Rally</b> that brought Vic to fame with back to back wins in 1985 making him one of the most distinguished Kenyan pilots."
+                "Rally runs in the blood of the <b>Preston</b> family. The father, former local champion, assisted while the team of his son, <b>Vic Preston Jr</b> and his copilot <b>John Lyall</b>, took a heavily modified <b>Porsche 911 SC</b> to the <b>Safari Rally</b>. Ford and Fiat, which dominated the rest of the <b>WRC</b>, stepped out of the <b>Safari rally</b> which enabled our local pilots to get a second position. But it's the <b>Lancia 037 Rally</b> that brought Vic to fame with back to back wins in <b>1985</b> making him one of the most distinguished kenyan pilots with ten consecutive wins."
             );
 
             RallyManager.AddCustomRally(
@@ -295,7 +295,7 @@ namespace HistoricalCareer
                 new Weather[] {
                     Weather.Morning, Weather.Afternoon, Weather.Afternoon, Weather.Sunset, Weather.Rain, Weather.Sunset
                 }, ComputeRestarts(9 / 9f, 6),
-                "Back to the roots of automotive racing, in the mythical <b>Targa Florio Rally</b>, an unexpected sight, the renouned F1 team was here with a custom <b>Ferrari 308 GTB</b> prepared by car dealer <b>Micheletto</b> from Padua, whom was sent bear chassis and spare parts to make a true rally machine. The previous year's winner, <b>Jean-Claude Andruet</b>, was thrown out of the first position by <b>Tonino Tognana</b> and his copilot <b>Massimo De Antonio</b>. The pair won the Italian championship while Andruet finished 2nd on the <b>Tour de France</b>, proving the Ferrari was a decently competitive car."
+                "Back to the roots of automotive racing, in the mythical <b>Targa Florio Rally</b>, an unexpected sight, the renowned F1 team was here with a custom <b>Ferrari 308 GTB</b> prepared by the car dealer <b>Micheletto</b> from <b>Padua</b>, whom was sent bear chassis and spare parts to make a true rally machine. The previous year's winner, <b>Jean-Claude Andruet</b>, was thrown out of the first position by <b>Tonino Tognana</b> and his copilot <b>Massimo De Antonio</b>. The pair won the Italian championship while Andruet, who also joined the Ferrari team, finished second on the <b>Tour de France</b>, proving that the 308 GTB was a decently competitive car."
             );
         }
 
