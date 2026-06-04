@@ -163,11 +163,18 @@ namespace HistoricalCareer
             HorizontalLayoutGroup layout = panel.GetComponentInChildren<HorizontalLayoutGroup>();
             ContentSizeFitter fitter = layout.GetComponent<ContentSizeFitter>();
             carrousel = layout.GetComponent<CarrouselUI>();
+            CarClass currentGroup = CarClass.COUNT;
+
+            if (!Enum.TryParse(panel.name.Replace(GROUP_PANEL_FORMAT, "GROUP_"), out currentGroup))
+            {
+                Main.Error("Couldn't find corresponding group for panel " + panel.name + " (this will crash the mod).");
+                return;
+            }
 
             // should cut config short
             if (carrousel != null)
             {
-                carrousel.ForceSelection(0);
+                carrousel.Reset(currentGroup);
                 return;
             }
 
@@ -179,14 +186,6 @@ namespace HistoricalCareer
                 child.gameObject.SetActive(false);
 
             // generate buttons
-            CarClass currentGroup = CarClass.COUNT;
-
-            if (!Enum.TryParse(panel.name.Replace(GROUP_PANEL_FORMAT, "GROUP_"), out currentGroup))
-            {
-                Main.Error("Couldn't find corresponding group for panel " + panel.name + " (this will crash the mod).");
-                return;
-            }
-
             List<CustomButtonSeason> buttons = Main.GetField<List<CustomButtonSeason>, SeasonDashboardUI>(
                 ui,
                 "AllSeasonButtons",
@@ -210,7 +209,7 @@ namespace HistoricalCareer
 
             // add custom UI
             carrousel = layout.gameObject.AddComponent<CarrouselUI>();
-            carrousel.Setup(settings);
+            carrousel.Setup(settings, currentGroup);
         }
 
         public static CustomButtonSeason GetButtonForSeason(Season season)

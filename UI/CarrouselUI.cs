@@ -4,11 +4,14 @@ using Rewired.Integration.UnityUI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using static Car;
+
 namespace HistoricalCareer
 {
     // This is placed on the layout group
     internal class CarrouselUI : MonoBehaviour
     {
+        const string GROUP_INDEX = "CareerIndex_";
         const float SEMI_SELECTED_SIZE = 0.8f;
         const float SEMI_SELECTED_ALPHA = 0.7f;
         const float NON_SELECTED_SIZE = 0.6f;
@@ -21,6 +24,7 @@ namespace HistoricalCareer
         private List<Panel> panels;
         private CanvasGroup panelGroup;
         private GroupTitle title;
+        private CarClass group;
         private string horizontalUIString;
         private float delay;
         private int selectedIndex;
@@ -38,9 +42,17 @@ namespace HistoricalCareer
             title = transform.parent.GetComponentInChildren<GroupTitle>();
         }
 
-        public void Setup(List<RallySettings> settings)
+        public void Reset(CarClass carClass)
+        {
+            group = carClass;
+            currentInstance = this;
+            ForceSelection(PlayerPrefs.GetInt(GROUP_INDEX + group, 0));
+        }
+
+        public void Setup(List<RallySettings> settings, CarClass carClass)
         {
             Awake();
+
             inputState = true;
             panels = new List<Panel>();
 
@@ -71,7 +83,7 @@ namespace HistoricalCareer
             }
 
             title.ConstructStringUsingCareerData();
-            ForceSelection(0);
+            Reset(carClass);
         }
 
         private void OnDisabled() => immediateUpdate = true;
@@ -142,6 +154,7 @@ namespace HistoricalCareer
                 if (delay == 0 && PanelPatcher.playerInput.GetAxis(horizontalUIString) > 0 && selectedIndex < panels.Count - 1)
                 {
                     selectedIndex++;
+                    PlayerPrefs.SetInt(GROUP_INDEX + group, selectedIndex);
                     delay = INPUT_DELAY_THRESHOLD;
                     title.ConstructStringUsingCareerData();
                 }
@@ -149,6 +162,7 @@ namespace HistoricalCareer
                 if (delay == 0 && PanelPatcher.playerInput.GetAxis(horizontalUIString) < 0 && selectedIndex > 0)
                 {
                     selectedIndex--;
+                    PlayerPrefs.SetInt(GROUP_INDEX + group, selectedIndex);
                     delay = INPUT_DELAY_THRESHOLD;
                     title.ConstructStringUsingCareerData();
                 }
@@ -166,6 +180,7 @@ namespace HistoricalCareer
             currentInstance = this;
             selectedIndex = index;
             immediateUpdate = true;
+            PlayerPrefs.SetInt(GROUP_INDEX + group, selectedIndex);
         }
 
         public void SetInputState(bool state) => inputState = state;
