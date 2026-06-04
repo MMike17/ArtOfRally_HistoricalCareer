@@ -13,7 +13,7 @@ namespace HistoricalCareer
         [HarmonyPrefix]
         static bool StartCustomSeason(CareerManager __instance, Season TheSeason)
         {
-            if (Main.enabled && TheSeason != null)
+            if (Main.enabled && TheSeason != null && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
             {
                 Main.Try(nameof(StartCustomSeason), () =>
                 {

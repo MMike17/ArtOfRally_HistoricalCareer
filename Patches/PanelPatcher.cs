@@ -43,7 +43,7 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void CheckPanel(Panel panel)
         {
-            if (!Main.enabled)
+            if (!Main.enabled || GameModeManager.GameMode != GameModeManager.GAME_MODES.CAREER)
                 return;
 
             Main.Try(nameof(CheckPanel), () =>
