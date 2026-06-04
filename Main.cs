@@ -156,7 +156,12 @@ namespace HistoricalCareer
         {
             OnUpdate += () =>
             {
-                action?.Invoke();
+                Try("DelayedCall", () =>
+                {
+                    if (action != null)
+                        action.Invoke();
+                });
+
                 action = null;
             };
         }
