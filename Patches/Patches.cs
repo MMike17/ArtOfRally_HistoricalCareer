@@ -181,9 +181,18 @@ namespace HistoricalCareer
                         );
 
                         string[] frags = CarrouselUI.GetSelectedInfo();
-                        string suffix = string.Concat(new[] { frags[0], " ", divider, " ", frags[1] });
-                        Main.SetField(__instance, "suffix", BindingFlags.Instance, suffix);
-                        __instance.SetString(lastTitle = string.Concat(new[] { group, " ", divider, " ", suffix }));
+                        Action callback = () =>
+                        {
+                            frags = CarrouselUI.GetSelectedInfo();
+                            string suffix = string.Concat(new[] { frags[0], " ", divider, " ", frags[1] });
+                            Main.SetField(__instance, "suffix", BindingFlags.Instance, suffix);
+                            __instance.SetString(lastTitle = string.Concat(new[] { group, " ", divider, " ", suffix }));
+                        };
+
+                        if (frags == null)
+                            Main.DelayCall(() => callback?.Invoke());
+                        else
+                            callback?.Invoke();
                     }
                     else
                         __instance.SetString(lastTitle);

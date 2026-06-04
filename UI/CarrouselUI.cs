@@ -16,13 +16,14 @@ namespace HistoricalCareer
         const float MOVE_RATIO = 1000;
         const float INPUT_DELAY_THRESHOLD = 0.2f;
 
-        private static List<Panel> panels;
-        private static int selectedIndex;
+        private static CarrouselUI currentInstance;
 
+        private List<Panel> panels;
         private CanvasGroup panelGroup;
         private GroupTitle title;
         private string horizontalUIString;
         private float delay;
+        private int selectedIndex;
         private bool immediateUpdate;
         private bool inputState;
 
@@ -37,15 +38,13 @@ namespace HistoricalCareer
             title = transform.parent.GetComponentInChildren<GroupTitle>();
         }
 
-        public void Reset(List<RallySettings> settings)
+        public void Setup(List<RallySettings> settings)
         {
             Awake();
-
             inputState = true;
-            selectedIndex = 0;
             panels = new List<Panel>();
 
-            // animate panels
+            // generate panels
             int under = selectedIndex - 1;
             int over = selectedIndex < panels.Count - 1 ? selectedIndex + 1 : -1;
             int settingsIndex = 0;
@@ -72,13 +71,14 @@ namespace HistoricalCareer
             }
 
             title.ConstructStringUsingCareerData();
+            ForceSelection(0);
         }
 
         private void OnDisabled() => immediateUpdate = true;
 
         private void Update()
         {
-            if (panelGroup.alpha <= 0.1f)
+            if (panels == null || panels.Count == 0 || panelGroup.alpha <= 0.1f)
                 return;
 
             Main.Try(nameof(Update) + "_1", () =>
@@ -163,6 +163,7 @@ namespace HistoricalCareer
 
         public void ForceSelection(int index)
         {
+            currentInstance = this;
             selectedIndex = index;
             immediateUpdate = true;
         }
@@ -171,7 +172,10 @@ namespace HistoricalCareer
 
         public static string[] GetSelectedInfo()
         {
-            RallySettings settings = panels[selectedIndex].settings;
+            if (currentInstance == null)
+                return null;
+
+            RallySettings settings = currentInstance.panels[currentInstance.selectedIndex].settings;
             return new string[] { settings.season.Year.ToString(), settings.rallyName };
         }
 

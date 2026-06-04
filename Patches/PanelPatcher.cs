@@ -166,7 +166,10 @@ namespace HistoricalCareer
 
             // should cut config short
             if (carrousel != null)
+            {
+                carrousel.ForceSelection(0);
                 return;
+            }
 
             layout.spacing = -10;
             layout.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
@@ -207,7 +210,7 @@ namespace HistoricalCareer
 
             // add custom UI
             carrousel = layout.gameObject.AddComponent<CarrouselUI>();
-            carrousel.Reset(settings);
+            carrousel.Setup(settings);
         }
 
         public static CustomButtonSeason GetButtonForSeason(Season season)
