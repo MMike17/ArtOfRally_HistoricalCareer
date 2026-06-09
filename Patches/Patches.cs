@@ -224,7 +224,7 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void FixRallyIntro()
         {
-            if (Main.enabled && RallyIntroPatcher.instance != null)
+            if (Main.enabled && RallyIntroPatcher.instance != null && SaveGame.GetInt(SaveConstants.GAME_COMPLETE, 0) == 0)
             {
                 Main.Try(nameof(FixRallyIntro), () =>
                 {
