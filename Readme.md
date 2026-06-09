@@ -45,7 +45,17 @@ By default, the mod replaces the career mode entirely and blocks car/livery sele
 
 Please reset career progress from the "profile" settings panel before starting to use the mod as native season saves might crash the mod.
 
+### Options
+
 - **carrouselAnimSpeed** : will change the speed at which the carrousel moves with player input.
+
+### Debug
+
+- **disableInfoLogs** : will disable log messages sent by the mod.
+- **shortRallies** : will make all career rallies to have a single stage.
+
+- **Reset settings** : will reset the settings of the mod to their default option.
+- **Reset saves** : will delete all the saves of the custom career seasons of this mod.
 
 Disabling the mod in the manager will revert to the normal career behaviour by default.\
 This might need a game restart or save reset to work normally.
