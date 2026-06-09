@@ -43,7 +43,7 @@ namespace HistoricalCareer
         [HarmonyPostfix]
         static void CheckPanel(Panel panel)
         {
-            if (!Main.enabled || GameModeManager.GameMode != GameModeManager.GAME_MODES.CAREER)
+            if (!Main.enabled)
                 return;
 
             Main.Try(nameof(CheckPanel), () =>
@@ -115,7 +115,7 @@ namespace HistoricalCareer
                     RallySettings settings = RallyManager.GetRallyInProgress();
                     panel.GetComponent<ContinueSeasonScreen>().SeasonText.text = settings.rallyName + " (" + settings.season.Year + ")";
                 }
-                else if (panel.name == RESULTS_PANEL)
+                else if (panel.name == RESULTS_PANEL && GameModeManager.GameMode == GameModeManager.GAME_MODES.CAREER)
                 {
                     Main.DelayCall(() =>
                     {
