@@ -15,8 +15,6 @@ namespace HistoricalCareer
 
         [Header("Debug")]
         [Draw(DrawType.Toggle)]
-        public bool showMarkers;
-        [Draw(DrawType.Toggle)]
         public bool disableInfoLogs = true;
         [Draw(DrawType.Toggle)]
         public bool shortRallies = false;
