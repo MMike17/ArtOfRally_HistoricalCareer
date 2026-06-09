@@ -11,6 +11,7 @@ namespace HistoricalCareer
     // This is placed on the layout group
     internal class CarrouselUI : MonoBehaviour
     {
+        const string RALLY_INDEX_KEY = "CurrentRally";
         const string GROUP_INDEX = "CareerIndex_";
         const float SEMI_SELECTED_SIZE = 0.8f;
         const float SEMI_SELECTED_ALPHA = 0.7f;
@@ -171,9 +172,12 @@ namespace HistoricalCareer
                 {
                     PanelPatcher.SelectRally(panels[selectedIndex].settings);
                     transform.GetComponentInParent<SeasonDashboardUI>().OnSeasonClicked(panels[selectedIndex].settings.season);
+                    PlayerPrefs.SetInt(RALLY_INDEX_KEY, selectedIndex);
                 }
             });
         }
+
+        public static int GetSeasonIndex() => PlayerPrefs.GetInt(RALLY_INDEX_KEY, 0);
 
         public void ForceSelection(int index)
         {

@@ -48,14 +48,14 @@ namespace HistoricalCareer
 
                 PanelPatcher.SetupSeasonPanel(instance.transform.Find(season.CarClass.ToString().Replace("GROUP_", "Group")).GetComponent<Panel>());
 
-                currentSeasonButton = PanelPatcher.GetButtonForSeason(season);
+                currentSeasonButton = PanelPatcher.GetButtonForSeason();
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(currentSeasonButton.gameObject);
 
                 PanelPatcher.SetCarouselState(false);
 
                 PanelPatcher.ShowSeasonButton(currentSeasonButton);
-                PanelPatcher.SetCarouselSelection(season);
+                PanelPatcher.SelectCurrentSeason();
             });
 
             skipSetText = true;

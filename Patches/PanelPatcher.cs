@@ -35,7 +35,7 @@ namespace HistoricalCareer
         public static string cancelUIString { get; private set; }
         public static RallySettings currentRally { get; private set; }
 
-        private static Dictionary<string, CustomButtonSeason> seasonButtons;
+        private static List<CustomButtonSeason> seasonButtons;
         private static CarrouselUI carrousel;
         private static CareerUI careerUI;
 
@@ -194,7 +194,7 @@ namespace HistoricalCareer
 
             CustomButtonSeason model = layout.transform.GetChild(0).gameObject.GetComponent<CustomButtonSeason>();
             List<RallySettings> settings = RallyManager.GetSettingsForClass(currentGroup);
-            seasonButtons = new Dictionary<string, CustomButtonSeason>();
+            seasonButtons = new List<CustomButtonSeason>();
 
             settings.ForEach(setting =>
             {
@@ -202,7 +202,7 @@ namespace HistoricalCareer
                 SetupSeasonButton(seasonButton, setting);
 
                 buttons.Add(seasonButton);
-                seasonButtons.Add(RallyManager.GetSeasonCode(setting), seasonButton);
+                seasonButtons.Add(seasonButton);
             });
 
             Main.SetField(ui, "AllSeasonButtons", BindingFlags.Instance, buttons);
@@ -212,27 +212,7 @@ namespace HistoricalCareer
             carrousel.Setup(settings, currentGroup);
         }
 
-        public static CustomButtonSeason GetButtonForSeason(Season season)
-        {
-            string seasonCode = RallyManager.GetSeasonCode(season);
-
-            if (seasonButtons == null)
-            {
-                Main.Error("Season buttons dictionary not initialized, panel was not setup");
-                return null;
-            }
-
-            if (!seasonButtons.ContainsKey(seasonCode))
-            {
-                Main.Error("Season code not found in dictionary (" + RallyManager.GetSeasonCode(season) + ")");
-                return null;
-            }
-
-            if (seasonButtons[seasonCode] == null)
-                Main.Error("Couldn't find button for provided season (" + RallyManager.GetSeasonCode(season) + ")");
-
-            return seasonButtons[seasonCode];
-        }
+        public static CustomButtonSeason GetButtonForSeason() => seasonButtons[CarrouselUI.GetSeasonIndex()];
 
         public static void ShowSeasonButton(CustomButtonSeason seasonButton)
         {
@@ -242,41 +222,23 @@ namespace HistoricalCareer
 
         public static void SetSeasonButtonsState(CustomButtonSeason seasonButton, bool status)
         {
-            foreach (KeyValuePair<string, CustomButtonSeason> pair in seasonButtons)
+            seasonButtons.ForEach(button =>
             {
-                if (pair.Value != seasonButton)
+                if (button != seasonButton)
                 {
                     if (status)
-                    {
-                        pair.Value.DisableCanvas();
-                        pair.Value.interactable = true;
-                    }
+                        button.DisableCanvas();
                     else
-                    {
-                        pair.Value.HideCanvas();
-                        pair.Value.interactable = false;
-                    }
+                        button.HideCanvas();
+
+                    button.interactable = status;
                 }
-            }
+            });
         }
 
         public static void SetCarouselState(bool state) => carrousel.SetInputState(state);
 
-        public static void SetCarouselSelection(Season season)
-        {
-            // we assume season is valid
-            int index = 0;
-
-            foreach (string key in seasonButtons.Keys)
-            {
-                if (key == RallyManager.GetSeasonCode(season))
-                    break;
-                else
-                    index++;
-            }
-
-            carrousel.ForceSelection(index);
-        }
+        public static void SelectCurrentSeason() => carrousel.ForceSelection(CarrouselUI.GetSeasonIndex());
 
         static void SetupSeasonButton(CustomButtonSeason seasonButton, RallySettings settings)
         {
