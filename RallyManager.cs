@@ -437,6 +437,22 @@ namespace HistoricalCareer
             Main.Log("Reset rally saves");
         }
 
+        public static void UnlockAllRallies()
+        {
+            foreach (KeyValuePair<CarClass, List<RallySettings>> pair in rallySettings)
+            {
+                foreach (RallySettings settings in pair.Value)
+                {
+                    if (settings.season.Status == Season.STATUS.LOCKED)
+                        settings.season.Status = Season.STATUS.UNLOCKED;
+
+                    SaveManager.SaveSeasonData(settings);
+                }
+            }
+
+            Main.Log("Unlocked all rallies");
+        }
+
         public static RallySettings GetRallyInProgress()
         {
             RallySettings result = null;

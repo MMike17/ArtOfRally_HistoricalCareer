@@ -37,6 +37,11 @@ namespace HistoricalCareer
 
             if (GUILayout.Button("Reset saves", GUILayout.Width(150)))
                 RallyManager.ResetRallySaves();
+
+            if (GUILayout.Button("Unlock all rallies", GUILayout.Width(250)))
+            {
+                RallyManager.UnlockAllRallies();
+            }
         }
 
         private float SnapValue(float value, float snapValue, float range, float snapPercent)
