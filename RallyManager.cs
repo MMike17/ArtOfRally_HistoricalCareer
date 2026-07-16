@@ -440,6 +440,21 @@ namespace HistoricalCareer
 
         public static void UnlockAllRallies()
         {
+            CareerData save = Main.GetField<CareerData, CareerManager>(
+                GameModeManager.CareerManager,
+                "CareerData",
+                BindingFlags.Instance
+            );
+
+            save.Group2CarClass.isLocked = true;
+            save.Group3CarClass.isLocked = true;
+            save.Group4CarClass.isLocked = true;
+            save.GroupBCarClass.isLocked = true;
+            save.GroupSCarClass.isLocked = true;
+            save.GroupACarClass.isLocked = true;
+
+            global::SaveManager.SaveCareerData(save);
+
             foreach (KeyValuePair<CarClass, List<RallySettings>> pair in rallySettings)
             {
                 foreach (RallySettings settings in pair.Value)
