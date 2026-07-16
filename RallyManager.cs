@@ -232,7 +232,8 @@ namespace HistoricalCareer
                 rallySettings.Add(carClass, new List<RallySettings>());
 
             // check for DLC
-            if (area == Areas.AUSTRALIA && !Platform.Get().IsDLCInstalled(Platform.DLCName.Australia))
+            if (!Platform.Get().IsDLCInstalled(Platform.DLCName.Australia) &&
+                (area == Areas.AUSTRALIA || RallySettings.IsDLCCar(carClass, carIndex)))
             {
                 Main.Log("Australia DLC not installed, skipping rally " + year + "_" + carIndex);
                 return;

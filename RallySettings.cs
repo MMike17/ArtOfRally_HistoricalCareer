@@ -117,29 +117,10 @@ namespace HistoricalCareer
             SaveManager.LoadSeasonData(this);
 
             // checks for DLC use
-            needsDLC = area == AreaManager.Areas.AUSTRALIA;
+            needsDLC = area == AreaManager.Areas.AUSTRALIA || IsDLCCar(carClass, carIndex);
 
-            if (!needsDLC)
-            {
-                switch (carClass)
-                {
-                    case CarClass.GROUP_2:
-                        needsDLC = carIndex == 7;
-                        break;
-
-                    case CarClass.GROUP_4:
-                        needsDLC = carIndex == 10;
-                        break;
-
-                    case CarClass.GROUP_B:
-                        needsDLC = carIndex == 16;
-                        break;
-
-                    case CarClass.GROUP_A:
-                        needsDLC = carIndex == 5;
-                        break;
-                }
-            }
+            if (needsDLC)
+                Main.Log("Detected DLC requirement (" + carClass + " " + year + " " + rallyName + ")");
         }
 
         private static List<Livery> GetCarLiveries(string carName)
@@ -158,6 +139,27 @@ namespace HistoricalCareer
             }
 
             return liveries;
+        }
+
+        public static bool IsDLCCar(CarClass group, int carIndex)
+        {
+            switch (group)
+            {
+                case CarClass.GROUP_2: // we skip the Honda acty
+                    return carIndex == 7;
+
+                case CarClass.GROUP_4:
+                    return carIndex == 9;
+
+                case CarClass.GROUP_B:
+                    return carIndex == 16;
+
+                case CarClass.GROUP_A:
+                    return carIndex == 5;
+
+                default:
+                    return false;
+            }
         }
 
         public static void GenerateGroup2Seasons(Assembly assembly, string pilotPicturePath, Func<float, int, int> ComputeRestarts)
