@@ -56,6 +56,7 @@ Please reset career progress from the "profile" settings panel before starting t
 
 - **Reset settings** : will reset the settings of the mod to their default option.
 - **Reset saves** : will delete all the saves of the custom career seasons of this mod.
+- **Unlock all rallies** : will unlock all seasons for all groups.
 
 Disabling the mod in the manager will revert to the normal career behaviour by default.\
 This might need a game restart or save reset to work normally.
