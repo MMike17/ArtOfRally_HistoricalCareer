@@ -446,12 +446,12 @@ namespace HistoricalCareer
                 BindingFlags.Instance
             );
 
-            save.Group2CarClass.isLocked = true;
-            save.Group3CarClass.isLocked = true;
-            save.Group4CarClass.isLocked = true;
-            save.GroupBCarClass.isLocked = true;
-            save.GroupSCarClass.isLocked = true;
-            save.GroupACarClass.isLocked = true;
+            save.Group2CarClass.isLocked = false;
+            save.Group3CarClass.isLocked = false;
+            save.Group4CarClass.isLocked = false;
+            save.GroupBCarClass.isLocked = false;
+            save.GroupSCarClass.isLocked = false;
+            save.GroupACarClass.isLocked = false;
 
             global::SaveManager.SaveCareerData(save);
 
