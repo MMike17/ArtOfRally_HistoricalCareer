@@ -182,25 +182,40 @@ namespace HistoricalCareer
 
         public static RallySettings GetSettingsFromSeason(Season season)
         {
-            return rallySettings[season.CarClass].Find(item =>
+            if (season.SelectedCar == null)
             {
-                if (item.season.CarClass != season.CarClass)
-                    return false;
-
-                if (item.season.Rallies[0].CurrentArea != season.Rallies[0].CurrentArea)
-                    return false;
-
-                if (item.season.Rallies[0].StageCount != season.Rallies[0].StageCount)
-                    return false;
-
-                for (int i = 0; i < item.season.Rallies[0].StageCount; i++)
+                return rallySettings[season.CarClass].Find(item =>
                 {
-                    if (item.season.Rallies[0].StageList[i] != season.Rallies[0].StageList[i])
+                    // year check
+                    if (item.season.Year != season.Year)
                         return false;
-                }
 
-                return true;
-            });
+                    // area check
+                    if (item.season.Rallies[0].CurrentArea != season.Rallies[0].CurrentArea)
+                        return false;
+
+                    // stage count check
+                    if (item.season.Rallies[0].StageCount != season.Rallies[0].StageCount)
+                        return false;
+
+                    // stage check
+                    for (int i = 0; i < item.season.Rallies[0].StageCount; i++)
+                    {
+                        Stage settingsStage = item.season.Rallies[0].StageList[i];
+                        Stage sourceStage = season.Rallies[0].StageList[i];
+
+                        if (settingsStage.Name != sourceStage.Name || settingsStage.Weather != sourceStage.Weather)
+                            return false;
+                    }
+
+                    return true;
+                });
+            }
+            else
+            {
+                int carIndex = CarManager.GetCurrentCarsListForClass(season.CarClass).IndexOf(season.SelectedCar);
+                return rallySettings[season.CarClass].Find(item => item.carIndex == carIndex);
+            }
         }
 
         /// <summary>This method is used to add custom rallies to the mod</summary>
@@ -352,6 +367,7 @@ namespace HistoricalCareer
                 "CareerData",
                 BindingFlags.Instance
             );
+
             List<RallySettings> currentList = rallySettings[season.CarClass];
             RallySettings currentSettings = GetSettingsFromSeason(season);
             int index = currentList.IndexOf(currentSettings);
@@ -398,7 +414,8 @@ namespace HistoricalCareer
                     SaveManager.SaveSeasonData(selected);
                 }
 
-                Main.Log("Next season : " + GetSeasonCode(selected.carClass, selected.carIndex));
+                Main.Log("Next season : " + GetSeasonCode(selected) + " (" +
+                    CarManager.GetCurrentCarsListForClass(selected.season.CarClass)[selected.carIndex].name + ")");
             }
             else
                 Main.Log("No next season detected");
